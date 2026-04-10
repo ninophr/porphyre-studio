@@ -1,0 +1,3827 @@
+<!doctype html>
+<html lang="fr" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Porphyre Studio V4 - Sites web pour locations saisonnières</title>
+    <meta
+      name="description"
+      content="Porphyre Studio crée des sites web clé en main pour les propriétaires de locations saisonnières. Paiement en ligne, SEO local, livraison en 48h."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>P</text></svg>"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Preload avatar images -->
+    <link rel="preload" as="image" href="kban-site.jpg" />
+    <link rel="preload" as="image" href="sardines-site.jpg" />
+    <link rel="preload" as="image" href="terrasse-site.jpg" />
+    <link
+      rel="preload"
+      as="image"
+      href="https://randomuser.me/api/portraits/men/32.jpg"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="https://randomuser.me/api/portraits/women/44.jpg"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="https://randomuser.me/api/portraits/men/75.jpg"
+    />
+
+    <!-- Tailwind CSS v4 CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins="></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', "sans-serif"],
+              handwriting: ['"Caveat"', "cursive"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --font-jakarta: "Plus Jakarta Sans", sans-serif;
+        --font-caveat: "Caveat", cursive;
+        --font-sans: var(--font-jakarta), sans-serif;
+        --font-handwriting: var(--font-caveat), cursive;
+        --color-dark-bg: #1a1715;
+        --color-accent: #4ecdc4;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: #4a4540;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        background-color: #f5f1e8;
+        overflow-x: hidden;
+      }
+
+      .hero-bg {
+        pointer-events: none;
+        z-index: -1;
+        background: linear-gradient(
+          135deg,
+          #f5f1e8 0%,
+          #ebe5d8 30%,
+          #ede8dd 60%,
+          #f5f1e8 100%
+        );
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 120vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      .hero-bg::before {
+        content: "";
+        -webkit-backdrop-filter: blur(18px) saturate(1.6);
+        backdrop-filter: blur(18px) saturate(1.6);
+        background: #f5f1e859;
+        position: absolute;
+        inset: 0;
+      }
+
+      .hero-bg::after {
+        content: "";
+        mix-blend-mode: soft-light;
+        background:
+          radial-gradient(circle at 50% 0, #ffffff8c 0%, #0000 60%),
+          radial-gradient(circle at 30% 70%, #ffffff26 0%, #0000 50%),
+          radial-gradient(circle at 80% 40%, #ffffff1a 0%, #0000 45%);
+        position: absolute;
+        inset: 0;
+      }
+
+      .dashboard-border {
+        background: linear-gradient(135deg, #ffffffe6, #fff6);
+        border-radius: 32px;
+        padding: 8px;
+        box-shadow: 0 40px 80px -20px #00000026;
+      }
+
+      .chart-bg {
+        background-image: url("data:image/svg+xml,%3Csvg width='120' height='40' viewBox='0 0 120 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 30C20 30 30 15 50 20C70 25 80 10 120 10' stroke='rgba(30,25,20,0.04)' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-position: 100% 100%;
+        background-repeat: no-repeat;
+      }
+
+      .chart-bg-down {
+        background-image: url("data:image/svg+xml,%3Csvg width='120' height='40' viewBox='0 0 120 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10C20 10 30 25 50 20C70 15 80 30 120 30' stroke='rgba(30,25,20,0.04)' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-position: 100% 100%;
+        background-repeat: no-repeat;
+      }
+
+      @keyframes float-slow {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+
+      @keyframes float-fast {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      .animate-float-slow {
+        animation: 7s ease-in-out infinite float-slow;
+      }
+
+      .animate-float-fast {
+        animation: 5s ease-in-out infinite float-fast;
+      }
+
+      .animate-float-delayed {
+        animation: 6s ease-in-out 2s infinite float-slow;
+      }
+
+      /* === CYCLE 40s : jamais en dessous de 40% de l'action === */
+
+      /* Typing : tape, efface un bout, retape — min 40% */
+      @keyframes type-text {
+        0%,
+        3% {
+          width: calc(var(--text-width) * 0.4);
+        }
+        8% {
+          width: calc(var(--text-width) * 0.6);
+        }
+        11% {
+          width: calc(var(--text-width) * 0.6);
+        }
+        14% {
+          width: calc(var(--text-width) * 0.4);
+        }
+        16% {
+          width: calc(var(--text-width) * 0.4);
+        }
+        25% {
+          width: var(--text-width);
+        }
+        62% {
+          width: var(--text-width);
+        }
+        72%,
+        100% {
+          width: calc(var(--text-width) * 0.4);
+        }
+      }
+      .type-text {
+        overflow: hidden;
+        white-space: nowrap;
+        animation: type-text 40s ease-in-out infinite;
+        animation-delay: calc(var(--delay) - 5s);
+        width: calc(var(--text-width) * 0.4);
+      }
+
+      /* Checkbox : coche, décoche, recoche — toujours partiellement visible */
+      @keyframes checkbox-check {
+        0%,
+        3% {
+          background-color: #f3f4f6;
+          border-color: #e5e7eb;
+        }
+        8% {
+          background-color: #fff0b3;
+          border-color: #ffe66d;
+        }
+        14% {
+          background-color: #fff0b3;
+          border-color: #ffe66d;
+        }
+        17% {
+          background-color: #f3f4f6;
+          border-color: #e5e7eb;
+        }
+        22% {
+          background-color: #f3f4f6;
+          border-color: #e5e7eb;
+        }
+        26% {
+          background-color: #fff0b3;
+          border-color: #ffe66d;
+        }
+        62% {
+          background-color: #fff0b3;
+          border-color: #ffe66d;
+        }
+        72%,
+        100% {
+          background-color: #f3f4f6;
+          border-color: #e5e7eb;
+        }
+      }
+      @keyframes checkmark-appear {
+        0%,
+        3% {
+          opacity: 0.35;
+        }
+        8% {
+          opacity: 1;
+        }
+        14% {
+          opacity: 1;
+        }
+        17% {
+          opacity: 0.35;
+        }
+        22% {
+          opacity: 0.35;
+        }
+        26% {
+          opacity: 1;
+        }
+        62% {
+          opacity: 1;
+        }
+        72%,
+        100% {
+          opacity: 0.35;
+        }
+      }
+      .form-checkbox {
+        animation: checkbox-check 40s ease-in-out infinite;
+        animation-delay: calc(var(--delay) - 5s);
+      }
+      .form-checkmark {
+        opacity: 0.35;
+        animation: checkmark-appear 40s ease-in-out infinite;
+        animation-delay: calc(var(--delay) - 5s);
+      }
+
+      /* Curseur clignotant */
+      @keyframes blink {
+        0%,
+        49% {
+          opacity: 1;
+        }
+        50%,
+        100% {
+          opacity: 0;
+        }
+      }
+      .typing-cursor {
+        animation: blink 1s step-end infinite;
+      }
+
+      /* Blocs site : construction — apparait, disparait, réapparait */
+      @keyframes block-build {
+        0%,
+        3% {
+          opacity: 0.4;
+          transform: translateY(6px);
+        }
+        6% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        12% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        15% {
+          opacity: 0;
+          transform: translateY(-6px);
+        }
+        20% {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        24% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        30% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        34% {
+          opacity: 0;
+          transform: translateY(-4px);
+        }
+        40% {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        45% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        62% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        72%,
+        100% {
+          opacity: 0.4;
+          transform: translateY(3px);
+        }
+      }
+      .block-appear {
+        opacity: 0.4;
+        animation: block-build 40s ease-in-out infinite;
+        animation-delay: calc(var(--delay) - 5s);
+      }
+
+      /* Checkmarks livraison — min opacity 0.35 */
+      @keyframes check-deploy {
+        0%,
+        3% {
+          opacity: 0.35;
+          transform: scale(0.5);
+        }
+        10%,
+        12% {
+          opacity: 1;
+          transform: scale(1.15);
+        }
+        15% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        62% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        72%,
+        100% {
+          opacity: 0.35;
+          transform: scale(0.5);
+        }
+      }
+      .check-in {
+        opacity: 0.35;
+        animation: check-deploy 40s ease-in-out infinite;
+        animation-delay: calc(var(--delay) - 5s);
+      }
+
+      /* Progress bar : paliers — min 15% */
+      @keyframes progress-deploy {
+        0%,
+        8% {
+          width: 15%;
+        }
+        18% {
+          width: 30%;
+        }
+        25% {
+          width: 30%;
+        }
+        32% {
+          width: 55%;
+        }
+        38% {
+          width: 55%;
+        }
+        45% {
+          width: 75%;
+        }
+        52% {
+          width: 75%;
+        }
+        58% {
+          width: 100%;
+        }
+        62% {
+          width: 100%;
+        }
+        72%,
+        100% {
+          width: 15%;
+        }
+      }
+      .progress-fill {
+        animation: progress-deploy 40s ease-in-out infinite;
+        animation-delay: -2s;
+        width: 15%;
+      }
+
+      /* Shimmer lent */
+      @keyframes shimmer {
+        0% {
+          background-position: -200% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+      .shimmer {
+        background: linear-gradient(
+          90deg,
+          #e5e7eb 25%,
+          #d1d5db 50%,
+          #e5e7eb 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 3s infinite;
+      }
+
+      .showcase-card {
+        pointer-events: none;
+        opacity: 0;
+        margin-top: 60px;
+        transition:
+          opacity 3s cubic-bezier(0.22, 1.8, 0.5, 1),
+          margin-top 3s cubic-bezier(0.22, 1.8, 0.5, 1);
+      }
+      .showcase-card.visible {
+        opacity: 1;
+        margin-top: 0;
+      }
+      .showcase-card-center {
+        z-index: 30 !important;
+      }
+
+      .reveal {
+        opacity: 0;
+        transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(40px);
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+      }
+
+      .reveal-left {
+        opacity: 0;
+        transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateX(-30px);
+      }
+
+      .reveal-right {
+        opacity: 0;
+        transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateX(30px);
+      }
+
+      .reveal-left.active,
+      .reveal-right.active {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      /* FAQ answer panel */
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.3s ease,
+          padding 0.3s ease;
+      }
+
+      .faq-answer.open {
+        max-height: 200px;
+        padding-bottom: 1.25rem;
+      }
+
+      .faq-chevron {
+        transition: transform 0.3s ease;
+      }
+
+      .faq-chevron.rotated {
+        transform: rotate(180deg);
+      }
+
+      /* Simulator range slider */
+      .sim-range {
+        -webkit-appearance: none;
+        appearance: none;
+        height: 3px;
+        background: #e5e7eb;
+        border-radius: 999px;
+        outline: none;
+      }
+      .sim-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #2b2622;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(30, 25, 20, 0.15);
+      }
+      .sim-range::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #2b2622;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 2px 8px rgba(30, 25, 20, 0.15);
+      }
+
+      /* Simulateur sliders */
+      .sim-slider {
+        -webkit-appearance: none;
+        appearance: none;
+        height: 6px;
+        border-radius: 999px;
+        background: #e5e7eb;
+        outline: none;
+        cursor: pointer;
+      }
+      .sim-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--color-dark-bg);
+        border: 3px solid white;
+        box-shadow: 0 2px 8px rgba(30, 25, 20, 0.2);
+        cursor: pointer;
+        transition: transform 0.15s;
+      }
+      .sim-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.15);
+      }
+      .sim-slider::-moz-range-thumb {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--color-dark-bg);
+        border: 3px solid white;
+        box-shadow: 0 2px 8px rgba(30, 25, 20, 0.2);
+        cursor: pointer;
+      }
+
+      /* Dark variant for simulator on dark background */
+      .sim-slider-dark {
+        background: rgba(255, 255, 255, 0.15);
+      }
+      .sim-slider-dark::-webkit-slider-thumb {
+        background: white;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 2px 12px rgba(30, 25, 20, 0.3);
+      }
+      .sim-slider-dark::-moz-range-thumb {
+        background: white;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 2px 12px rgba(30, 25, 20, 0.3);
+      }
+
+      /* Pricing lists */
+      .pricing-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #4b5563;
+      }
+      .pricing-list li::before {
+        content: "";
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        min-width: 18px;
+        margin-top: 2px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%234ECDC4' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+      .pricing-list-dark li {
+        color: #d1d5db;
+      }
+    </style>
+  </head>
+  <body class="font-sans antialiased">
+    <!-- NAV MOBILE -->
+    <div class="fixed top-4 left-4 right-4 z-50 md:hidden">
+      <div
+        class="flex items-center justify-between bg-[#1A1715]/95 backdrop-blur-md text-white rounded-full px-4 py-2.5 shadow-[0_12px_32px_rgba(30,25,20,0.15)]"
+      >
+        <div class="rounded-full w-8 h-8 overflow-hidden">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="16" fill="#4ECDC4"></circle>
+            <path
+              d="M16 9V23M9 16H23M12 12L20 20M12 20L20 12"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+            ></path>
+          </svg>
+        </div>
+        <button
+          onclick="
+            document.getElementById('mobile-menu').classList.toggle('hidden')
+          "
+          class="text-white p-1"
+        >
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </div>
+      <div
+        id="mobile-menu"
+        class="hidden mt-2 bg-[#1A1715]/95 backdrop-blur-md rounded-2xl p-5 shadow-[0_12px_32px_rgba(30,25,20,0.15)]"
+      >
+        <ul class="flex flex-col gap-4 text-[15px] font-medium text-gray-300">
+          <li>
+            <span class="hover:text-white transition-colors cursor-pointer"
+              >Offres</span
+            >
+          </li>
+          <li>
+            <span class="hover:text-white transition-colors cursor-pointer"
+              >Portfolio</span
+            >
+          </li>
+          <li>
+            <span class="hover:text-white transition-colors cursor-pointer"
+              >Blog</span
+            >
+          </li>
+          <li>
+            <span class="hover:text-white transition-colors cursor-pointer"
+              >Contact</span
+            >
+          </li>
+        </ul>
+        <span
+          class="mt-5 block text-center bg-white text-black px-6 py-3 rounded-full text-[14px] font-bold cursor-pointer"
+          >Choisir mon offre</span
+        >
+      </div>
+    </div>
+
+    <!-- NAV DESKTOP -->
+    <nav
+      class="fixed top-6 left-0 right-0 z-50 mx-auto bg-[#1A1715]/95 backdrop-blur-md text-white rounded-full p-1.5 hidden md:flex items-center shadow-[0_12px_32px_rgba(30,25,20,0.15),0_0_0_1px_rgba(255,255,255,0.05)_inset] w-max"
+    >
+      <div
+        class="rounded-full w-8 h-8 overflow-hidden mr-6 ml-1 cursor-pointer"
+      >
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="16" fill="#4ECDC4"></circle>
+          <path
+            d="M16 9V23M9 16H23M12 12L20 20M12 20L20 12"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+      </div>
+      <ul class="flex items-center gap-7 text-[13px] font-medium text-gray-300">
+        <li>
+          <span class="hover:text-white transition-colors cursor-pointer"
+            >Offres</span
+          >
+        </li>
+        <li>
+          <span class="hover:text-white transition-colors cursor-pointer"
+            >Portfolio</span
+          >
+        </li>
+        <li>
+          <span class="hover:text-white transition-colors cursor-pointer"
+            >Blog</span
+          >
+        </li>
+        <li>
+          <span class="hover:text-white transition-colors cursor-pointer"
+            >Contact</span
+          >
+        </li>
+      </ul>
+      <div class="flex items-center gap-3 ml-6 pl-6 border-l border-gray-700">
+        <a
+          href="#rdv"
+          class="text-gray-300 hover:text-white px-4 py-2.5 rounded-full text-[13px] font-medium transition-colors flex items-center gap-1.5"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+            ></path></svg
+          >Appel gratuit</a
+        >
+        <a
+          href="#pricing"
+          class="bg-white text-black px-6 py-2.5 rounded-full text-[13px] font-bold hover:bg-gray-100 hover:scale-[1.02] transition-all shadow-sm"
+          >Choisir mon offre</a
+        >
+      </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section
+      class="relative pt-36 pb-24 px-4 min-h-[100vh] flex flex-col items-center overflow-hidden"
+    >
+      <div class="hero-bg"></div>
+
+      <div class="reveal active max-w-[850px] mx-auto text-center z-10">
+        <div
+          class="inline-flex items-center gap-3 bg-white/60 backdrop-blur-md border border-white p-1.5 pr-4 rounded-full mb-8 shadow-sm cursor-pointer hover:bg-white/80 transition-colors"
+        >
+          <span
+            class="w-5 h-5 rounded-full overflow-hidden flex-shrink-0 border border-white/50 inline-flex"
+          >
+            <svg
+              viewBox="0 0 30 20"
+              class="w-full h-full object-cover scale-150"
+            >
+              <rect width="10" height="20" fill="#002395" />
+              <rect x="10" width="10" height="20" fill="#fff" />
+              <rect x="20" width="10" height="20" fill="#ED2939" />
+            </svg>
+          </span>
+          <span class="text-[13px] font-bold text-gray-900">Agence Web</span>
+          <span class="text-[13px] text-gray-400 font-medium"
+            >Découvrir &#x203A;</span
+          >
+        </div>
+        <h1
+          class="text-[2.5rem] md:text-[4.2rem] leading-[1.08] font-bold tracking-[-0.025em] mb-5 text-[#2B2622]"
+        >
+          Votre site de réservation<br />livré en
+          <span class="text-[#4ECDC4]">48h</span>
+        </h1>
+        <p
+          class="text-[1.05rem] md:text-[1.1rem] text-[#7D7770] max-w-[600px] mx-auto mb-10 leading-relaxed font-medium"
+        >
+          Arrêtez de payer 15-20% de commissions aux plateformes. Un site à
+          votre image avec réservation directe et paiement intégré.
+        </p>
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <a
+            href="#rdv"
+            class="w-full sm:w-[240px] justify-center bg-[#2B2622] text-white px-8 py-3.5 rounded-full font-semibold text-[15px] hover:bg-[#4A4540] hover:-translate-y-0.5 transition-all shadow-lg inline-flex items-center gap-2"
+          >
+            Lancer mon site
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-4 h-4"
+            >
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+          <button
+            onclick="
+              document.getElementById('simulateur').classList.remove('hidden');
+              document.body.style.overflow = 'hidden';
+            "
+            class="w-full sm:w-[240px] justify-center bg-white/70 backdrop-blur-sm text-[#2B2622] px-8 py-3.5 rounded-full font-semibold text-[15px] hover:bg-white/90 hover:-translate-y-0.5 transition-all shadow-sm border border-white/60"
+          >
+            Simuler mes économies
+          </button>
+        </div>
+      </div>
+
+      <!-- DASHBOARD PREVIEW WITH FLOATING CARDS -->
+      <div class="reveal active mt-20 relative w-full max-w-[1040px] z-20">
+        <!-- Floating: Ils nous font confiance (left) -->
+        <div
+          class="absolute -left-8 md:-left-16 top-[10%] z-30 animate-float-slow hidden md:block"
+        >
+          <div
+            class="bg-white/95 backdrop-blur-xl rounded-full p-2.5 pr-4 flex items-center gap-3 shadow-[0_24px_48px_-12px_rgba(30,25,20,0.1),0_0_0_1px_rgba(255,255,255,0.8)_inset] border border-white"
+          >
+            <div class="bg-[#4ECDC4] text-white p-1.5 rounded-full">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-3.5 h-3.5 stroke-[3]"
+                aria-hidden="true"
+              >
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+            </div>
+            <span class="text-[13.5px] font-bold text-gray-900"
+              >Ils nous font confiance</span
+            >
+            <div class="flex -space-x-2.5 pl-1">
+              <img
+                src="https://i.pravatar.cc/64?img=12"
+                alt="Client"
+                class="w-8 h-8 rounded-full border-2 border-white object-cover relative z-10"
+              />
+              <img
+                src="https://i.pravatar.cc/64?img=32"
+                alt="Client"
+                class="w-8 h-8 rounded-full border-2 border-white object-cover relative z-20"
+              />
+              <img
+                src="https://i.pravatar.cc/64?img=47"
+                alt="Client"
+                class="w-8 h-8 rounded-full border-2 border-white object-cover relative z-30"
+              />
+              <div
+                class="w-8 h-8 rounded-full border-2 border-white bg-[#4ECDC4] text-white text-[9px] font-bold flex items-center justify-center relative z-40"
+              >
+                50+
+              </div>
+            </div>
+          </div>
+          <!-- Handwriting arrow + "Clients" label -->
+          <div
+            class="absolute -bottom-16 left-6 flex flex-col items-center opacity-50"
+          >
+            <svg
+              width="28"
+              height="45"
+              viewBox="0 0 24 40"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              class="rotate-12 text-gray-800"
+            >
+              <path
+                d="M12 40C12 30 5 25 5 15C5 5 19 5 19 15C19 20 12 25 12 15M12 15L8 19M12 15L16 19"
+              ></path>
+            </svg>
+            <span
+              class="text-gray-800 text-[22px] -rotate-[10deg] mt-0 -ml-14"
+              style="font-family: var(--font-caveat)"
+              >Propriétaires</span
+            >
+          </div>
+        </div>
+
+        <!-- Floating: Économies card (bottom-left) -->
+        <div
+          class="absolute -bottom-8 left-[10%] z-30 animate-float-delayed hidden md:block"
+        >
+          <div
+            class="bg-white/95 backdrop-blur-xl rounded-[20px] p-5 shadow-[0_24px_48px_-12px_rgba(30,25,20,0.1),0_0_0_1px_rgba(255,255,255,0.8)_inset] border border-white w-[220px]"
+          >
+            <h4 class="font-bold text-[15px] text-gray-900 mb-0.5">
+              Économies
+            </h4>
+            <p class="text-[12px] text-gray-400 font-medium mb-4">
+              sur l'année
+            </p>
+            <div
+              class="flex justify-between items-end mb-1.5 text-[12px] font-bold"
+            >
+              <span class="text-gray-900">26 993€</span>
+              <span class="text-gray-500">27 450€</span>
+            </div>
+            <div class="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+              <div
+                class="w-[95%] bg-[var(--color-accent)] h-full rounded-full"
+              ></div>
+            </div>
+            <div class="text-[10px] font-bold text-gray-500 text-right mt-1.5">
+              98%
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating: Site rentable en 90j (right) -->
+        <div
+          class="absolute top-[45%] -right-8 md:-right-12 z-30 animate-float-fast hidden lg:block"
+        >
+          <div
+            class="bg-white/95 backdrop-blur-xl rounded-full p-2.5 pr-5 flex items-center gap-3 shadow-[0_24px_48px_-12px_rgba(30,25,20,0.1),0_0_0_1px_rgba(255,255,255,0.8)_inset] border border-white"
+          >
+            <div class="bg-[#4ECDC4] text-white p-1.5 rounded-full">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-3.5 h-3.5 stroke-[3]"
+                aria-hidden="true"
+              >
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+            </div>
+            <span class="text-[13.5px] font-bold text-gray-900"
+              >Site rentable en 90j</span
+            >
+          </div>
+        </div>
+
+        <!-- Floating: Paiement intégré (bottom-right) -->
+        <div
+          class="absolute -bottom-12 right-[2%] z-30 animate-float-slow hidden md:block"
+        >
+          <div
+            class="bg-white/95 backdrop-blur-xl rounded-[20px] p-5 shadow-[0_24px_48px_-12px_rgba(30,25,20,0.1),0_0_0_1px_rgba(255,255,255,0.8)_inset] border border-white w-[350px]"
+          >
+            <div class="flex justify-between items-center mb-3">
+              <h4 class="font-bold text-[14px] leading-snug text-gray-900">
+                Paiement intégré
+              </h4>
+              <span class="text-[10px] font-medium text-gray-400"
+                >À partir de Essentiel*</span
+              >
+            </div>
+            <div class="flex justify-between items-center mt-4">
+              <div
+                class="flex items-center gap-2 text-[10.5px] text-gray-400 font-semibold"
+              >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-3.5 h-3.5 text-gray-300"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"
+                    ></path>
+                    <path
+                      d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"
+                    ></path>
+                    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+                    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+                  </svg>
+                  Stripe</span
+                >
+                <span class="text-gray-200">|</span>
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-3.5 h-3.5 text-gray-300"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"
+                    ></path>
+                    <path d="M15 18H9"></path>
+                    <path
+                      d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"
+                    ></path>
+                    <circle cx="17" cy="18" r="2"></circle>
+                    <circle cx="7" cy="18" r="2"></circle>
+                  </svg>
+                  24h</span
+                >
+                <span class="text-gray-200">|</span>
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-3.5 h-3.5 text-gray-300"
+                    aria-hidden="true"
+                  >
+                    <path d="M8 2v4"></path>
+                    <path d="M16 2v4"></path>
+                    <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                    <path d="M3 10h18"></path>
+                  </svg>
+                  Calendrier sync.</span
+                >
+              </div>
+              <span
+                class="text-[10px] font-bold text-[#4ECDC4] bg-[#E8FAF8] px-2.5 py-0.5 rounded-full border border-[#B2EDE8]"
+                >Simple</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- SHOWCASE CARDS -->
+        <div
+          id="realisations"
+          class="relative z-10 mx-auto max-w-5xl"
+          style="perspective: 1200px"
+        >
+          <div
+            class="flex items-center justify-center gap-[-20px] relative h-[640px]"
+          >
+            <!-- Card Left -->
+            <div
+              class="showcase-card absolute left-[2%] top-[8%] w-[450px] h-[560px] rounded-[20px] overflow-hidden border border-gray-200/60 bg-[#FDFCF9] shadow-[0_25px_60px_-15px_rgba(30,25,20,0.2)] transition-all duration-500 ease-out cursor-pointer"
+              style="
+                transform: rotateY(8deg) rotateX(2deg) rotateZ(-3deg)
+                  translateZ(-40px);
+              "
+            >
+              <img
+                src="kban-site.jpg"
+                alt="K'Ban Lorizon"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+            <!-- Card Center -->
+            <div
+              class="showcase-card showcase-card-center absolute left-1/2 top-0 w-[480px] h-[600px] rounded-[20px] overflow-hidden border border-gray-200/60 bg-[#FDFCF9] shadow-[0_35px_80px_-15px_rgba(30,25,20,0.25)] transition-all duration-500 ease-out cursor-pointer"
+              style="
+                transform: translateX(-50%) rotateY(0deg) rotateX(2deg)
+                  translateZ(20px);
+              "
+            >
+              <img
+                src="sardines-site.jpg"
+                alt="Les Sardines Blanches"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+            <!-- Card Right -->
+            <div
+              class="showcase-card absolute right-[2%] top-[8%] w-[450px] h-[560px] rounded-[20px] overflow-hidden border border-gray-200/60 bg-[#FDFCF9] shadow-[0_25px_60px_-15px_rgba(30,25,20,0.2)] transition-all duration-500 ease-out cursor-pointer"
+              style="
+                transform: rotateY(-8deg) rotateX(2deg) rotateZ(3deg)
+                  translateZ(-40px);
+              "
+            >
+              <img
+                src="terrasse-site.jpg"
+                alt="Terrasse Opéra"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIMULATEUR D'ÉCONOMIES -->
+    <section id="simulateur-section" class="py-28 px-6 overflow-hidden">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal text-center mb-20">
+          <span
+            class="inline-flex items-center gap-2 bg-[var(--color-dark-bg)] text-white text-[11px] font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-5"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-3 h-3"
+            >
+              <line x1="12" y1="1" x2="12" y2="23"></line>
+              <path
+                d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+              ></path>
+            </svg>
+            SIMULATEUR</span
+          >
+          <h2
+            class="text-[2.5rem] md:text-[3.2rem] font-extrabold tracking-[-0.03em] text-[#111] mb-4"
+          >
+            Combien vous coûtent les
+            <span class="text-[#4ECDC4]">plateformes</span> ?
+          </h2>
+          <p
+            class="text-gray-500 max-w-[520px] mx-auto text-[1.05rem] font-medium"
+          >
+            Ajustez vos chiffres et découvrez ce que vous perdez chaque année en
+            commissions.
+          </p>
+        </div>
+
+        <!-- Layout : gauche = sliders, droite = résultat visuel -->
+        <div class="flex flex-col lg:flex-row items-stretch gap-12 lg:gap-16">
+          <!-- Colonne gauche : contrôles + stats -->
+          <div class="reveal-left flex-1 flex flex-col justify-center">
+            <!-- Slider Prix -->
+            <div class="mb-8">
+              <div class="flex justify-between items-end mb-3">
+                <label
+                  class="text-[13px] font-bold text-gray-400 uppercase tracking-wider"
+                  >Prix / nuit</label
+                >
+                <span
+                  id="sim-price-value"
+                  class="text-[22px] font-extrabold text-[var(--color-dark-bg)] tracking-tight leading-none"
+                  >120€</span
+                >
+              </div>
+              <input
+                type="range"
+                id="sim-price"
+                min="50"
+                max="400"
+                value="120"
+                step="5"
+                class="sim-slider w-full"
+                oninput="updateSimulator()"
+              />
+              <div
+                class="flex justify-between text-[10px] text-gray-400 font-medium mt-1.5"
+              >
+                <span>50€</span><span>400€</span>
+              </div>
+            </div>
+
+            <!-- Slider Occupation -->
+            <div class="mb-10">
+              <div class="flex justify-between items-end mb-3">
+                <label
+                  class="text-[13px] font-bold text-gray-400 uppercase tracking-wider"
+                  >Occupation / an</label
+                >
+                <span
+                  id="sim-occ-value"
+                  class="text-[22px] font-extrabold text-[var(--color-dark-bg)] tracking-tight leading-none"
+                  >60%</span
+                >
+              </div>
+              <input
+                type="range"
+                id="sim-occ"
+                min="20"
+                max="100"
+                value="60"
+                step="5"
+                class="sim-slider w-full"
+                oninput="updateSimulator()"
+              />
+              <div
+                class="flex justify-between text-[10px] text-gray-400 font-medium mt-1.5"
+              >
+                <span>20%</span><span>100%</span>
+              </div>
+            </div>
+
+            <!-- Ligne CA -->
+            <div
+              class="flex items-center justify-between py-4 border-t border-gray-100"
+            >
+              <span class="text-[14px] text-gray-500 font-medium"
+                >Chiffre d'affaires annuel</span
+              >
+              <div class="text-right">
+                <span
+                  id="sim-ca"
+                  class="text-[22px] font-extrabold text-[var(--color-dark-bg)] tracking-tight"
+                  >26 280€</span
+                >
+                <p class="text-[11px] text-gray-400 font-medium">
+                  <span id="sim-nights">219</span> nuits &times;
+                  <span id="sim-price-echo">120€</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- Stats compactes -->
+            <div
+              class="flex flex-wrap gap-x-6 gap-y-1 pt-4 border-t border-gray-100 text-[12px] text-gray-400 font-medium"
+            >
+              <span
+                ><strong
+                  id="sim-equiv-nights"
+                  class="text-[var(--color-dark-bg)] font-extrabold"
+                  >33</strong
+                >
+                nuits gratuites</span
+              >
+              <span
+                ><strong
+                  id="sim-equiv-months"
+                  class="text-[var(--color-dark-bg)] font-extrabold"
+                  >329€</strong
+                >
+                / mois perdus</span
+              >
+              <span
+                ><strong
+                  id="sim-equiv-5y"
+                  class="text-[var(--color-dark-bg)] font-extrabold"
+                  >19 710€</strong
+                >
+                sur 5 ans</span
+              >
+            </div>
+          </div>
+
+          <!-- Colonne droite : comparaison visuelle -->
+          <div class="flex-1 flex flex-col gap-6 justify-center">
+            <!-- Carte PERTE -->
+            <div
+              class="reveal-right rounded-[24px] border border-gray-100 bg-white p-8 shadow-[0_4px_20px_rgba(30,25,20,0.04)] hover:shadow-[0_8px_30px_rgba(30,25,20,0.07)] transition-all duration-500"
+            >
+              <div>
+                <p
+                  class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1"
+                >
+                  Perdu en commissions
+                </p>
+                <p
+                  id="sim-loss"
+                  class="text-[2.2rem] font-extrabold text-[#FF6B6B] tracking-tight leading-none mt-2"
+                >
+                  - 3 942€
+                </p>
+                <p class="text-[13px] text-gray-400 font-medium mt-3">
+                  15% reversés aux plateformes chaque année
+                </p>
+              </div>
+            </div>
+
+            <!-- Carte GAIN -->
+            <div
+              class="reveal-right rounded-[24px] border border-gray-100 bg-white p-8 shadow-[0_4px_20px_rgba(30,25,20,0.04)] hover:shadow-[0_8px_30px_rgba(30,25,20,0.07)] transition-all duration-500"
+            >
+              <div>
+                <p
+                  class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1"
+                >
+                  Avec votre propre site
+                </p>
+                <p
+                  id="sim-savings"
+                  class="text-[2.2rem] font-extrabold text-[#4ECDC4] tracking-tight leading-none mt-2"
+                >
+                  + 3 942€
+                </p>
+                <p class="text-[13px] text-gray-400 font-medium mt-3">
+                  Récupérés directement dans votre poche
+                </p>
+                <div
+                  class="mt-4 inline-flex items-center gap-2 bg-[var(--color-dark-bg)] text-white text-[12px] font-bold px-4 py-2 rounded-full"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Remboursé en <span id="sim-payback">83</span> jours
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="py-28 px-6 overflow-hidden">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal text-center mb-20">
+          <span
+            class="inline-flex items-center gap-2 bg-[var(--color-dark-bg)] text-white text-[11px] font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-5"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-3 h-3"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="1"></circle>
+            </svg>
+            COMMENT ÇA MARCHE</span
+          >
+          <h2
+            class="text-[2.5rem] md:text-[3.2rem] font-extrabold tracking-[-0.03em] text-[#111] mb-4"
+          >
+            Votre site en <span class="text-[#4ECDC4]">3 étapes</span>
+          </h2>
+          <p
+            class="text-gray-500 max-w-[520px] mx-auto text-[1.05rem] font-medium"
+          >
+            De votre brief à la mise en ligne — simple, rapide, efficace.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-24">
+          <!-- STEP 01 -->
+          <div
+            class="reveal-left flex flex-col lg:flex-row items-center gap-12 lg:gap-16"
+          >
+            <div class="flex-1 max-w-[480px]">
+              <div class="flex items-center gap-4 mb-6">
+                <div
+                  class="w-14 h-14 rounded-2xl flex items-center justify-center border border-[#B8EDE8] bg-[#E8FAF8] shadow-sm"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-6 h-6 text-[#4ECDC4]"
+                    aria-hidden="true"
+                  >
+                    <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
+                    <path
+                      d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
+                    ></path>
+                    <path d="M12 11h4"></path>
+                    <path d="M12 16h4"></path>
+                    <path d="M8 11h.01"></path>
+                    <path d="M8 16h.01"></path>
+                  </svg>
+                </div>
+                <div>
+                  <span
+                    class="text-[11px] font-bold text-gray-400 uppercase tracking-widest"
+                    >Étape 01</span
+                  >
+                  <h3
+                    class="text-[1.5rem] font-bold text-gray-900 tracking-tight leading-tight"
+                  >
+                    Découverte
+                  </h3>
+                </div>
+              </div>
+              <p
+                class="text-gray-500 font-medium text-[15px] leading-relaxed mb-6"
+              >
+                Vous remplissez un formulaire rapide : nom du bien, photos,
+                textes, couleurs. 10 minutes suffisent.
+              </p>
+              <a
+                href="#rdv"
+                class="inline-flex items-center gap-2 text-[13px] font-bold text-gray-900 bg-white border border-gray-200 px-5 py-2.5 rounded-full hover:bg-gray-50 hover:gap-3 transition-all shadow-sm group"
+                >En savoir plus
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path></svg
+              ></a>
+            </div>
+            <div class="flex-1 max-w-[520px] w-full relative">
+              <div class="hidden"></div>
+              <div class="relative">
+                <div
+                  class="bg-white rounded-[20px] border border-gray-200/80 p-5 w-full shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+                >
+                  <!-- Header -->
+                  <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                      <div
+                        class="w-6 h-6 rounded-lg bg-[#E8FAF8] flex items-center justify-center"
+                      >
+                        <svg
+                          class="w-3 h-3 text-[#4ECDC4]"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                        >
+                          <path d="M12 5v14M5 12h14" />
+                        </svg>
+                      </div>
+                      <p class="text-[10px] font-bold text-gray-700">
+                        Nouveau brief
+                      </p>
+                    </div>
+                    <span
+                      class="text-[8px] font-bold text-[#4ECDC4] bg-[#E8FAF8] px-2 py-0.5 rounded-full border border-[#B8EDE8]"
+                      >EN COURS</span
+                    >
+                  </div>
+                  <div class="space-y-2">
+                    <!-- Champ: Nom du bien -->
+                    <div>
+                      <p class="text-[9px] text-gray-400 font-semibold mb-1">
+                        Nom du bien
+                      </p>
+                      <div
+                        class="h-7 bg-[#FAFAF9] rounded-md border border-gray-200 flex items-center px-2.5 overflow-hidden"
+                      >
+                        <span
+                          class="type-text text-[11px] text-gray-500 font-medium"
+                          style="--text-width: 90px; --delay: 1s"
+                          >Villa Les Oliviers</span
+                        >
+                        <span
+                          class="typing-cursor text-gray-300 text-[11px] ml-0.5"
+                          >|</span
+                        >
+                      </div>
+                    </div>
+                    <!-- Champ: Localisation -->
+                    <div>
+                      <p class="text-[9px] text-gray-400 font-semibold mb-1">
+                        Localisation
+                      </p>
+                      <div
+                        class="h-7 bg-[#FAFAF9] rounded-md border border-gray-200 flex items-center px-2.5 overflow-hidden"
+                      >
+                        <svg
+                          class="w-2.5 h-2.5 text-[#E5943D] mr-1.5 shrink-0"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                          />
+                          <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        <span
+                          class="type-text text-[11px] text-gray-500 font-medium"
+                          style="--text-width: 130px; --delay: 2.5s"
+                          >Saint-Rémy-de-Provence</span
+                        >
+                      </div>
+                    </div>
+                    <!-- Checkboxes -->
+                    <div class="flex items-center gap-3 pt-1">
+                      <div class="flex items-center gap-1.5">
+                        <div
+                          class="w-4 h-4 rounded border border-gray-300 flex items-center justify-center form-checkbox"
+                          style="--delay: 4s"
+                        >
+                          <svg
+                            class="w-2.5 h-2.5 text-white form-checkmark"
+                            style="--delay: 4s"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="3"
+                          >
+                            <path d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span class="text-[9px] text-gray-400 font-medium"
+                          >Piscine</span
+                        >
+                      </div>
+                      <div class="flex items-center gap-1.5">
+                        <div
+                          class="w-4 h-4 rounded border border-gray-300 flex items-center justify-center form-checkbox"
+                          style="--delay: 5s"
+                        >
+                          <svg
+                            class="w-2.5 h-2.5 text-white form-checkmark"
+                            style="--delay: 5s"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="3"
+                          >
+                            <path d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span class="text-[9px] text-gray-400 font-medium"
+                          >Jardin</span
+                        >
+                      </div>
+                      <div class="flex items-center gap-1.5">
+                        <div
+                          class="w-4 h-4 rounded border border-gray-300 flex items-center justify-center form-checkbox"
+                          style="--delay: 6s"
+                        >
+                          <svg
+                            class="w-2.5 h-2.5 text-white form-checkmark"
+                            style="--delay: 6s"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="3"
+                          >
+                            <path d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span class="text-[9px] text-gray-400 font-medium"
+                          >Parking</span
+                        >
+                      </div>
+                    </div>
+                    <!-- Champ: Couleur -->
+                    <div>
+                      <p class="text-[9px] text-gray-400 font-semibold mb-1">
+                        Couleur principale
+                      </p>
+                      <div
+                        class="h-7 bg-[#FAFAF9] rounded-md border border-gray-200 flex items-center px-2.5 gap-1.5 overflow-hidden"
+                      >
+                        <div
+                          class="w-3.5 h-3.5 rounded-full bg-[#D4A574] form-checkbox"
+                          style="--delay: 7s"
+                        ></div>
+                        <div
+                          class="w-3.5 h-3.5 rounded-full bg-[#8B7355] opacity-0 form-checkbox"
+                          style="--delay: 7s"
+                        ></div>
+                        <div
+                          class="w-3.5 h-3.5 rounded-full bg-[#F5F1E8] border border-gray-200 opacity-0 form-checkbox"
+                          style="--delay: 7s"
+                        ></div>
+                        <span
+                          class="type-text text-[11px] text-gray-500 font-medium"
+                          style="--text-width: 60px; --delay: 7.2s"
+                          >Terre dorée</span
+                        >
+                      </div>
+                    </div>
+                    <!-- Bouton -->
+                    <div
+                      class="h-7 bg-gray-200 rounded-md mt-1 flex items-center justify-center"
+                    >
+                      <span class="text-[9px] text-gray-500 font-bold"
+                        >Envoyer le brief</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 02 -->
+          <div
+            class="reveal-right flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16"
+          >
+            <div class="flex-1 max-w-[480px]">
+              <div class="flex items-center gap-4 mb-6">
+                <div
+                  class="w-14 h-14 rounded-2xl flex items-center justify-center border border-[#B8EDE8] bg-[#E8FAF8] shadow-sm"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-6 h-6 text-[#4ECDC4]"
+                    aria-hidden="true"
+                  >
+                    <path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"></path>
+                    <path d="m18 15 4-4"></path>
+                    <path
+                      d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <span
+                    class="text-[11px] font-bold text-gray-400 uppercase tracking-widest"
+                    >Étape 02</span
+                  >
+                  <h3
+                    class="text-[1.5rem] font-bold text-gray-900 tracking-tight leading-tight"
+                  >
+                    Création
+                  </h3>
+                </div>
+              </div>
+              <p
+                class="text-gray-500 font-medium text-[15px] leading-relaxed mb-6"
+              >
+                Je conçois votre site sur-mesure avec un design premium, des
+                animations fluides et un rendu 100% responsive. Livré en 48h.
+              </p>
+              <a
+                href="#rdv"
+                class="inline-flex items-center gap-2 text-[13px] font-bold text-gray-900 bg-white border border-gray-200 px-5 py-2.5 rounded-full hover:bg-gray-50 hover:gap-3 transition-all shadow-sm group"
+                >En savoir plus
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path></svg
+              ></a>
+            </div>
+            <div class="flex-1 max-w-[520px] w-full relative">
+              <div class="hidden"></div>
+              <div class="relative">
+                <div
+                  class="bg-white rounded-[20px] border border-gray-200/80 p-5 w-full h-[280px] overflow-hidden shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+                >
+                  <!-- Header -->
+                  <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                      <div
+                        class="w-6 h-6 rounded-lg bg-[#F0EDFA] flex items-center justify-center"
+                      >
+                        <svg
+                          class="w-3 h-3 text-[#7C6BC4]"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                        >
+                          <path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9" />
+                        </svg>
+                      </div>
+                      <p class="text-[10px] font-bold text-gray-700">
+                        Design en cours
+                      </p>
+                    </div>
+                    <span
+                      class="text-[8px] font-bold text-[#7C6BC4] bg-[#F0EDFA] px-2 py-0.5 rounded-full border border-[#D8D0F0]"
+                      >48H</span
+                    >
+                  </div>
+                  <!-- Barre navigateur -->
+                  <div
+                    class="flex items-center gap-1.5 mb-2.5 block-appear"
+                    style="--delay: 0.5s"
+                  >
+                    <div class="w-2 h-2 rounded-full bg-[#FF605C]"></div>
+                    <div class="w-2 h-2 rounded-full bg-[#FFBD44]"></div>
+                    <div class="w-2 h-2 rounded-full bg-[#00CA4E]"></div>
+                    <div
+                      class="flex-1 h-4 bg-[#FAFAF9] rounded-full ml-2 border border-gray-200 flex items-center px-2"
+                    >
+                      <svg
+                        class="w-2 h-2 text-gray-300 mr-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"
+                        />
+                      </svg>
+                      <span class="text-[7px] text-gray-300 font-medium"
+                        >villa-les-oliviers.fr</span
+                      >
+                    </div>
+                  </div>
+                  <!-- Nav skeleton -->
+                  <div
+                    class="flex items-center justify-between mb-2.5 block-appear"
+                    style="--delay: 2s"
+                  >
+                    <div class="w-14 h-2.5 bg-[#4ECDC4]/30 rounded-full"></div>
+                    <div class="flex gap-2">
+                      <div class="w-8 h-2 bg-gray-200 rounded-full"></div>
+                      <div class="w-8 h-2 bg-gray-200 rounded-full"></div>
+                      <div class="w-10 h-2 bg-[#4ECDC4]/20 rounded-full"></div>
+                    </div>
+                  </div>
+                  <!-- Hero skeleton -->
+                  <div
+                    class="bg-gradient-to-r from-[#4ECDC4]/15 to-[#7C6BC4]/10 rounded-lg h-20 mb-2.5 block-appear flex items-center justify-center"
+                    style="--delay: 4s"
+                  >
+                    <div class="w-24 h-2 bg-white/60 rounded-full"></div>
+                  </div>
+                  <!-- Content blocks -->
+                  <div class="grid grid-cols-3 gap-1.5 mb-2.5">
+                    <div
+                      class="bg-[#FAFAF9] rounded-md h-10 border border-gray-100 block-appear flex flex-col items-center justify-center gap-1"
+                      style="--delay: 7s"
+                    >
+                      <div class="w-5 h-5 rounded bg-[#E8FAF8]"></div>
+                      <div class="w-8 h-1 bg-gray-200 rounded-full"></div>
+                    </div>
+                    <div
+                      class="bg-[#FAFAF9] rounded-md h-10 border border-gray-100 block-appear flex flex-col items-center justify-center gap-1"
+                      style="--delay: 10s"
+                    >
+                      <div class="w-5 h-5 rounded bg-[#FFF3E0]"></div>
+                      <div class="w-8 h-1 bg-gray-200 rounded-full"></div>
+                    </div>
+                    <div
+                      class="bg-[#FAFAF9] rounded-md h-10 border border-gray-100 block-appear flex flex-col items-center justify-center gap-1"
+                      style="--delay: 13s"
+                    >
+                      <div class="w-5 h-5 rounded bg-[#F0EDFA]"></div>
+                      <div class="w-8 h-1 bg-gray-200 rounded-full"></div>
+                    </div>
+                  </div>
+                  <div class="space-y-1.5">
+                    <div
+                      class="h-2 w-3/4 bg-gray-200 rounded-full block-appear"
+                      style="--delay: 16s"
+                    ></div>
+                    <div
+                      class="h-2 w-1/2 bg-gray-200 rounded-full block-appear"
+                      style="--delay: 18s"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 03 -->
+          <div
+            class="reveal-left flex flex-col lg:flex-row items-center gap-12 lg:gap-16"
+          >
+            <div class="flex-1 max-w-[480px]">
+              <div class="flex items-center gap-4 mb-6">
+                <div
+                  class="w-14 h-14 rounded-2xl flex items-center justify-center border border-[#B8EDE8] bg-[#E8FAF8] shadow-sm"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-6 h-6 text-[#4ECDC4]"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z"
+                    ></path>
+                    <path d="M6 12h16"></path>
+                  </svg>
+                </div>
+                <div>
+                  <span
+                    class="text-[11px] font-bold text-gray-400 uppercase tracking-widest"
+                    >Étape 03</span
+                  >
+                  <h3
+                    class="text-[1.5rem] font-bold text-gray-900 tracking-tight leading-tight"
+                  >
+                    Livraison
+                  </h3>
+                </div>
+              </div>
+              <p
+                class="text-gray-500 font-medium text-[15px] leading-relaxed mb-6"
+              >
+                Vous validez, je déploie. Nom de domaine, SSL, hébergement —
+                tout est configuré. Votre site est en ligne.
+              </p>
+              <a
+                href="#rdv"
+                class="inline-flex items-center gap-2 text-[13px] font-bold text-gray-900 bg-white border border-gray-200 px-5 py-2.5 rounded-full hover:bg-gray-50 hover:gap-3 transition-all shadow-sm group"
+                >En savoir plus
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path></svg
+              ></a>
+            </div>
+            <div class="flex-1 max-w-[520px] w-full relative">
+              <div class="hidden"></div>
+              <div class="relative">
+                <div
+                  class="bg-white rounded-[20px] border border-gray-200/80 p-6 w-full shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+                >
+                  <!-- Header -->
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="flex items-center gap-2.5">
+                      <div
+                        class="w-8 h-8 rounded-xl bg-[#E6F9F0] flex items-center justify-center"
+                      >
+                        <svg
+                          class="w-4 h-4 text-[#2ECC71]"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                        >
+                          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                          <path d="M22 4 12 14.01l-3-3" />
+                        </svg>
+                      </div>
+                      <p class="text-[11px] font-bold text-gray-700">
+                        Déploiement
+                      </p>
+                    </div>
+                    <span
+                      class="flex items-center gap-1.5 text-[9px] font-bold text-[#2ECC71] bg-[#E6F9F0] px-3 py-1 rounded-full border border-[#B8E8D0]"
+                    >
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-[#2ECC71] animate-pulse"
+                      ></span>
+                      EN LIGNE
+                    </span>
+                  </div>
+                  <!-- Checklist avec labels -->
+                  <div class="space-y-4 mb-5">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="w-5 h-5 rounded-lg bg-[#E6F9F0] flex items-center justify-center"
+                      >
+                        <svg
+                          class="w-3 h-3 text-[#2ECC71] check-in"
+                          style="--delay: 1s"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="3"
+                        >
+                          <path d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span class="text-[11px] text-gray-600 font-medium"
+                        >Nom de domaine</span
+                      >
+                      <span
+                        class="ml-auto text-[8px] font-bold text-[#2ECC71] bg-[#E6F9F0] px-2 py-0.5 rounded-full"
+                        >Connecté</span
+                      >
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="w-5 h-5 rounded-lg bg-[#E8FAF8] flex items-center justify-center"
+                      >
+                        <svg
+                          class="w-3 h-3 text-[#4ECDC4] check-in"
+                          style="--delay: 3s"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="3"
+                        >
+                          <path d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span class="text-[11px] text-gray-600 font-medium"
+                        >Certificat SSL</span
+                      >
+                      <span
+                        class="ml-auto text-[8px] font-bold text-[#4ECDC4] bg-[#E8FAF8] px-2 py-0.5 rounded-full"
+                        >Actif</span
+                      >
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="w-5 h-5 rounded-lg bg-[#FFF3E0] flex items-center justify-center"
+                      >
+                        <svg
+                          class="w-3 h-3 text-[#E5943D] check-in"
+                          style="--delay: 5s"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="3"
+                        >
+                          <path d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span class="text-[11px] text-gray-600 font-medium"
+                        >Hébergement</span
+                      >
+                      <span
+                        class="ml-auto text-[8px] font-bold text-[#E5943D] bg-[#FFF3E0] px-2 py-0.5 rounded-full"
+                        >Déployé</span
+                      >
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="w-5 h-5 rounded-lg bg-[#F0EDFA] flex items-center justify-center"
+                      >
+                        <svg
+                          class="w-3 h-3 text-[#7C6BC4] check-in"
+                          style="--delay: 7s"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="3"
+                        >
+                          <path d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span class="text-[11px] text-gray-600 font-medium"
+                        >SEO configuré</span
+                      >
+                      <span
+                        class="ml-auto text-[8px] font-bold text-[#7C6BC4] bg-[#F0EDFA] px-2 py-0.5 rounded-full"
+                        >Optimisé</span
+                      >
+                    </div>
+                  </div>
+                  <!-- Progress bar -->
+                  <div>
+                    <div class="flex justify-between mb-1.5">
+                      <span class="text-[9px] text-gray-500 font-semibold"
+                        >Complet</span
+                      >
+                      <span class="text-[9px] font-bold text-[#2ECC71]"
+                        >100%</span
+                      >
+                    </div>
+                    <div class="h-2 bg-[#E6F9F0] rounded-full overflow-hidden">
+                      <div
+                        class="h-full bg-[#2ECC71] rounded-full progress-fill"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lancer mon site CTA -->
+          <div class="reveal flex flex-col items-center mt-16">
+            <div
+              class="w-px h-12 bg-gradient-to-b from-gray-200 to-transparent"
+            ></div>
+            <a
+              href="#rdv"
+              class="bg-[#2B2622] text-white px-6 py-3 rounded-full font-bold text-[13px] flex items-center gap-2 shadow-lg hover:bg-black hover:-translate-y-0.5 transition-all cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"
+                ></path>
+                <path d="M20 2v4"></path>
+                <path d="M22 4h-4"></path>
+                <circle cx="4" cy="20" r="2"></circle>
+              </svg>
+              Lancer mon site
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-3.5 h-3.5"
+                aria-hidden="true"
+              >
+                <path d="M7 7h10v10"></path>
+                <path d="M7 17 17 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section
+      id="features"
+      class="py-28 px-6 bg-[var(--color-dark-bg)] text-white"
+    >
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal text-center mb-16">
+          <span
+            class="inline-block bg-white/10 text-white/80 text-[11px] font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-5 border border-white/10"
+            >VISIBILITÉ</span
+          >
+          <h2
+            class="text-[2.5rem] md:text-[3.2rem] font-extrabold tracking-[-0.03em] mb-4 text-white"
+          >
+            Comment vos clients vous
+            <span class="text-[#4ECDC4]">trouvent</span>
+          </h2>
+          <p
+            class="text-gray-400 max-w-[580px] mx-auto text-[1.05rem] font-medium"
+          >
+            Vous ne quittez pas les plateformes de location. Vous les utilisez
+            comme tremplin pour capter vos clients et les fidéliser en direct.
+          </p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Feature 1: Depuis les plateformes -->
+          <div
+            class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
+          >
+            <div
+              class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-white/70"
+                aria-hidden="true"
+              >
+                <path d="M15 3h6v6"></path>
+                <path d="M10 14 21 3"></path>
+                <path
+                  d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-[1.15rem] font-bold mb-2 text-white">
+              Depuis les plateformes
+            </h3>
+            <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
+              Vous gardez vos annonces. Ajoutez le lien de votre site dans votre
+              bio et vos messages post-séjour. Vos clients fidèles bookent en
+              direct la prochaine fois.
+            </p>
+          </div>
+
+          <!-- Feature 2: Google SEO local -->
+          <div
+            class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
+          >
+            <div
+              class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-white/70"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </svg>
+            </div>
+            <h3 class="text-[1.15rem] font-bold mb-2 text-white">
+              Google SEO local
+            </h3>
+            <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
+              Votre site remonte dans Google pour "location [votre ville]". Du
+              trafic qualifié, gratuit, sans commission.
+            </p>
+          </div>
+
+          <!-- Feature 3: Instagram & réseaux -->
+          <div
+            class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
+          >
+            <div
+              class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-white/70"
+                aria-hidden="true"
+              >
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path
+                  d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                ></path>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+              </svg>
+            </div>
+            <h3 class="text-[1.15rem] font-bold mb-2 text-white">
+              Instagram & réseaux
+            </h3>
+            <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
+              Le lien en bio renvoie directement vers votre calendrier. Chaque
+              publication devient une source de réservations directes.
+            </p>
+          </div>
+
+          <!-- Feature 4: Anciens clients -->
+          <div
+            class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
+          >
+            <div
+              class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-white/70"
+                aria-hidden="true"
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <h3 class="text-[1.15rem] font-bold mb-2 text-white">
+              Anciens clients
+            </h3>
+            <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
+              Un simple email ou SMS à vos clients précédents. Ils rebookent
+              sans passer par les plateformes et vous économisez la commission.
+            </p>
+          </div>
+
+          <!-- Feature 5: QR code dans le logement -->
+          <div
+            class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
+          >
+            <div
+              class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-white/70"
+                aria-hidden="true"
+              >
+                <rect width="5" height="5" x="3" y="3" rx="1"></rect>
+                <rect width="5" height="5" x="16" y="3" rx="1"></rect>
+                <rect width="5" height="5" x="3" y="16" rx="1"></rect>
+                <path d="M21 16h-3a2 2 0 0 0-2 2v3"></path>
+                <path d="M21 21v.01"></path>
+                <path d="M12 7v3a2 2 0 0 1-2 2H7"></path>
+                <path d="M3 12h.01"></path>
+                <path d="M12 3h.01"></path>
+                <path d="M12 16v.01"></path>
+                <path d="M16 12h1"></path>
+                <path d="M21 12v.01"></path>
+                <path d="M12 21v-1"></path>
+              </svg>
+            </div>
+            <h3 class="text-[1.15rem] font-bold mb-2 text-white">
+              QR code dans le logement
+            </h3>
+            <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
+              Un QR code affiché chez vous invite vos guests à rebooker
+              directement pour leur prochaine visite, sans commission.
+            </p>
+          </div>
+
+          <!-- Feature 6: Bouche à oreille -->
+          <div
+            class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
+          >
+            <div
+              class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-white/70"
+                aria-hidden="true"
+              >
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-[1.15rem] font-bold mb-2 text-white">
+              Bouche à oreille
+            </h3>
+            <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
+              Vos clients satisfaits recommandent votre logement à leur
+              entourage avec un lien direct. Zéro commission sur ces
+              réservations.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OFFRES / PRICING -->
+    <section id="pricing" class="py-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal text-center mb-16">
+          <span
+            class="inline-flex items-center gap-2 bg-[var(--color-dark-bg)] text-white text-[11px] font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-5"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-3 h-3"
+            >
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            NOS OFFRES</span
+          >
+          <h2
+            class="text-[2.5rem] md:text-[3.2rem] font-extrabold tracking-[-0.03em] text-[#111] mb-4"
+          >
+            Un site, un prix, <span class="text-[#4ECDC4]">tout inclus</span>
+          </h2>
+          <p
+            class="text-gray-500 max-w-[520px] mx-auto text-[1.05rem] font-medium"
+          >
+            Paiement unique, pas d'abonnement. Votre site livré en 48h, prêt à
+            recevoir des réservations.
+          </p>
+        </div>
+
+        <div class="reveal grid md:grid-cols-3 gap-6 items-stretch">
+          <!-- Offre 1 : Essentiel -->
+          <div
+            class="bg-white rounded-[24px] border border-gray-200 p-8 shadow-sm flex flex-col"
+          >
+            <div class="mb-6">
+              <h3
+                class="text-[1.3rem] font-extrabold text-[var(--color-dark-bg)] mb-1"
+              >
+                Essentiel
+              </h3>
+              <p class="text-[13px] text-gray-400 font-medium">
+                Un site vitrine professionnel, clé en main.
+              </p>
+            </div>
+            <div class="mb-6">
+              <span
+                class="text-[2.8rem] font-extrabold text-[var(--color-dark-bg)] tracking-tight leading-none"
+                >497€</span
+              >
+              <span class="text-[14px] text-gray-400 font-medium ml-1"
+                >unique</span
+              >
+            </div>
+            <ul class="flex flex-col gap-3 mb-8 flex-1 pricing-list">
+              <li>Site vitrine responsive</li>
+              <li>Animations premium</li>
+              <li>Formulaire de contact</li>
+              <li>Configuration DNS incluse</li>
+              <li>Hébergement Vercel + SSL</li>
+              <li>Livraison en 48h</li>
+              <li>1 aller-retour de corrections</li>
+            </ul>
+            <a
+              href="#rdv"
+              class="block text-center bg-gray-100 text-[var(--color-dark-bg)] px-6 py-3.5 rounded-full font-bold text-[14px] hover:bg-gray-200 transition-all uppercase tracking-wider"
+            >
+              Choisir l'Essentiel
+            </a>
+          </div>
+
+          <!-- Offre 2 : Réservation (populaire) -->
+          <div
+            class="bg-white rounded-[24px] border-2 border-[#4ECDC4] p-8 shadow-[0_8px_40px_rgba(78,205,196,0.15)] flex flex-col relative md:scale-105 z-10"
+          >
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+              <span
+                class="bg-[#4ECDC4] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wider shadow-sm"
+                >Populaire</span
+              >
+            </div>
+            <div class="mb-6">
+              <h3
+                class="text-[1.3rem] font-extrabold text-[var(--color-dark-bg)] mb-1"
+              >
+                Réservation
+              </h3>
+              <p class="text-[13px] text-gray-400 font-medium">
+                Tout pour recevoir des réservations en direct.
+              </p>
+            </div>
+            <div class="mb-6">
+              <span
+                class="text-[2.8rem] font-extrabold text-[var(--color-dark-bg)] tracking-tight leading-none"
+                >897€</span
+              >
+              <span class="text-[14px] text-gray-400 font-medium ml-1"
+                >unique</span
+              >
+            </div>
+            <ul class="flex flex-col gap-3 mb-8 flex-1 pricing-list">
+              <li>Site responsive (5 pages)</li>
+              <li>Animations premium</li>
+              <li>Formulaire de contact</li>
+              <li>Configuration DNS incluse</li>
+              <li>Hébergement Vercel + SSL</li>
+              <li>Livraison en 48h</li>
+              <li>2 aller-retours de corrections</li>
+              <li>Paiement Stripe intégré</li>
+              <li>Sync calendrier Airbnb</li>
+              <li>SEO de base</li>
+              <li>Support 30 jours inclus</li>
+            </ul>
+            <a
+              href="#rdv"
+              class="block text-center bg-[var(--color-dark-bg)] text-white px-6 py-3.5 rounded-full font-bold text-[14px] hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-md uppercase tracking-wider"
+            >
+              Choisir la Réservation
+            </a>
+          </div>
+
+          <!-- Offre 3 : Complet -->
+          <div
+            class="bg-white rounded-[24px] border border-gray-200 p-8 shadow-sm flex flex-col"
+          >
+            <div class="mb-6">
+              <h3
+                class="text-[1.3rem] font-extrabold text-[var(--color-dark-bg)] mb-1"
+              >
+                Complet
+              </h3>
+              <p class="text-[13px] text-gray-400 font-medium">
+                Votre présence en ligne, de A à Z.
+              </p>
+            </div>
+            <div class="mb-6">
+              <span
+                class="text-[2.8rem] font-extrabold text-[var(--color-dark-bg)] tracking-tight leading-none"
+                >1 297€</span
+              >
+              <span class="text-[14px] text-gray-400 font-medium ml-1"
+                >unique</span
+              >
+            </div>
+            <ul class="flex flex-col gap-3 mb-8 flex-1 pricing-list">
+              <li>Site responsive (pages illim.)</li>
+              <li>Animations premium</li>
+              <li>Formulaire de contact</li>
+              <li>Configuration DNS incluse</li>
+              <li>Hébergement Vercel + SSL</li>
+              <li>Livraison en 48h</li>
+              <li>Corrections illimitées (2 sem.)</li>
+              <li>Paiement Stripe intégré</li>
+              <li>Sync calendrier Airbnb</li>
+              <li>SEO avancé + sitemap</li>
+              <li>Maintenance 1 an incluse</li>
+            </ul>
+            <a
+              href="#rdv"
+              class="block text-center bg-gray-100 text-[var(--color-dark-bg)] px-6 py-3.5 rounded-full font-bold text-[14px] hover:bg-gray-200 transition-all uppercase tracking-wider"
+            >
+              Choisir le Complet
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section id="testimonials" class="py-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal text-center mb-16">
+          <span
+            class="inline-block bg-[var(--color-dark-bg)] text-white text-[11px] font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-5"
+            >AVIS CLIENTS</span
+          >
+          <h2
+            class="text-[2.5rem] md:text-[3.2rem] font-extrabold tracking-[-0.03em] text-[#111] mb-4"
+          >
+            Ils nous font
+            <span class="text-[#4ECDC4]">confiance</span>
+          </h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Testimonial 1 - Ludovic -->
+          <div
+            class="reveal bg-white rounded-[28px] border border-gray-100 p-8 shadow-[0_8px_30px_rgba(30,25,20,0.03)] hover:shadow-[0_16px_48px_rgba(30,25,20,0.08)] hover:-translate-y-1 transition-all duration-300"
+          >
+            <div class="flex items-center gap-0.5 mb-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+            </div>
+            <p
+              class="text-[15px] text-gray-600 font-medium leading-relaxed mb-6"
+            >
+              "Nino a créé notre site en 2 jours. Le résultat est magnifique et
+              nos clients réservent directement."
+            </p>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-full bg-[var(--color-accent)] flex items-center justify-center text-white font-bold text-[14px]"
+              >
+                L
+              </div>
+              <div>
+                <p class="font-bold text-[14px] text-gray-900">Ludovic B.</p>
+                <p class="text-[12px] text-gray-400 font-medium">
+                  Propriétaire · Les Sardines Blanches
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 - Pierre-Yves -->
+          <div
+            class="reveal bg-white rounded-[28px] border border-gray-100 p-8 shadow-[0_8px_30px_rgba(30,25,20,0.03)] hover:shadow-[0_16px_48px_rgba(30,25,20,0.08)] hover:-translate-y-1 transition-all duration-300"
+          >
+            <div class="flex items-center gap-0.5 mb-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+            </div>
+            <p
+              class="text-[15px] text-gray-600 font-medium leading-relaxed mb-6"
+            >
+              "Un site qui nous ressemble enfin. Les réservations directes ont
+              doublé en 3 mois."
+            </p>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-full bg-[var(--color-dark-bg)] flex items-center justify-center text-white font-bold text-[14px]"
+              >
+                P
+              </div>
+              <div>
+                <p class="font-bold text-[14px] text-gray-900">
+                  Pierre-Yves P.
+                </p>
+                <p class="text-[12px] text-gray-400 font-medium">
+                  Propriétaire · K'Ban Lorizon
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 - Nicolas -->
+          <div
+            class="reveal bg-white rounded-[28px] border border-gray-100 p-8 shadow-[0_8px_30px_rgba(30,25,20,0.03)] hover:shadow-[0_16px_48px_rgba(30,25,20,0.08)] hover:-translate-y-1 transition-all duration-300"
+          >
+            <div class="flex items-center gap-0.5 mb-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 fill-[#E5C93D] text-[#E5C93D]"
+                aria-hidden="true"
+              >
+                <path
+                  d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                ></path>
+              </svg>
+            </div>
+            <p
+              class="text-[15px] text-gray-600 font-medium leading-relaxed mb-6"
+            >
+              "Un site à l'image de notre appartement. Élégant, efficace, les
+              réservations affluent."
+            </p>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white font-bold text-[14px]"
+              >
+                N
+              </div>
+              <div>
+                <p class="font-bold text-[14px] text-gray-900">Nicolas D.</p>
+                <p class="text-[12px] text-gray-400 font-medium">
+                  Propriétaire · Terrasse Opéra
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section id="faq" class="py-20 px-6">
+      <div class="max-w-3xl mx-auto">
+        <div class="reveal text-center mb-16">
+          <span
+            class="inline-block bg-[var(--color-dark-bg)] text-white text-[11px] font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-5"
+            >FAQ</span
+          >
+          <h2
+            class="text-[2.5rem] md:text-[3.2rem] font-extrabold tracking-[-0.03em] text-[#111] mb-4"
+          >
+            Questions <span class="text-[#4ECDC4]">fréquentes</span>
+          </h2>
+        </div>
+        <div class="flex flex-col gap-3">
+          <div
+            class="reveal bg-white rounded-[20px] border border-gray-100 shadow-[0_4px_20px_rgba(30,25,20,0.02)] overflow-hidden transition-all duration-300"
+          >
+            <button
+              onclick="toggleFaq(this)"
+              class="w-full text-left px-7 py-5 flex justify-between items-center gap-4"
+            >
+              <span class="text-[15px] font-bold text-gray-900"
+                >Combien de temps pour avoir mon site ?</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-gray-400 flex-shrink-0 faq-chevron transition-transform duration-300"
+                aria-hidden="true"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </button>
+            <div class="faq-answer">
+              <p
+                class="px-7 text-[14px] text-gray-500 font-medium leading-relaxed"
+              >
+                48h après réception de vos contenus (photos, textes,
+                informations sur votre bien).
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="reveal bg-white rounded-[20px] border border-gray-100 shadow-[0_4px_20px_rgba(30,25,20,0.02)] overflow-hidden transition-all duration-300"
+          >
+            <button
+              onclick="toggleFaq(this)"
+              class="w-full text-left px-7 py-5 flex justify-between items-center gap-4"
+            >
+              <span class="text-[15px] font-bold text-gray-900"
+                >Qu'est-ce que je dois fournir ?</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-gray-400 flex-shrink-0 faq-chevron transition-transform duration-300"
+                aria-hidden="true"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </button>
+            <div class="faq-answer">
+              <p
+                class="px-7 text-[14px] text-gray-500 font-medium leading-relaxed"
+              >
+                Photos de votre bien, textes descriptifs, logo (optionnel), et
+                les couleurs souhaitées. Je vous guide avec un formulaire
+                simple.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="reveal bg-white rounded-[20px] border border-gray-100 shadow-[0_4px_20px_rgba(30,25,20,0.02)] overflow-hidden transition-all duration-300"
+          >
+            <button
+              onclick="toggleFaq(this)"
+              class="w-full text-left px-7 py-5 flex justify-between items-center gap-4"
+            >
+              <span class="text-[15px] font-bold text-gray-900"
+                >Est-ce que je peux modifier mon site après ?</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-gray-400 flex-shrink-0 faq-chevron transition-transform duration-300"
+                aria-hidden="true"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </button>
+            <div class="faq-answer">
+              <p
+                class="px-7 text-[14px] text-gray-500 font-medium leading-relaxed"
+              >
+                Oui, un aller-retour de corrections est inclus. Au-delà, les
+                modifications sont facturées à l'heure.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="reveal bg-white rounded-[20px] border border-gray-100 shadow-[0_4px_20px_rgba(30,25,20,0.02)] overflow-hidden transition-all duration-300"
+          >
+            <button
+              onclick="toggleFaq(this)"
+              class="w-full text-left px-7 py-5 flex justify-between items-center gap-4"
+            >
+              <span class="text-[15px] font-bold text-gray-900"
+                >Comment fonctionne le paiement Stripe ?</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-gray-400 flex-shrink-0 faq-chevron transition-transform duration-300"
+                aria-hidden="true"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </button>
+            <div class="faq-answer">
+              <p
+                class="px-7 text-[14px] text-gray-500 font-medium leading-relaxed"
+              >
+                Vos clients paient directement sur votre site. L'argent arrive
+                sur votre compte Stripe sous 2-7 jours.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="reveal bg-white rounded-[20px] border border-gray-100 shadow-[0_4px_20px_rgba(30,25,20,0.02)] overflow-hidden transition-all duration-300"
+          >
+            <button
+              onclick="toggleFaq(this)"
+              class="w-full text-left px-7 py-5 flex justify-between items-center gap-4"
+            >
+              <span class="text-[15px] font-bold text-gray-900"
+                >Et si je n'ai pas de nom de domaine ?</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-gray-400 flex-shrink-0 faq-chevron transition-transform duration-300"
+                aria-hidden="true"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </button>
+            <div class="faq-answer">
+              <p
+                class="px-7 text-[14px] text-gray-500 font-medium leading-relaxed"
+              >
+                C'est inclus dans l'offre Complet. Sinon, je vous guide pour en
+                acheter un (environ 10€/an).
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="reveal bg-white rounded-[20px] border border-gray-100 shadow-[0_4px_20px_rgba(30,25,20,0.02)] overflow-hidden transition-all duration-300"
+          >
+            <button
+              onclick="toggleFaq(this)"
+              class="w-full text-left px-7 py-5 flex justify-between items-center gap-4"
+            >
+              <span class="text-[15px] font-bold text-gray-900"
+                >Vous faites aussi la maintenance ?</span
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-gray-400 flex-shrink-0 faq-chevron transition-transform duration-300"
+                aria-hidden="true"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </button>
+            <div class="faq-answer">
+              <p
+                class="px-7 text-[14px] text-gray-500 font-medium leading-relaxed"
+              >
+                Incluse 1 an dans l'offre Complet. Disponible en option pour les
+                autres offres.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RÉSERVER UN APPEL -->
+    <section id="rdv" class="py-28 px-6">
+      <div class="max-w-4xl mx-auto">
+        <div class="reveal text-center mb-14">
+          <span
+            class="inline-flex items-center gap-2 bg-[var(--color-dark-bg)] text-white text-[11px] font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-5"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-3 h-3"
+            >
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            PRENDRE RENDEZ-VOUS</span
+          >
+          <h2
+            class="text-[2.5rem] md:text-[3.2rem] font-extrabold tracking-[-0.03em] text-[#111] mb-4"
+          >
+            Discutons de <span class="text-[#4ECDC4]">votre projet</span>
+          </h2>
+          <p
+            class="text-gray-500 max-w-[520px] mx-auto text-[1.05rem] font-medium"
+          >
+            Réservez un appel gratuit de 15 min. On discute de votre projet,
+            sans engagement.
+          </p>
+        </div>
+        <div
+          class="reveal rounded-[24px] bg-white border border-gray-200 shadow-sm overflow-hidden"
+          style="min-height: 500px"
+        >
+          <div
+            id="cal-inline"
+            style="width: 100%; height: 100%; overflow: auto"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cal.com Embed Script -->
+    <script>
+      (function (C, A, L) {
+        let p = function (a, ar) {
+          a.q.push(ar);
+        };
+        let d = C.document;
+        C.Cal =
+          C.Cal ||
+          function () {
+            let cal = C.Cal;
+            let ar = arguments;
+            if (!cal.loaded) {
+              cal.ns = {};
+              cal.q = cal.q || [];
+              d.head.appendChild(d.createElement("script")).src = A;
+              cal.loaded = true;
+            }
+            if (ar[0] === L) {
+              const api = function () {
+                p(api, arguments);
+              };
+              const namespace = ar[1];
+              api.q = api.q || [];
+              if (typeof namespace === "string") {
+                cal.ns[namespace] = cal.ns[namespace] || api;
+                p(cal.ns[namespace], ar);
+                p(cal, ["initNamespace", namespace]);
+              } else p(cal, ar);
+              return;
+            }
+            p(cal, ar);
+          };
+      })(window, "https://app.cal.com/embed/embed.js", "init");
+
+      Cal("init", { origin: "https://cal.com" });
+      Cal("inline", {
+        elementOrSelector: "#cal-inline",
+        calLink: "porphyrestudio",
+        layout: "month_view",
+      });
+      Cal("ui", {
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+    </script>
+
+    <!-- FOOTER (with CTA inside) -->
+    <footer class="bg-[var(--color-dark-bg)] text-white pt-20 pb-8 px-6">
+      <!-- CTA -->
+      <div class="reveal max-w-4xl mx-auto text-center mb-20">
+        <span
+          class="inline-block bg-white/10 text-white/80 text-[11px] font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-5 border border-white/10"
+          >PRÊT À COMMENCER ?</span
+        >
+        <h2
+          class="text-[2.5rem] md:text-[3.5rem] font-extrabold tracking-[-0.03em] mb-4"
+        >
+          Lancez votre site
+        </h2>
+        <p
+          class="text-gray-400 max-w-[520px] mx-auto text-[1.05rem] font-medium mb-8"
+        >
+          Paiement unique, livraison en 48h. Choisissez l'offre qui correspond à
+          votre besoin et recevez votre site clé en main.
+        </p>
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <a
+            href="#pricing"
+            class="w-full sm:w-auto bg-white text-[var(--color-dark-bg)] px-8 py-4 rounded-full font-bold text-[15px] hover:bg-gray-100 hover:-translate-y-0.5 transition-all shadow-sm uppercase tracking-wider"
+          >
+            Choisir mon offre
+          </a>
+          <a
+            href="https://cal.com/porphyrestudio"
+            target="_blank"
+            class="w-full sm:w-auto border border-white/30 text-white px-8 py-4 rounded-full font-bold text-[15px] hover:bg-white/10 hover:-translate-y-0.5 transition-all uppercase tracking-wider"
+          >
+            Réserver un appel gratuit
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer Links -->
+      <div class="max-w-6xl mx-auto border-t border-white/10 pt-12">
+        <div class="grid md:grid-cols-4 gap-10 mb-12">
+          <div>
+            <div class="flex items-center gap-2.5 font-bold text-[15px] mb-4">
+              <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="16" fill="#4ECDC4"></circle>
+                <path
+                  d="M16 9V23M9 16H23M12 12L20 20M12 20L20 12"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                ></path>
+              </svg>
+              Porphyre Studio
+            </div>
+            <p class="text-gray-400 text-[13px] font-medium leading-relaxed">
+              Sites web clé en main pour locations saisonnières.
+            </p>
+          </div>
+          <div>
+            <h4
+              class="font-bold text-[13px] mb-4 text-white/80 uppercase tracking-wider"
+            >
+              Navigation
+            </h4>
+            <ul class="flex flex-col gap-2.5">
+              <li>
+                <a
+                  href="#how-it-works"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Comment ça marche</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#features"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Visibilité</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#pricing"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Tarifs</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#faq"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >FAQ</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              class="font-bold text-[13px] mb-4 text-white/80 uppercase tracking-wider"
+            >
+              Réalisations
+            </h4>
+            <ul class="flex flex-col gap-2.5">
+              <li>
+                <a
+                  href="#realisations"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Les Sardines Blanches</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#realisations"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >K'Ban Lorizon</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#testimonials"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Avis clients</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              class="font-bold text-[13px] mb-4 text-white/80 uppercase tracking-wider"
+            >
+              Contact
+            </h4>
+            <ul class="flex flex-col gap-2.5">
+              <li>
+                <a
+                  href="#rdv"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Prendre un appel</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://instagram.com/ninoporphyre"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Instagram</a
+                >
+              </li>
+              <li>
+                <a
+                  href="mailto:contact@ninoporphyre.fr"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >contact@ninoporphyre.fr</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-gray-500 font-medium"
+        >
+          <span>&copy; 2026 Porphyre Studio. Tous droits réservés.</span>
+          <div class="flex items-center gap-4">
+            <a href="#mentions-legales" class="hover:text-white transition"
+              >Mentions légales</a
+            >
+            <span class="text-white/20">|</span>
+            <span>SIRET 933 521 056 000 12</span>
+          </div>
+        </div>
+        <!-- Mentions légales -->
+        <div
+          id="mentions-legales"
+          class="border-t border-white/10 mt-8 pt-8 text-[11px] text-gray-600 font-medium leading-relaxed max-w-3xl"
+        >
+          <p class="mb-2">
+            <strong class="text-gray-400">Éditeur :</strong> Nino Porphyre —
+            SIRET 933 521 056 000 12 — TVA non applicable, art. 293B du CGI —
+            contact@ninoporphyre.fr
+          </p>
+          <p>
+            <strong class="text-gray-400">Hébergement :</strong> Vercel Inc. —
+            440 N Barranca Ave #4133, Covina, CA 91723, USA
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- SIMULATEUR MODAL -->
+    <div
+      id="simulateur"
+      class="hidden fixed inset-0 z-[100] flex items-center justify-center px-4"
+    >
+      <div
+        class="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        onclick="
+          document.getElementById('simulateur').classList.add('hidden');
+          document.body.style.overflow = '';
+        "
+      ></div>
+      <div
+        class="relative bg-white rounded-[24px] w-full max-w-[960px] p-10 shadow-[0_40px_80px_-20px_rgba(30,25,20,0.15),0_0_0_1px_rgba(255,255,255,0.8)_inset] border border-gray-100"
+      >
+        <!-- Close -->
+        <button
+          onclick="
+            document.getElementById('simulateur').classList.add('hidden');
+            document.body.style.overflow = '';
+          "
+          class="absolute top-6 right-6 text-gray-400 hover:text-gray-900 transition"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+
+        <!-- Header -->
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-8 h-[2px] bg-[#2B2622]"></div>
+          <span
+            class="text-[11px] font-bold text-gray-400 uppercase tracking-widest"
+            >Simulateur</span
+          >
+        </div>
+        <h3 class="text-[1.5rem] font-bold text-[#2B2622] mb-6">
+          Combien vous coutent les
+          <em class="text-[#7D7770] font-bold italic">plateformes</em> ?
+        </h3>
+
+        <!-- Slider: Prix par nuit -->
+        <div class="mb-5">
+          <div class="flex justify-between items-center mb-2">
+            <span
+              class="text-[11px] font-bold text-gray-400 uppercase tracking-widest"
+              >Prix par nuit</span
+            >
+            <span id="prix-val" class="text-[18px] font-bold text-[#2B2622]"
+              >150&euro;</span
+            >
+          </div>
+          <input
+            type="range"
+            id="prix-range"
+            min="50"
+            max="500"
+            value="150"
+            step="10"
+            class="sim-range w-full"
+            oninput="updateSim()"
+          />
+        </div>
+
+        <!-- Slider: Taux occupation -->
+        <div class="mb-6">
+          <div class="flex justify-between items-center mb-2">
+            <span
+              class="text-[11px] font-bold text-gray-400 uppercase tracking-widest"
+              >Taux d'occupation annuel</span
+            >
+            <span id="taux-val" class="text-[18px] font-bold text-[#2B2622]"
+              >50%</span
+            >
+          </div>
+          <input
+            type="range"
+            id="taux-range"
+            min="10"
+            max="100"
+            value="50"
+            step="5"
+            class="sim-range w-full"
+            oninput="updateSim()"
+          />
+        </div>
+
+        <!-- Results banner -->
+        <div
+          class="bg-[#FAFAF8] border border-gray-100 rounded-[20px] p-5 flex mb-5"
+        >
+          <div class="flex-1 border-r border-gray-200 pr-5">
+            <p
+              class="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1"
+            >
+              Économie annuelle vs plateformes
+            </p>
+            <p class="text-[1.8rem] font-bold text-[#4ECDC4]">
+              + <span id="eco-val">4 140</span>&euro;
+              <span class="text-[14px] font-medium text-gray-400">/an</span>
+            </p>
+          </div>
+          <div class="flex-1 pl-5 text-right">
+            <p
+              class="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1"
+            >
+              Site remboursé en
+            </p>
+            <p class="text-[1.8rem] font-bold text-[#4ECDC4]">
+              <span id="jours-val">88</span> jours
+            </p>
+            <p class="text-[13px] text-gray-400 font-medium">
+              soit <span id="nuits-val">44</span> nuits réservées
+            </p>
+          </div>
+        </div>
+
+        <!-- 3 Comparison cards -->
+        <div class="grid grid-cols-3 gap-4">
+          <!-- Airbnb -->
+          <div class="bg-[#FAFAF8] border border-gray-100 rounded-[20px] p-5">
+            <h4 class="text-[15px] font-bold text-[#2B2622] mb-0.5">AIRBNB</h4>
+            <p class="text-[13px] text-gray-400 font-medium mb-3">
+              Commission : 15,5%
+            </p>
+            <p class="text-[1.4rem] font-bold text-[#FF6B6B] mb-1">
+              - <span id="airbnb-com">4 255</span>&euro;
+            </p>
+            <p class="text-[11px] text-gray-400 font-medium mb-3">
+              prélevés sur l'année
+            </p>
+            <div class="flex flex-col gap-2 text-[13px]">
+              <div class="flex justify-between">
+                <span class="text-gray-400">Revenu brut</span
+                ><span class="text-[#2B2622] font-bold" id="airbnb-brut"
+                  >27 450&euro;</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Commission</span
+                ><span class="text-[#2B2622] font-bold" id="airbnb-comm"
+                  >- 4 255&euro;</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Revenu net</span
+                ><span class="text-[#2B2622] font-bold" id="airbnb-net"
+                  >23 195&euro;</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Par nuit</span
+                ><span class="text-[#2B2622] font-bold" id="airbnb-nuit"
+                  >- 23,25 &euro;</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Booking -->
+          <div class="bg-[#FAFAF8] border border-gray-100 rounded-[20px] p-5">
+            <h4 class="text-[15px] font-bold text-[#2B2622] mb-0.5">BOOKING</h4>
+            <p class="text-[13px] text-gray-400 font-medium mb-3">
+              Commission : ~18%
+            </p>
+            <p class="text-[1.4rem] font-bold text-[#FF6B6B] mb-1">
+              - <span id="booking-com">4 941</span>&euro;
+            </p>
+            <p class="text-[11px] text-gray-400 font-medium mb-3">
+              prélevés sur l'année
+            </p>
+            <div class="flex flex-col gap-2 text-[13px]">
+              <div class="flex justify-between">
+                <span class="text-gray-400">Revenu brut</span
+                ><span class="text-[#2B2622] font-bold" id="booking-brut"
+                  >27 450&euro;</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Commission</span
+                ><span class="text-[#2B2622] font-bold" id="booking-comm"
+                  >- 4 941&euro;</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Revenu net</span
+                ><span class="text-[#2B2622] font-bold" id="booking-net"
+                  >22 509&euro;</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Par nuit</span
+                ><span class="text-[#2B2622] font-bold" id="booking-nuit"
+                  >- 27,00 &euro;</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Votre site -->
+          <div
+            class="bg-[#FAFAF8] border border-gray-200 rounded-[20px] p-5 relative shadow-[0_4px_20px_rgba(30,25,20,0.04)]"
+          >
+            <div class="flex items-center justify-between mb-0.5">
+              <h4 class="text-[15px] font-bold text-[#2B2622]">VOTRE SITE</h4>
+            </div>
+            <p class="text-[13px] text-gray-400 font-medium mb-3">
+              Stripe : 1,5% + 0,25&euro;
+            </p>
+            <p class="text-[1.4rem] font-bold text-gray-400 mb-1">
+              - <span id="site-com">458</span>&euro;
+            </p>
+            <p class="text-[11px] text-gray-400 font-medium mb-3">
+              prélevés sur l'année
+            </p>
+            <div class="flex flex-col gap-2 text-[13px]">
+              <div class="flex justify-between">
+                <span class="text-gray-400">Revenu brut</span
+                ><span class="text-[#2B2622] font-bold" id="site-brut"
+                  >27 450&euro;</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Commission</span
+                ><span class="text-[#2B2622] font-bold" id="site-comm"
+                  >- 458&euro;</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Revenu net</span
+                ><span class="text-[#2B2622] font-bold" id="site-net"
+                  >26 993&euro;</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Par nuit</span
+                ><span class="text-[#2B2622] font-bold" id="site-nuit"
+                  >- 2,50 &euro;</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+      // Simulateur — pain point commissions
+      function updateSimulator() {
+        const price = parseInt(document.getElementById("sim-price").value);
+        const occ = parseInt(document.getElementById("sim-occ").value);
+
+        document.getElementById("sim-price-value").textContent = price + "€";
+        document.getElementById("sim-occ-value").textContent = occ + "%";
+
+        const nights = Math.round((365 * occ) / 100);
+        const ca = price * nights;
+        const loss = Math.round(ca * 0.15);
+
+        const fmt = (n) => Math.round(n).toLocaleString("fr-FR") + "€";
+        document.getElementById("sim-ca").textContent = fmt(ca);
+        document.getElementById("sim-price-echo").textContent = price + "€";
+        document.getElementById("sim-nights").textContent = nights;
+        document.getElementById("sim-loss").textContent = "- " + fmt(loss);
+        document.getElementById("sim-savings").textContent = "+ " + fmt(loss);
+        document.getElementById("sim-equiv-nights").textContent = Math.round(
+          loss / price,
+        );
+        document.getElementById("sim-equiv-months").textContent = fmt(
+          Math.round(loss / 12),
+        );
+        document.getElementById("sim-equiv-5y").textContent = fmt(loss * 5);
+        const sitePrice = 897;
+        const dailySaving = loss / 365;
+        const paybackDays =
+          dailySaving > 0 ? Math.round(sitePrice / dailySaving) : 0;
+        document.getElementById("sim-payback").textContent = paybackDays;
+
+        // Pulse effect on key numbers
+        ["sim-loss", "sim-savings", "sim-ca"].forEach((id) => {
+          const el = document.getElementById(id);
+          el.style.transition = "transform 0.2s ease";
+          el.style.transform = "scale(1.06)";
+          setTimeout(() => (el.style.transform = "scale(1)"), 200);
+        });
+      }
+      updateSimulator();
+
+      // FAQ Accordion Toggle
+      function toggleFaq(button) {
+        const answer = button.nextElementSibling;
+        const chevron = button.querySelector(".faq-chevron");
+        const isOpen = answer.classList.contains("open");
+
+        // Close all other FAQs
+        document.querySelectorAll(".faq-answer").forEach((a) => {
+          a.classList.remove("open");
+          a.style.maxHeight = "0";
+        });
+        document.querySelectorAll(".faq-chevron").forEach((c) => {
+          c.classList.remove("rotated");
+        });
+
+        // Toggle current
+        if (!isOpen) {
+          answer.classList.add("open");
+          answer.style.maxHeight = answer.scrollHeight + 20 + "px";
+          chevron.classList.add("rotated");
+        }
+      }
+
+      // Scroll Reveal Animation
+      function handleReveal() {
+        const reveals = document.querySelectorAll(
+          ".reveal, .reveal-left, .reveal-right",
+        );
+        const windowHeight = window.innerHeight;
+        reveals.forEach((el) => {
+          const elementTop = el.getBoundingClientRect().top;
+          if (elementTop < windowHeight - 80) {
+            el.classList.add("active");
+          }
+        });
+      }
+
+      window.addEventListener("scroll", handleReveal);
+      window.addEventListener("DOMContentLoaded", handleReveal);
+      // Trigger immediately as well
+      handleReveal();
+
+      // Showcase cards slide-up animation
+      const showcaseCards = document.querySelectorAll(".showcase-card");
+      const showcaseObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Toutes les cards arrivent en même temps
+              document
+                .querySelectorAll(".showcase-card")
+                .forEach((c) => c.classList.add("visible"));
+              showcaseObserver.disconnect();
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      showcaseObserver.observe(document.querySelector(".showcase-card"));
+
+      // Simulator
+      function fmt(n) {
+        return Math.round(n).toLocaleString("fr-FR");
+      }
+      function updateSim() {
+        const prix = parseInt(document.getElementById("prix-range").value);
+        const taux = parseInt(document.getElementById("taux-range").value);
+        document.getElementById("prix-val").textContent = prix + "€";
+        document.getElementById("taux-val").textContent = taux + "%";
+
+        const nuits = Math.round((365 * taux) / 100);
+        const brut = prix * nuits;
+
+        // Airbnb 15.5%
+        const airbnbCom = brut * 0.155;
+        const airbnbNet = brut - airbnbCom;
+        const airbnbNuit = prix * 0.155;
+
+        // Booking 18%
+        const bookingCom = brut * 0.18;
+        const bookingNet = brut - bookingCom;
+        const bookingNuit = prix * 0.18;
+
+        // Stripe 1.5% + 0.25€
+        const siteCom = brut * 0.015 + nuits * 0.25;
+        const siteNet = brut - siteCom;
+        const siteNuit = prix * 0.015 + 0.25;
+
+        // Eco vs average plateformes (airbnb)
+        const eco = airbnbCom - siteCom;
+        const prixSite = 497;
+        const joursRembourse = Math.round(prixSite / (eco / 365));
+        const nuitsRembourse = Math.round(
+          (prixSite / (prix - prix * 0.015 - 0.25)) * ((365 / taux) * 100),
+        );
+
+        document.getElementById("eco-val").textContent = fmt(eco);
+        document.getElementById("jours-val").textContent = joursRembourse;
+        document.getElementById("nuits-val").textContent = Math.round(
+          (prixSite / prix) * (100 / taux) + 1,
+        );
+
+        document.getElementById("airbnb-com").textContent = fmt(airbnbCom);
+        document.getElementById("airbnb-brut").textContent = fmt(brut) + "€";
+        document.getElementById("airbnb-comm").textContent =
+          "- " + fmt(airbnbCom) + "€";
+        document.getElementById("airbnb-net").textContent =
+          fmt(airbnbNet) + "€";
+        document.getElementById("airbnb-nuit").textContent =
+          "- " + airbnbNuit.toFixed(2).replace(".", ",") + " €";
+
+        document.getElementById("booking-com").textContent = fmt(bookingCom);
+        document.getElementById("booking-brut").textContent = fmt(brut) + "€";
+        document.getElementById("booking-comm").textContent =
+          "- " + fmt(bookingCom) + "€";
+        document.getElementById("booking-net").textContent =
+          fmt(bookingNet) + "€";
+        document.getElementById("booking-nuit").textContent =
+          "- " + bookingNuit.toFixed(2).replace(".", ",") + " €";
+
+        document.getElementById("site-com").textContent = fmt(siteCom);
+        document.getElementById("site-brut").textContent = fmt(brut) + "€";
+        document.getElementById("site-comm").textContent =
+          "- " + fmt(siteCom) + "€";
+        document.getElementById("site-net").textContent = fmt(siteNet) + "€";
+        document.getElementById("site-nuit").textContent =
+          "- " + siteNuit.toFixed(2).replace(".", ",") + " €";
+      }
+    </script>
+  </body>
+</html>
