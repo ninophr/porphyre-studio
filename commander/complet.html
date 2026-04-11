@@ -118,8 +118,10 @@
         color: #2b2622;
       }
       input::placeholder,
-      textarea::placeholder,
-      select {
+      textarea::placeholder {
+        color: #b8b0a6;
+      }
+      select.placeholder {
         color: #b8b0a6;
       }
       input:focus,
@@ -137,9 +139,13 @@
       select {
         cursor: pointer;
         appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23b8b0a6' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        padding-right: 44px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%239a938b' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
         background-repeat: no-repeat;
-        background-position: right 16px center;
+        background-position: right 14px center;
+      }
+      select:hover {
+        border-color: #c4bfb8;
       }
 
       /* Summary card glow */
@@ -194,9 +200,9 @@
     </nav>
 
     <main class="pt-20 pb-12 px-6">
-      <div class="max-w-5xl mx-auto flex flex-col lg:flex-row gap-10">
+      <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12">
         <!-- LEFT: FORM -->
-        <div class="flex-1 max-w-[640px]">
+        <div class="flex-1 max-w-[720px]">
           <!-- STEPPER -->
           <div class="flex items-center gap-0 mb-7 max-w-[340px]">
             <div class="flex flex-col items-center gap-1">
@@ -236,7 +242,7 @@
             <p class="text-[#9a938b] text-[13px] font-medium mb-5">
               Ces informations nous permettent de personnaliser votre site.
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4">
+            <div class="grid grid-cols-2 gap-x-5 gap-y-4">
               <div>
                 <label
                   class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-1.5"
@@ -315,7 +321,7 @@
             </div>
             <button
               onclick="goToStep(2)"
-              class="mt-6 w-full bg-[var(--color-dark-bg)] text-white py-3.5 rounded-full font-bold text-[14px] hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all uppercase tracking-wider"
+              class="mt-6 w-full bg-[var(--color-dark-bg)] text-white py-3.5 rounded-full font-bold text-[14px] hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all shadow-md uppercase tracking-wider"
             >
               Continuer
             </button>
@@ -491,7 +497,7 @@
                 </div>
                 <div class="flex justify-between">
                   <span class="text-[#9a938b]">Prix</span
-                  ><span class="text-[#2B2622] font-bold">1 297&#8364;</span>
+                  ><span class="text-[#2B2622] font-bold">1297&#8364;</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-[#9a938b]">Livraison</span
@@ -565,7 +571,7 @@
         </div>
 
         <!-- RIGHT: ORDER SUMMARY (desktop) -->
-        <div class="hidden lg:block w-[340px] flex-shrink-0">
+        <div class="hidden lg:block w-[360px] flex-shrink-0">
           <div class="summary-card sticky top-28 p-8">
             <div class="flex items-center justify-between mb-6">
               <h3 class="font-extrabold text-[17px] text-[#2B2622]">
@@ -573,13 +579,13 @@
               </h3>
               <span
                 class="bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider"
-                >Populaire</span
+                >Premium</span
               >
             </div>
             <p
               class="text-[2.5rem] font-extrabold text-[#2B2622] tracking-tight leading-none mb-1"
             >
-              1 297&#8364;
+              1297&#8364;
             </p>
             <p class="text-[13px] text-[#c4bfb8] font-medium mb-7">
               Paiement unique
@@ -603,7 +609,7 @@
                   >
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
-                  Site responsive (pages illimitees)
+                  Site vitrine responsive (8 pages)
                 </li>
                 <li class="flex items-start gap-2.5">
                   <svg
@@ -635,7 +641,7 @@
                   >
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
-                  Paiement Stripe integre
+                  Configuration DNS incluse
                 </li>
                 <li class="flex items-start gap-2.5">
                   <svg
@@ -651,7 +657,7 @@
                   >
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
-                  Sync calendrier Airbnb
+                  Hebergement Vercel + SSL
                 </li>
                 <li class="flex items-start gap-2.5">
                   <svg
@@ -683,7 +689,7 @@
                   >
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
-                  Maintenance 1 an incluse
+                  Corrections illimitées
                 </li>
               </ul>
             </div>
@@ -742,6 +748,13 @@
     </main>
 
     <script>
+      // Select placeholder color
+      document.querySelectorAll("select").forEach((sel) => {
+        const update = () => sel.classList.toggle("placeholder", !sel.value);
+        update();
+        sel.addEventListener("change", update);
+      });
+
       let currentStep = 1;
 
       function goToStep(step) {
