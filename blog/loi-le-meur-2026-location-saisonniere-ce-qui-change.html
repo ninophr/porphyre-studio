@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="fr" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Loi Le Meur 2026 : ce qui change pour votre location saisonniere —
+      Porphyre Studio
+    </title>
+    <meta
+      name="description"
+      content="La loi Le Meur reduit les avantages fiscaux des meubles de tourisme, impose le DPE et renforce les pouvoirs des maires. Decouvrez comment vous adapter."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com?plugins="></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', "sans-serif"],
+              handwriting: ['"Caveat"', "cursive"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --font-jakarta: "Plus Jakarta Sans", sans-serif;
+        --font-caveat: "Caveat", cursive;
+        --font-sans: var(--font-jakarta), sans-serif;
+        --font-handwriting: var(--font-caveat), cursive;
+        --color-dark-bg: #1a1715;
+        --color-accent: #4ecdc4;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: #4a4540;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        background-color: #f5f1e8;
+      }
+
+      .reveal {
+        opacity: 0;
+        transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(40px);
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body class="font-sans antialiased">
+    <!-- NAV MOBILE -->
+    <div class="fixed top-4 left-4 right-4 z-50 md:hidden">
+      <div
+        class="flex items-center justify-between bg-[#1A1715]/95 backdrop-blur-md text-white rounded-full px-4 py-2.5 shadow-[0_12px_32px_rgba(30,25,20,0.15)]"
+      >
+        <a href="/" class="rounded-full w-8 h-8 overflow-hidden">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="16" fill="#4ECDC4"></circle>
+            <path
+              d="M16 9V23M9 16H23M12 12L20 20M12 20L20 12"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+            ></path>
+          </svg>
+        </a>
+        <button
+          onclick="
+            document.getElementById('mobile-menu').classList.toggle('hidden')
+          "
+          class="text-white p-1"
+        >
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </div>
+      <div
+        id="mobile-menu"
+        class="hidden mt-2 bg-[#1A1715]/95 backdrop-blur-md rounded-2xl p-5 shadow-[0_12px_32px_rgba(30,25,20,0.15)]"
+      >
+        <ul class="flex flex-col gap-4 text-[15px] font-medium text-gray-300">
+          <li>
+            <a href="/tarifs" class="hover:text-white transition-colors"
+              >Offres</a
+            >
+          </li>
+          <li>
+            <a href="/portfolio" class="hover:text-white transition-colors"
+              >Portfolio</a
+            >
+          </li>
+          <li><a href="/blog" class="text-white transition-colors">Blog</a></li>
+          <li>
+            <a href="/rendez-vous" class="hover:text-white transition-colors"
+              >Contact</a
+            >
+          </li>
+        </ul>
+        <a
+          href="/tarifs"
+          class="mt-5 block text-center bg-white text-black px-6 py-3 rounded-full text-[14px] font-bold"
+          >Choisir mon offre</a
+        >
+      </div>
+    </div>
+
+    <!-- NAV DESKTOP -->
+    <nav
+      class="fixed top-6 left-0 right-0 z-50 mx-auto bg-[#1A1715]/95 backdrop-blur-md text-white rounded-full p-1.5 hidden md:flex items-center shadow-[0_12px_32px_rgba(30,25,20,0.15),0_0_0_1px_rgba(255,255,255,0.05)_inset] w-max"
+    >
+      <a href="/" class="rounded-full w-8 h-8 overflow-hidden mr-6 ml-1">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="16" fill="#4ECDC4"></circle>
+          <path
+            d="M16 9V23M9 16H23M12 12L20 20M12 20L20 12"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+      </a>
+      <ul class="flex items-center gap-7 text-[13px] font-medium text-gray-300">
+        <li>
+          <a href="/tarifs" class="hover:text-white transition-colors"
+            >Offres</a
+          >
+        </li>
+        <li>
+          <a href="/portfolio" class="hover:text-white transition-colors"
+            >Portfolio</a
+          >
+        </li>
+        <li><a href="/blog" class="text-white transition-colors">Blog</a></li>
+        <li>
+          <a href="/rendez-vous" class="hover:text-white transition-colors"
+            >Contact</a
+          >
+        </li>
+      </ul>
+      <div class="flex items-center gap-3 ml-6 pl-6 border-l border-gray-700">
+        <a
+          href="/rendez-vous"
+          class="flex items-center gap-2 text-[13px] font-semibold text-gray-300 hover:text-white transition-colors"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
+            ></path>
+          </svg>
+          Appel gratuit
+        </a>
+        <a
+          href="/tarifs"
+          class="bg-white text-black px-6 py-2.5 rounded-full text-[13px] font-bold hover:bg-gray-100 hover:scale-[1.02] transition-all shadow-sm"
+          >Choisir mon offre</a
+        >
+      </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <section class="pt-28 md:pt-36 pb-4 px-6">
+      <div class="max-w-3xl mx-auto">
+        <nav
+          class="reveal flex items-center gap-2 text-[13px] font-medium text-gray-400"
+        >
+          <a
+            href="/blog"
+            class="hover:text-[var(--color-accent)] transition-colors"
+            >Blog</a
+          >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+          <span class="text-gray-600">Loi Le Meur 2026</span>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ARTICLE HEADER -->
+    <section class="pb-10 px-6">
+      <div class="max-w-3xl mx-auto">
+        <div class="reveal flex items-center gap-3 mb-6">
+          <span
+            class="bg-[var(--color-dark-bg)] text-white text-[12px] font-semibold px-3 py-1.5 rounded-full"
+            >6 avril 2026</span
+          >
+          <span
+            class="bg-[var(--color-dark-bg)] text-white text-[12px] font-semibold px-3 py-1.5 rounded-full"
+            >7 min de lecture</span
+          >
+        </div>
+        <h1
+          class="reveal text-[2rem] md:text-[2.8rem] font-extrabold tracking-[-0.03em] text-[#111] leading-tight"
+        >
+          Loi Le Meur 2026 : ce qui change pour votre location saisonniere (et
+          comment vous adapter)
+        </h1>
+      </div>
+    </section>
+
+    <!-- ARTICLE BODY -->
+    <section class="pb-16 px-6">
+      <div class="max-w-3xl mx-auto">
+        <div class="reveal">
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            La loi Le Meur (loi n&deg; 2024-1039 du 19 novembre 2024) est entree
+            en vigueur et ses effets se font deja sentir en 2026. Surnommee
+            &laquo; loi anti-Airbnb &raquo;, elle reduit les avantages fiscaux
+            des meubles de tourisme, impose le diagnostic de performance
+            energetique (DPE), renforce les pouvoirs des maires et des
+            coproprietes.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Si vous louez un bien en courte duree, ces changements vous
+            concernent directement. Voici un tour d'horizon complet de ce qui
+            change et, surtout, comment vous adapter pour proteger vos revenus.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="text-[1.5rem] font-extrabold text-[#111] mb-4 mt-10">
+            La fiscalite se durcit fortement
+          </h2>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            C'est le changement le plus impactant. Pour les meubles de tourisme
+            non classes, l'abattement micro-BIC passe de 50 % a 30 %, et le
+            plafond de revenus tombe de 77 700 euros a 15 000 euros.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Concretement, si vous generez 30 000 euros de revenus locatifs,
+            votre base imposable passe de 15 000 euros (avec l'ancien abattement
+            de 50 %) a 21 000 euros (avec le nouvel abattement de 30 %). C'est 6
+            000 euros de plus soumis a l'impot.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Pour les meubles classes, l'abattement passe de 71 % a 50 %, avec un
+            plafond maintenu a 77 700 euros. Le classement reste donc un levier
+            interessant, mais nettement moins avantageux qu'avant.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="text-[1.5rem] font-extrabold text-[#111] mb-4 mt-10">
+            Enregistrement obligatoire avant le 20 mai 2026
+          </h2>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Tous les meubles de tourisme doivent etre enregistres sur un
+            teleservice national unique avant le 20 mai 2026. Ce numero
+            d'enregistrement devra figurer sur toutes vos annonces, que ce soit
+            sur Airbnb, Booking ou votre propre site.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Les sanctions sont lourdes : 10 000 euros d'amende pour defaut
+            d'enregistrement, et 20 000 euros pour fausse declaration. Ne tardez
+            pas a faire cette demarche.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="text-[1.5rem] font-extrabold text-[#111] mb-4 mt-10">
+            Le DPE devient obligatoire
+          </h2>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Le diagnostic de performance energetique (DPE) est desormais requis
+            pour les locations saisonnieres. Le calendrier est progressif :
+          </p>
+          <ul class="list-disc pl-6 mb-6 space-y-2">
+            <li class="text-gray-600 text-[15px] leading-relaxed">
+              Depuis janvier 2025 : les logements classes G sont exclus de la
+              location touristique
+            </li>
+            <li class="text-gray-600 text-[15px] leading-relaxed">
+              A partir de 2028 : les logements classes F seront egalement exclus
+            </li>
+            <li class="text-gray-600 text-[15px] leading-relaxed">
+              A partir de 2034 : seuls les logements classes A a D seront
+              autorises
+            </li>
+          </ul>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Si votre bien est classe E ou moins, il est urgent de planifier des
+            travaux de renovation energetique pour anticiper ces echeances.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="text-[1.5rem] font-extrabold text-[#111] mb-4 mt-10">
+            Les maires ont plus de pouvoir
+          </h2>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Les municipalites peuvent desormais reduire la duree maximale de
+            location de 120 a 90 jours par an pour les residences principales.
+            De plus, les amendes pour depassement peuvent atteindre 100 000
+            euros.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Certaines communes ont deja annonce qu'elles appliqueraient ces
+            nouvelles limites. Renseignez-vous aupres de votre mairie pour
+            connaitre les regles en vigueur dans votre commune.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="text-[1.5rem] font-extrabold text-[#111] mb-4 mt-10">
+            La copropriete peut desormais voter l'interdiction
+          </h2>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Avant la loi Le Meur, interdire la location saisonniere en
+            copropriete necessitait un vote a l'unanimite, ce qui la rendait
+            quasi impossible. Desormais, une majorite des deux tiers suffit.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Si vous etes en copropriete, surveillez les ordres du jour des
+            assemblees generales. Un vote peut changer la donne du jour au
+            lendemain.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="text-[1.5rem] font-extrabold text-[#111] mb-4 mt-10">
+            Pourquoi un site de reservation directe devient indispensable
+          </h2>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Avec des marges qui se reduisent sous l'effet de la fiscalite,
+            chaque euro compte. Les commissions des plateformes (15 a 20 % sur
+            Airbnb) deviennent un luxe que beaucoup de proprietaires ne peuvent
+            plus se permettre.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Avec un site de reservation directe, vous payez uniquement les frais
+            Stripe (1,5 a 2,5 %). Sur un chiffre d'affaires de 30 000 euros,
+            cela represente une economie de 4 500 a 5 500 euros par an.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            C'est precisement dans ce contexte fiscal durci qu'un site propre
+            devient un investissement rentable des le premier mois.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="text-[1.5rem] font-extrabold text-[#111] mb-4 mt-10">
+            Le calendrier a retenir
+          </h2>
+          <ul class="list-none mb-6 space-y-3">
+            <li
+              class="flex items-start gap-3 text-gray-600 text-[15px] leading-relaxed"
+            >
+              <span
+                class="inline-block bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-[12px] font-bold px-3 py-1 rounded-full whitespace-nowrap mt-0.5"
+                >Jan. 2025</span
+              >
+              <span>Logements classes G exclus de la location touristique</span>
+            </li>
+            <li
+              class="flex items-start gap-3 text-gray-600 text-[15px] leading-relaxed"
+            >
+              <span
+                class="inline-block bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-[12px] font-bold px-3 py-1 rounded-full whitespace-nowrap mt-0.5"
+                >20 mai 2026</span
+              >
+              <span
+                >Date limite d'enregistrement sur le teleservice national</span
+              >
+            </li>
+            <li
+              class="flex items-start gap-3 text-gray-600 text-[15px] leading-relaxed"
+            >
+              <span
+                class="inline-block bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-[12px] font-bold px-3 py-1 rounded-full whitespace-nowrap mt-0.5"
+                >1er jan. 2028</span
+              >
+              <span>Logements classes F exclus de la location touristique</span>
+            </li>
+            <li
+              class="flex items-start gap-3 text-gray-600 text-[15px] leading-relaxed"
+            >
+              <span
+                class="inline-block bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-[12px] font-bold px-3 py-1 rounded-full whitespace-nowrap mt-0.5"
+                >1er jan. 2034</span
+              >
+              <span>Seuls les logements classes A a D autorises</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="reveal">
+          <h2 class="text-[1.5rem] font-extrabold text-[#111] mb-4 mt-10">
+            Conclusion
+          </h2>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            La loi Le Meur change profondement le paysage de la location
+            saisonniere en France. Fiscalite durcie, obligations
+            administratives, pouvoir accru des maires et des coproprietes : les
+            proprietaires doivent s'adapter rapidement.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Dans ce contexte, reduire vos couts en eliminant les commissions des
+            plateformes n'est plus une option, c'est une necessite. Un site de
+            reservation directe est l'un des leviers les plus efficaces pour
+            proteger vos marges et perenniser votre activite.
+          </p>
+        </div>
+
+        <!-- CTA CARD -->
+        <div
+          class="reveal mt-16 bg-[var(--color-dark-bg)] rounded-[28px] p-8 md:p-12 text-center"
+        >
+          <h3
+            class="text-[1.6rem] md:text-[2rem] font-extrabold tracking-[-0.02em] text-white mb-3"
+          >
+            Pret a lancer votre site ?
+          </h3>
+          <p
+            class="text-gray-400 max-w-[440px] mx-auto text-[15px] font-medium mb-8"
+          >
+            Protegez vos marges avec un site de reservation directe. Paiement
+            unique, livraison en 48h.
+          </p>
+          <div
+            class="flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <a
+              href="/tarifs"
+              class="w-full sm:w-auto bg-white text-[var(--color-dark-bg)] px-8 py-4 rounded-full font-bold text-[14px] hover:bg-gray-100 hover:-translate-y-0.5 transition-all shadow-sm"
+            >
+              Voir les offres
+            </a>
+            <a
+              href="/rendez-vous"
+              class="w-full sm:w-auto border border-white/30 text-white px-8 py-4 rounded-full font-bold text-[14px] hover:bg-white/10 hover:-translate-y-0.5 transition-all"
+            >
+              Appel gratuit 15 min
+            </a>
+          </div>
+        </div>
+
+        <!-- BACK LINK -->
+        <div class="reveal mt-10 text-center">
+          <a
+            href="/blog"
+            class="inline-flex items-center gap-2 text-gray-500 hover:text-[var(--color-accent)] font-semibold text-[14px] transition-colors"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            Retour au blog
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[var(--color-dark-bg)] text-white pt-12 pb-8 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-4 gap-10 mb-12">
+          <div>
+            <div class="flex items-center gap-2.5 font-bold text-[15px] mb-4">
+              <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="16" fill="#4ECDC4"></circle>
+                <path
+                  d="M16 9V23M9 16H23M12 12L20 20M12 20L20 12"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                ></path>
+              </svg>
+              Porphyre Studio
+            </div>
+            <p class="text-gray-400 text-[13px] font-medium leading-relaxed">
+              Sites web cle en main pour locations saisonnieres.
+            </p>
+          </div>
+          <div>
+            <h4
+              class="font-bold text-[13px] mb-4 text-white/80 uppercase tracking-wider"
+            >
+              Navigation
+            </h4>
+            <ul class="flex flex-col gap-2.5">
+              <li>
+                <a
+                  href="/"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Accueil</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/tarifs"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Tarifs</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/portfolio"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Portfolio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/blog"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Blog</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              class="font-bold text-[13px] mb-4 text-white/80 uppercase tracking-wider"
+            >
+              Realisations
+            </h4>
+            <ul class="flex flex-col gap-2.5">
+              <li>
+                <a
+                  href="/portfolio"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Les Sardines Blanches</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/portfolio"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >K'Ban Lorizon</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/portfolio"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Avis clients</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              class="font-bold text-[13px] mb-4 text-white/80 uppercase tracking-wider"
+            >
+              Contact
+            </h4>
+            <ul class="flex flex-col gap-2.5">
+              <li>
+                <a
+                  href="/rendez-vous"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Prendre un appel</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://wa.me/262693120918"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >WhatsApp</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://instagram.com/ninoporphyre"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Instagram</a
+                >
+              </li>
+              <li>
+                <a
+                  href="mailto:contact@ninoporphyre.fr"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >contact@ninoporphyre.fr</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-gray-500 font-medium"
+        >
+          <span>&copy; 2026 Porphyre Studio. Tous droits reserves.</span>
+          <div class="flex items-center gap-4">
+            <span>Mentions legales</span>
+            <span class="text-white/20">|</span>
+            <span>SIRET 933 521 056 000 12</span>
+          </div>
+        </div>
+        <div
+          class="border-t border-white/10 mt-8 pt-8 text-[11px] text-gray-600 font-medium leading-relaxed max-w-3xl"
+        >
+          <p class="mb-2">
+            <strong class="text-gray-400">Editeur :</strong> Nino Porphyre —
+            SIRET 933 521 056 000 12 — TVA non applicable, art. 293B du CGI —
+            contact@ninoporphyre.fr
+          </p>
+          <p>
+            <strong class="text-gray-400">Hebergement :</strong> Vercel Inc. —
+            440 N Barranca Ave #4133, Covina, CA 91723, USA
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      function handleReveal() {
+        document.querySelectorAll(".reveal").forEach((el) => {
+          if (el.getBoundingClientRect().top < window.innerHeight - 80) {
+            el.classList.add("active");
+          }
+        });
+      }
+      window.addEventListener("scroll", handleReveal);
+      window.addEventListener("DOMContentLoaded", handleReveal);
+      handleReveal();
+    </script>
+  </body>
+</html>

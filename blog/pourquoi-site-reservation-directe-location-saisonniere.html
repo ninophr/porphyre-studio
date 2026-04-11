@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="fr" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Pourquoi creer un site de reservation directe pour votre location
+      saisonniere — Porphyre Studio
+    </title>
+    <meta
+      name="description"
+      content="Airbnb prend 15 a 20% de commission. Decouvrez pourquoi un site de reservation directe change la donne pour vos marges et votre activite."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com?plugins="></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', "sans-serif"],
+              handwriting: ['"Caveat"', "cursive"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --font-jakarta: "Plus Jakarta Sans", sans-serif;
+        --font-caveat: "Caveat", cursive;
+        --font-sans: var(--font-jakarta), sans-serif;
+        --font-handwriting: var(--font-caveat), cursive;
+        --color-dark-bg: #1a1715;
+        --color-accent: #4ecdc4;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: #4a4540;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        background-color: #f5f1e8;
+      }
+
+      .reveal {
+        opacity: 0;
+        transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(40px);
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body class="font-sans antialiased">
+    <!-- NAV MOBILE -->
+    <div class="fixed top-4 left-4 right-4 z-50 md:hidden">
+      <div
+        class="flex items-center justify-between bg-[#1A1715]/95 backdrop-blur-md text-white rounded-full px-4 py-2.5 shadow-[0_12px_32px_rgba(30,25,20,0.15)]"
+      >
+        <a href="/" class="rounded-full w-8 h-8 overflow-hidden">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="16" fill="#4ECDC4"></circle>
+            <path
+              d="M16 9V23M9 16H23M12 12L20 20M12 20L20 12"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+            ></path>
+          </svg>
+        </a>
+        <button
+          onclick="
+            document.getElementById('mobile-menu').classList.toggle('hidden')
+          "
+          class="text-white p-1"
+        >
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </div>
+      <div
+        id="mobile-menu"
+        class="hidden mt-2 bg-[#1A1715]/95 backdrop-blur-md rounded-2xl p-5 shadow-[0_12px_32px_rgba(30,25,20,0.15)]"
+      >
+        <ul class="flex flex-col gap-4 text-[15px] font-medium text-gray-300">
+          <li>
+            <a href="/tarifs" class="hover:text-white transition-colors"
+              >Offres</a
+            >
+          </li>
+          <li>
+            <a href="/portfolio" class="hover:text-white transition-colors"
+              >Portfolio</a
+            >
+          </li>
+          <li><a href="/blog" class="text-white transition-colors">Blog</a></li>
+          <li>
+            <a href="/rendez-vous" class="hover:text-white transition-colors"
+              >Contact</a
+            >
+          </li>
+        </ul>
+        <a
+          href="/tarifs"
+          class="mt-5 block text-center bg-white text-black px-6 py-3 rounded-full text-[14px] font-bold"
+          >Choisir mon offre</a
+        >
+      </div>
+    </div>
+
+    <!-- NAV DESKTOP -->
+    <nav
+      class="fixed top-6 left-0 right-0 z-50 mx-auto bg-[#1A1715]/95 backdrop-blur-md text-white rounded-full p-1.5 hidden md:flex items-center shadow-[0_12px_32px_rgba(30,25,20,0.15),0_0_0_1px_rgba(255,255,255,0.05)_inset] w-max"
+    >
+      <a href="/" class="rounded-full w-8 h-8 overflow-hidden mr-6 ml-1">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="16" fill="#4ECDC4"></circle>
+          <path
+            d="M16 9V23M9 16H23M12 12L20 20M12 20L20 12"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+      </a>
+      <ul class="flex items-center gap-7 text-[13px] font-medium text-gray-300">
+        <li>
+          <a href="/tarifs" class="hover:text-white transition-colors"
+            >Offres</a
+          >
+        </li>
+        <li>
+          <a href="/portfolio" class="hover:text-white transition-colors"
+            >Portfolio</a
+          >
+        </li>
+        <li><a href="/blog" class="text-white transition-colors">Blog</a></li>
+        <li>
+          <a href="/rendez-vous" class="hover:text-white transition-colors"
+            >Contact</a
+          >
+        </li>
+      </ul>
+      <div class="flex items-center gap-3 ml-6 pl-6 border-l border-gray-700">
+        <a
+          href="/rendez-vous"
+          class="flex items-center gap-2 text-[13px] font-semibold text-gray-300 hover:text-white transition-colors"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
+            ></path>
+          </svg>
+          Appel gratuit
+        </a>
+        <a
+          href="/tarifs"
+          class="bg-white text-black px-6 py-2.5 rounded-full text-[13px] font-bold hover:bg-gray-100 hover:scale-[1.02] transition-all shadow-sm"
+          >Choisir mon offre</a
+        >
+      </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <section class="pt-28 md:pt-36 pb-4 px-6">
+      <div class="max-w-3xl mx-auto">
+        <nav
+          class="reveal flex items-center gap-2 text-[13px] font-medium text-gray-400"
+        >
+          <a
+            href="/blog"
+            class="hover:text-[var(--color-accent)] transition-colors"
+            >Blog</a
+          >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+          <span class="text-gray-600">Reservation directe</span>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ARTICLE HEADER -->
+    <section class="pb-10 px-6">
+      <div class="max-w-3xl mx-auto">
+        <div class="reveal flex items-center gap-3 mb-6">
+          <span
+            class="bg-[var(--color-dark-bg)] text-white text-[12px] font-semibold px-3 py-1.5 rounded-full"
+            >3 avril 2026</span
+          >
+          <span
+            class="bg-[var(--color-dark-bg)] text-white text-[12px] font-semibold px-3 py-1.5 rounded-full"
+            >5 min de lecture</span
+          >
+        </div>
+        <h1
+          class="reveal text-[2rem] md:text-[2.8rem] font-extrabold tracking-[-0.03em] text-[#111] leading-tight"
+        >
+          Pourquoi creer un site de reservation directe pour votre location
+          saisonniere
+        </h1>
+      </div>
+    </section>
+
+    <!-- ARTICLE BODY -->
+    <section class="pb-16 px-6">
+      <div class="max-w-3xl mx-auto">
+        <div class="reveal">
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Airbnb prend 15 a 20 % de commission sur chaque reservation. Pour
+            une nuit a 150 euros, c'est entre 22 et 30 euros qui partent dans la
+            poche de la plateforme, pas dans la votre.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Un site de reservation directe change la donne. Voici pourquoi de
+            plus en plus de proprietaires franchissent le pas.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="text-[1.5rem] font-extrabold text-[#111] mb-4 mt-10">
+            Les commissions des plateformes grignotent vos marges
+          </h2>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Sur Airbnb, le proprietaire paie environ 3 % de frais de service, et
+            le voyageur paie entre 12 et 14 % supplementaires. Au total, c'est
+            15 a 20 % du prix de la nuit qui est capte par la plateforme.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Avec un site de reservation directe, vous ne payez que les frais de
+            paiement Stripe : 1,5 a 2,5 %. Pas de commission recurrente, pas de
+            frais caches. La difference est considerable sur une annee complete.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="text-[1.5rem] font-extrabold text-[#111] mb-4 mt-10">
+            Vous gardez le controle de votre image
+          </h2>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Sur Airbnb, votre annonce est noyee parmi des centaines d'autres. Le
+            format est le meme pour tout le monde : memes templates, memes
+            contraintes, meme mise en page. Votre bien perd son identite.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Votre propre site, c'est votre vitrine. Vous racontez votre
+            histoire, vous choisissez vos photos, vous mettez en avant ce qui
+            rend votre lieu unique. Le voyageur decouvre une experience, pas une
+            fiche parmi d'autres.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="text-[1.5rem] font-extrabold text-[#111] mb-4 mt-10">
+            Vous fidelisez vos voyageurs
+          </h2>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Sur Airbnb, vos clients sont les clients d'Airbnb, pas les votres.
+            Vous n'avez pas acces a leur email, vous ne pouvez pas leur proposer
+            un tarif fidelite, vous ne pouvez pas les recontacter.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Avec votre site, vous recuperez les coordonnees de vos voyageurs.
+            Vous pouvez leur envoyer un email avant la saison suivante, leur
+            proposer un tarif preferentiel, creer une relation directe. Un
+            client qui revient, c'est un client qui ne vous coute plus rien en
+            acquisition.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="text-[1.5rem] font-extrabold text-[#111] mb-4 mt-10">
+            Pas besoin de quitter Airbnb pour autant
+          </h2>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Avoir un site de reservation directe ne signifie pas abandonner les
+            plateformes. Au contraire, vous pouvez garder Airbnb comme canal
+            d'acquisition pour attirer de nouveaux voyageurs, puis les rediriger
+            vers votre site pour les reservations suivantes.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            La synchronisation iCal permet de garder vos calendriers a jour
+            automatiquement entre votre site et Airbnb. Aucun risque de double
+            reservation.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="text-[1.5rem] font-extrabold text-[#111] mb-4 mt-10">
+            Combien ca coute, concretement ?
+          </h2>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Une agence web classique facture entre 2 000 et 10 000 euros pour un
+            site de reservation, avec un delai de 4 a 12 semaines. C'est un
+            investissement important qui freine beaucoup de proprietaires.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Chez Porphyre Studio, nous proposons un site complet avec
+            reservation directe et paiement Stripe integre a partir de 897
+            euros, livre en 48 heures. Un paiement unique, sans abonnement, sans
+            commission sur vos reservations.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="text-[1.5rem] font-extrabold text-[#111] mb-4 mt-10">
+            Conclusion
+          </h2>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Un site de reservation directe n'est pas un luxe reserve aux grandes
+            structures. C'est un outil concret qui vous fait economiser des
+            milliers d'euros chaque annee, qui vous donne le controle de votre
+            image et qui vous permet de fideliser vos voyageurs.
+          </p>
+          <p class="text-gray-600 text-[15px] leading-relaxed mb-6">
+            Si vous generez plus de 10 000 euros de revenus annuels sur les
+            plateformes, le retour sur investissement est quasi immediat.
+          </p>
+        </div>
+
+        <!-- CTA CARD -->
+        <div
+          class="reveal mt-16 bg-[var(--color-dark-bg)] rounded-[28px] p-8 md:p-12 text-center"
+        >
+          <h3
+            class="text-[1.6rem] md:text-[2rem] font-extrabold tracking-[-0.02em] text-white mb-3"
+          >
+            Pret a lancer votre site ?
+          </h3>
+          <p
+            class="text-gray-400 max-w-[440px] mx-auto text-[15px] font-medium mb-8"
+          >
+            Arretez de payer des commissions. Lancez votre site de reservation
+            directe en 48h.
+          </p>
+          <div
+            class="flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <a
+              href="/tarifs"
+              class="w-full sm:w-auto bg-white text-[var(--color-dark-bg)] px-8 py-4 rounded-full font-bold text-[14px] hover:bg-gray-100 hover:-translate-y-0.5 transition-all shadow-sm"
+            >
+              Voir les offres
+            </a>
+            <a
+              href="/rendez-vous"
+              class="w-full sm:w-auto border border-white/30 text-white px-8 py-4 rounded-full font-bold text-[14px] hover:bg-white/10 hover:-translate-y-0.5 transition-all"
+            >
+              Appel gratuit 15 min
+            </a>
+          </div>
+        </div>
+
+        <!-- BACK LINK -->
+        <div class="reveal mt-10 text-center">
+          <a
+            href="/blog"
+            class="inline-flex items-center gap-2 text-gray-500 hover:text-[var(--color-accent)] font-semibold text-[14px] transition-colors"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            Retour au blog
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[var(--color-dark-bg)] text-white pt-12 pb-8 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-4 gap-10 mb-12">
+          <div>
+            <div class="flex items-center gap-2.5 font-bold text-[15px] mb-4">
+              <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="16" fill="#4ECDC4"></circle>
+                <path
+                  d="M16 9V23M9 16H23M12 12L20 20M12 20L20 12"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                ></path>
+              </svg>
+              Porphyre Studio
+            </div>
+            <p class="text-gray-400 text-[13px] font-medium leading-relaxed">
+              Sites web cle en main pour locations saisonnieres.
+            </p>
+          </div>
+          <div>
+            <h4
+              class="font-bold text-[13px] mb-4 text-white/80 uppercase tracking-wider"
+            >
+              Navigation
+            </h4>
+            <ul class="flex flex-col gap-2.5">
+              <li>
+                <a
+                  href="/"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Accueil</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/tarifs"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Tarifs</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/portfolio"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Portfolio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/blog"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Blog</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              class="font-bold text-[13px] mb-4 text-white/80 uppercase tracking-wider"
+            >
+              Realisations
+            </h4>
+            <ul class="flex flex-col gap-2.5">
+              <li>
+                <a
+                  href="/portfolio"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Les Sardines Blanches</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/portfolio"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >K'Ban Lorizon</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/portfolio"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Avis clients</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              class="font-bold text-[13px] mb-4 text-white/80 uppercase tracking-wider"
+            >
+              Contact
+            </h4>
+            <ul class="flex flex-col gap-2.5">
+              <li>
+                <a
+                  href="/rendez-vous"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Prendre un appel</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://wa.me/262693120918"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >WhatsApp</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://instagram.com/ninoporphyre"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Instagram</a
+                >
+              </li>
+              <li>
+                <a
+                  href="mailto:contact@ninoporphyre.fr"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >contact@ninoporphyre.fr</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-gray-500 font-medium"
+        >
+          <span>&copy; 2026 Porphyre Studio. Tous droits reserves.</span>
+          <div class="flex items-center gap-4">
+            <span>Mentions legales</span>
+            <span class="text-white/20">|</span>
+            <span>SIRET 933 521 056 000 12</span>
+          </div>
+        </div>
+        <div
+          class="border-t border-white/10 mt-8 pt-8 text-[11px] text-gray-600 font-medium leading-relaxed max-w-3xl"
+        >
+          <p class="mb-2">
+            <strong class="text-gray-400">Editeur :</strong> Nino Porphyre —
+            SIRET 933 521 056 000 12 — TVA non applicable, art. 293B du CGI —
+            contact@ninoporphyre.fr
+          </p>
+          <p>
+            <strong class="text-gray-400">Hebergement :</strong> Vercel Inc. —
+            440 N Barranca Ave #4133, Covina, CA 91723, USA
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      function handleReveal() {
+        document.querySelectorAll(".reveal").forEach((el) => {
+          if (el.getBoundingClientRect().top < window.innerHeight - 80) {
+            el.classList.add("active");
+          }
+        });
+      }
+      window.addEventListener("scroll", handleReveal);
+      window.addEventListener("DOMContentLoaded", handleReveal);
+      handleReveal();
+    </script>
+  </body>
+</html>
