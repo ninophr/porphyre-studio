@@ -662,29 +662,28 @@
       >
         <ul class="flex flex-col gap-4 text-[15px] font-medium text-gray-300">
           <li>
-            <span class="hover:text-white transition-colors cursor-pointer"
-              >Offres</span
+            <a href="/tarifs" class="hover:text-white transition-colors"
+              >Offres</a
             >
           </li>
           <li>
-            <span class="hover:text-white transition-colors cursor-pointer"
-              >Portfolio</span
+            <a href="/portfolio" class="hover:text-white transition-colors"
+              >Portfolio</a
             >
           </li>
           <li>
-            <span class="hover:text-white transition-colors cursor-pointer"
-              >Blog</span
-            >
+            <a href="/blog" class="hover:text-white transition-colors">Blog</a>
           </li>
           <li>
-            <span class="hover:text-white transition-colors cursor-pointer"
-              >Contact</span
+            <a href="/rendez-vous" class="hover:text-white transition-colors"
+              >Contact</a
             >
           </li>
         </ul>
-        <span
-          class="mt-5 block text-center bg-white text-black px-6 py-3 rounded-full text-[14px] font-bold cursor-pointer"
-          >Choisir mon offre</span
+        <a
+          href="/tarifs"
+          class="mt-5 block text-center bg-white text-black px-6 py-3 rounded-full text-[14px] font-bold"
+          >Choisir mon offre</a
         >
       </div>
     </div>
@@ -708,29 +707,27 @@
       </div>
       <ul class="flex items-center gap-7 text-[13px] font-medium text-gray-300">
         <li>
-          <span class="hover:text-white transition-colors cursor-pointer"
-            >Offres</span
+          <a href="/tarifs" class="hover:text-white transition-colors"
+            >Offres</a
           >
         </li>
         <li>
-          <span class="hover:text-white transition-colors cursor-pointer"
-            >Portfolio</span
+          <a href="/portfolio" class="hover:text-white transition-colors"
+            >Portfolio</a
           >
         </li>
         <li>
-          <span class="hover:text-white transition-colors cursor-pointer"
-            >Blog</span
-          >
+          <a href="/blog" class="hover:text-white transition-colors">Blog</a>
         </li>
         <li>
-          <span class="hover:text-white transition-colors cursor-pointer"
-            >Contact</span
+          <a href="/rendez-vous" class="hover:text-white transition-colors"
+            >Contact</a
           >
         </li>
       </ul>
       <div class="flex items-center gap-3 ml-6 pl-6 border-l border-gray-700">
         <a
-          href="#rdv"
+          href="/rendez-vous"
           class="text-gray-300 hover:text-white px-4 py-2.5 rounded-full text-[13px] font-medium transition-colors flex items-center gap-1.5"
           ><svg
             xmlns="http://www.w3.org/2000/svg"
@@ -749,7 +746,7 @@
           >Appel gratuit</a
         >
         <a
-          href="#pricing"
+          href="/tarifs"
           class="bg-white text-black px-6 py-2.5 rounded-full text-[13px] font-bold hover:bg-gray-100 hover:scale-[1.02] transition-all shadow-sm"
           >Choisir mon offre</a
         >
@@ -799,7 +796,7 @@
           class="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="#rdv"
+            href="/tarifs"
             class="w-full sm:w-[240px] justify-center bg-[#2B2622] text-white px-8 py-3.5 rounded-full font-semibold text-[15px] hover:bg-[#4A4540] hover:-translate-y-0.5 transition-all shadow-lg inline-flex items-center gap-2"
           >
             Lancer mon site
@@ -819,15 +816,12 @@
               <path d="m12 5 7 7-7 7"></path>
             </svg>
           </a>
-          <button
-            onclick="
-              document.getElementById('simulateur').classList.remove('hidden');
-              document.body.style.overflow = 'hidden';
-            "
-            class="w-full sm:w-[240px] justify-center bg-white/70 backdrop-blur-sm text-[#2B2622] px-8 py-3.5 rounded-full font-semibold text-[15px] hover:bg-white/90 hover:-translate-y-0.5 transition-all shadow-sm border border-white/60"
+          <a
+            href="#simulateur-section"
+            class="w-full sm:w-[240px] justify-center bg-white/70 backdrop-blur-sm text-[#2B2622] px-8 py-3.5 rounded-full font-semibold text-[15px] hover:bg-white/90 hover:-translate-y-0.5 transition-all shadow-sm border border-white/60 inline-flex items-center"
           >
             Simuler mes économies
-          </button>
+          </a>
         </div>
       </div>
 
@@ -1439,7 +1433,7 @@
                 textes, couleurs. 10 minutes suffisent.
               </p>
               <a
-                href="#rdv"
+                href="/tarifs"
                 class="inline-flex items-center gap-2 text-[13px] font-bold text-gray-900 bg-white border border-gray-200 px-5 py-2.5 rounded-full hover:bg-gray-50 hover:gap-3 transition-all shadow-sm group"
                 >En savoir plus
                 <svg
@@ -1689,7 +1683,7 @@
                 animations fluides et un rendu 100% responsive. Livré en 48h.
               </p>
               <a
-                href="#rdv"
+                href="/tarifs"
                 class="inline-flex items-center gap-2 text-[13px] font-bold text-gray-900 bg-white border border-gray-200 px-5 py-2.5 rounded-full hover:bg-gray-50 hover:gap-3 transition-all shadow-sm group"
                 >En savoir plus
                 <svg
@@ -1872,7 +1866,7 @@
                 tout est configuré. Votre site est en ligne.
               </p>
               <a
-                href="#rdv"
+                href="/tarifs"
                 class="inline-flex items-center gap-2 text-[13px] font-bold text-gray-900 bg-white border border-gray-200 px-5 py-2.5 rounded-full hover:bg-gray-50 hover:gap-3 transition-all shadow-sm group"
                 >En savoir plus
                 <svg
@@ -2050,7 +2044,7 @@
               class="w-px h-12 bg-gradient-to-b from-gray-200 to-transparent"
             ></div>
             <a
-              href="#rdv"
+              href="/tarifs"
               class="bg-[#2B2622] text-white px-6 py-3 rounded-full font-bold text-[13px] flex items-center gap-2 shadow-lg hover:bg-black hover:-translate-y-0.5 transition-all cursor-pointer"
             >
               <svg
@@ -2414,7 +2408,7 @@
               <li>1 aller-retour de corrections</li>
             </ul>
             <a
-              href="#rdv"
+              href="/commander/essentiel"
               class="block text-center bg-gray-100 text-[var(--color-dark-bg)] px-6 py-3.5 rounded-full font-bold text-[14px] hover:bg-gray-200 transition-all uppercase tracking-wider"
             >
               Choisir l'Essentiel
@@ -2464,7 +2458,7 @@
               <li>Support 30 jours inclus</li>
             </ul>
             <a
-              href="#rdv"
+              href="/commander/reservation"
               class="block text-center bg-[var(--color-dark-bg)] text-white px-6 py-3.5 rounded-full font-bold text-[14px] hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-md uppercase tracking-wider"
             >
               Choisir la Réservation
@@ -2508,7 +2502,7 @@
               <li>Maintenance 1 an incluse</li>
             </ul>
             <a
-              href="#rdv"
+              href="/commander/complet"
               class="block text-center bg-gray-100 text-[var(--color-dark-bg)] px-6 py-3.5 rounded-full font-bold text-[14px] hover:bg-gray-200 transition-all uppercase tracking-wider"
             >
               Choisir le Complet
@@ -3198,7 +3192,7 @@
       Cal("init", { origin: "https://cal.com" });
       Cal("inline", {
         elementOrSelector: "#cal-inline",
-        calLink: "porphyrestudio",
+        calLink: "porphyrestudio/15min",
         layout: "month_view",
       });
       Cal("ui", {
@@ -3230,14 +3224,13 @@
           class="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="#pricing"
+            href="/tarifs"
             class="w-full sm:w-auto bg-white text-[var(--color-dark-bg)] px-8 py-4 rounded-full font-bold text-[15px] hover:bg-gray-100 hover:-translate-y-0.5 transition-all shadow-sm uppercase tracking-wider"
           >
             Choisir mon offre
           </a>
           <a
-            href="https://cal.com/porphyrestudio"
-            target="_blank"
+            href="/rendez-vous"
             class="w-full sm:w-auto border border-white/30 text-white px-8 py-4 rounded-full font-bold text-[15px] hover:bg-white/10 hover:-translate-y-0.5 transition-all uppercase tracking-wider"
           >
             Réserver un appel gratuit
@@ -3288,7 +3281,7 @@
               </li>
               <li>
                 <a
-                  href="#pricing"
+                  href="/tarifs"
                   class="text-gray-400 hover:text-white transition text-[13px] font-medium"
                   >Tarifs</a
                 >
@@ -3311,14 +3304,14 @@
             <ul class="flex flex-col gap-2.5">
               <li>
                 <a
-                  href="#realisations"
+                  href="/portfolio"
                   class="text-gray-400 hover:text-white transition text-[13px] font-medium"
                   >Les Sardines Blanches</a
                 >
               </li>
               <li>
                 <a
-                  href="#realisations"
+                  href="/portfolio"
                   class="text-gray-400 hover:text-white transition text-[13px] font-medium"
                   >K'Ban Lorizon</a
                 >
@@ -3341,7 +3334,7 @@
             <ul class="flex flex-col gap-2.5">
               <li>
                 <a
-                  href="#rdv"
+                  href="/rendez-vous"
                   class="text-gray-400 hover:text-white transition text-[13px] font-medium"
                   >Prendre un appel</a
                 >

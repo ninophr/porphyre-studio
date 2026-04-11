@@ -1,0 +1,914 @@
+<!doctype html>
+<html lang="fr" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Tarifs — Porphyre Studio | Sites web pour locations saisonnières
+    </title>
+    <meta
+      name="description"
+      content="Nos offres de création de site web pour locations saisonnières. À partir de 497€, paiement unique, livraison en 48h. Satisfait ou remboursé."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com?plugins="></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', "sans-serif"],
+              handwriting: ['"Caveat"', "cursive"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --font-jakarta: "Plus Jakarta Sans", sans-serif;
+        --font-caveat: "Caveat", cursive;
+        --font-sans: var(--font-jakarta), sans-serif;
+        --font-handwriting: var(--font-caveat), cursive;
+        --color-dark-bg: #1a1715;
+        --color-accent: #4ecdc4;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: #4a4540;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        background-color: #f5f1e8;
+      }
+
+      .pricing-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #4b5563;
+      }
+      .pricing-list li::before {
+        content: "";
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        min-width: 18px;
+        margin-top: 2px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%234ECDC4' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+
+      .pricing-list-dark li {
+        color: #d1d5db;
+      }
+
+      .reveal {
+        opacity: 0;
+        transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(40px);
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body class="font-sans antialiased">
+    <!-- NAV MOBILE -->
+    <div class="fixed top-4 left-4 right-4 z-50 md:hidden">
+      <div
+        class="flex items-center justify-between bg-[#1A1715]/95 backdrop-blur-md text-white rounded-full px-4 py-2.5 shadow-[0_12px_32px_rgba(30,25,20,0.15)]"
+      >
+        <a href="/" class="rounded-full w-8 h-8 overflow-hidden">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="16" fill="#4ECDC4"></circle>
+            <path
+              d="M16 9V23M9 16H23M12 12L20 20M12 20L20 12"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+            ></path>
+          </svg>
+        </a>
+        <button
+          onclick="
+            document.getElementById('mobile-menu').classList.toggle('hidden')
+          "
+          class="text-white p-1"
+        >
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </div>
+      <div
+        id="mobile-menu"
+        class="hidden mt-2 bg-[#1A1715]/95 backdrop-blur-md rounded-2xl p-5 shadow-[0_12px_32px_rgba(30,25,20,0.15)]"
+      >
+        <ul class="flex flex-col gap-4 text-[15px] font-medium text-gray-300">
+          <li>
+            <a href="/tarifs" class="text-white transition-colors">Offres</a>
+          </li>
+          <li>
+            <a href="/portfolio" class="hover:text-white transition-colors"
+              >Portfolio</a
+            >
+          </li>
+          <li>
+            <a href="/blog" class="hover:text-white transition-colors">Blog</a>
+          </li>
+          <li>
+            <a href="/rendez-vous" class="hover:text-white transition-colors"
+              >Contact</a
+            >
+          </li>
+        </ul>
+        <a
+          href="/tarifs"
+          class="mt-5 block text-center bg-white text-black px-6 py-3 rounded-full text-[14px] font-bold"
+          >Choisir mon offre</a
+        >
+      </div>
+    </div>
+
+    <!-- NAV DESKTOP -->
+    <nav
+      class="fixed top-6 left-0 right-0 z-50 mx-auto bg-[#1A1715]/95 backdrop-blur-md text-white rounded-full p-1.5 hidden md:flex items-center shadow-[0_12px_32px_rgba(30,25,20,0.15),0_0_0_1px_rgba(255,255,255,0.05)_inset] w-max"
+    >
+      <a href="/" class="rounded-full w-8 h-8 overflow-hidden mr-6 ml-1">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="16" fill="#4ECDC4"></circle>
+          <path
+            d="M16 9V23M9 16H23M12 12L20 20M12 20L20 12"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+      </a>
+      <ul class="flex items-center gap-7 text-[13px] font-medium text-gray-300">
+        <li>
+          <a href="/tarifs" class="text-white transition-colors">Offres</a>
+        </li>
+        <li>
+          <a href="/portfolio" class="hover:text-white transition-colors"
+            >Portfolio</a
+          >
+        </li>
+        <li>
+          <a href="/blog" class="hover:text-white transition-colors">Blog</a>
+        </li>
+        <li>
+          <a href="/rendez-vous" class="hover:text-white transition-colors"
+            >Contact</a
+          >
+        </li>
+      </ul>
+      <div class="flex items-center gap-3 ml-6 pl-6 border-l border-gray-700">
+        <a
+          href="/rendez-vous"
+          class="text-gray-300 hover:text-white px-4 py-2.5 rounded-full text-[13px] font-medium transition-colors flex items-center gap-1.5"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+            ></path>
+          </svg>
+          Appel gratuit
+        </a>
+        <a
+          href="/tarifs"
+          class="bg-white text-black px-6 py-2.5 rounded-full text-[13px] font-bold hover:bg-gray-100 hover:scale-[1.02] transition-all shadow-sm"
+          >Choisir mon offre</a
+        >
+      </div>
+    </nav>
+
+    <!-- HERO TARIFS -->
+    <section class="pt-36 pb-16 px-4 text-center">
+      <div class="reveal max-w-[700px] mx-auto">
+        <span
+          class="inline-flex items-center gap-2 bg-[var(--color-dark-bg)] text-white text-[11px] font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-5"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-3 h-3"
+          >
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+          NOS OFFRES
+        </span>
+        <h1
+          class="text-[2.5rem] md:text-[3.5rem] leading-[1.08] font-extrabold tracking-[-0.03em] mb-5 text-[#2B2622]"
+        >
+          Un prix fixe, <span class="text-[#4ECDC4]">sans surprise</span>
+        </h1>
+        <p
+          class="text-[1.05rem] md:text-[1.1rem] text-[#7D7770] max-w-[520px] mx-auto leading-relaxed font-medium"
+        >
+          Paiement unique. Pas d'abonnement, pas de commission. Votre site vous
+          appartient.
+        </p>
+      </div>
+    </section>
+
+    <!-- 3 OFFRES -->
+    <section class="pb-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal grid md:grid-cols-3 gap-6 items-stretch">
+          <!-- Essentiel -->
+          <div
+            class="bg-white rounded-[24px] border border-gray-200 p-8 shadow-sm flex flex-col"
+          >
+            <div class="mb-6">
+              <h3
+                class="text-[1.3rem] font-extrabold text-[var(--color-dark-bg)] mb-1"
+              >
+                Essentiel
+              </h3>
+              <p class="text-[13px] text-gray-400 font-medium">
+                Un site vitrine professionnel, clé en main.
+              </p>
+            </div>
+            <div class="mb-6">
+              <span
+                class="text-[2.8rem] font-extrabold text-[var(--color-dark-bg)] tracking-tight leading-none"
+                >497€</span
+              >
+              <span class="text-[14px] text-gray-400 font-medium ml-1"
+                >unique</span
+              >
+            </div>
+            <ul class="flex flex-col gap-3 mb-8 flex-1 pricing-list">
+              <li>Site vitrine responsive (3 pages)</li>
+              <li>Animations premium</li>
+              <li>Formulaire de contact</li>
+              <li>Configuration DNS incluse</li>
+              <li>Hébergement Vercel + SSL</li>
+              <li>Livraison en 48h</li>
+              <li>1 aller-retour de corrections</li>
+            </ul>
+            <a
+              href="/commander/essentiel"
+              class="block text-center bg-gray-100 text-[var(--color-dark-bg)] px-6 py-3.5 rounded-full font-bold text-[14px] hover:bg-gray-200 transition-all uppercase tracking-wider"
+            >
+              Je choisis l'Essentiel
+            </a>
+          </div>
+
+          <!-- Réservation (populaire) -->
+          <div
+            class="bg-white rounded-[24px] border-2 border-[#4ECDC4] p-8 shadow-[0_8px_40px_rgba(78,205,196,0.15)] flex flex-col relative md:scale-105 z-10"
+          >
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+              <span
+                class="bg-[#4ECDC4] text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-wider shadow-sm"
+                >Populaire</span
+              >
+            </div>
+            <div class="mb-6">
+              <h3
+                class="text-[1.3rem] font-extrabold text-[var(--color-dark-bg)] mb-1"
+              >
+                Réservation
+              </h3>
+              <p class="text-[13px] text-gray-400 font-medium">
+                Tout pour recevoir des réservations en direct.
+              </p>
+            </div>
+            <div class="mb-6">
+              <span
+                class="text-[2.8rem] font-extrabold text-[var(--color-dark-bg)] tracking-tight leading-none"
+                >897€</span
+              >
+              <span class="text-[14px] text-gray-400 font-medium ml-1"
+                >unique</span
+              >
+            </div>
+            <ul class="flex flex-col gap-3 mb-8 flex-1 pricing-list">
+              <li>Site responsive (5 pages)</li>
+              <li>Animations premium</li>
+              <li>Formulaire de contact</li>
+              <li>Paiement Stripe (CB, Apple Pay, Google Pay)</li>
+              <li>Sync calendrier Airbnb</li>
+              <li>SEO de base</li>
+              <li>Configuration DNS incluse</li>
+              <li>Hébergement Vercel + SSL</li>
+              <li>Livraison en 48h</li>
+              <li>2 aller-retours de corrections</li>
+              <li>Support 30 jours inclus</li>
+            </ul>
+            <a
+              href="/commander/reservation"
+              class="block text-center bg-[var(--color-dark-bg)] text-white px-6 py-3.5 rounded-full font-bold text-[14px] hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-md uppercase tracking-wider"
+            >
+              Je choisis la Réservation
+            </a>
+          </div>
+
+          <!-- Complet -->
+          <div
+            class="bg-white rounded-[24px] border border-gray-200 p-8 shadow-sm flex flex-col"
+          >
+            <div class="mb-6">
+              <h3
+                class="text-[1.3rem] font-extrabold text-[var(--color-dark-bg)] mb-1"
+              >
+                Complet
+              </h3>
+              <p class="text-[13px] text-gray-400 font-medium">
+                Votre présence en ligne, de A à Z.
+              </p>
+            </div>
+            <div class="mb-6">
+              <span
+                class="text-[2.8rem] font-extrabold text-[var(--color-dark-bg)] tracking-tight leading-none"
+                >1 297€</span
+              >
+              <span class="text-[14px] text-gray-400 font-medium ml-1"
+                >unique</span
+              >
+            </div>
+            <ul class="flex flex-col gap-3 mb-8 flex-1 pricing-list">
+              <li>Site responsive (pages illimitées)</li>
+              <li>Animations premium</li>
+              <li>Formulaire de contact</li>
+              <li>Paiement Stripe (CB, Apple Pay, Google Pay)</li>
+              <li>Sync calendrier Airbnb</li>
+              <li>SEO avancé + sitemap</li>
+              <li>Configuration DNS incluse</li>
+              <li>Hébergement Vercel + SSL</li>
+              <li>Livraison en 48h</li>
+              <li>Corrections illimitées (2 semaines)</li>
+              <li>Maintenance 1 an incluse</li>
+            </ul>
+            <a
+              href="/commander/complet"
+              class="block text-center bg-gray-100 text-[var(--color-dark-bg)] px-6 py-3.5 rounded-full font-bold text-[14px] hover:bg-gray-200 transition-all uppercase tracking-wider"
+            >
+              Je choisis le Complet
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPTIONS ADD-ON -->
+    <section class="pb-20 px-6">
+      <div class="reveal max-w-4xl mx-auto">
+        <h2
+          class="text-[1.5rem] font-extrabold text-[#2B2622] text-center mb-10"
+        >
+          Options supplémentaires
+        </h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div
+            class="bg-white rounded-[20px] border border-gray-200 p-6 shadow-sm text-center"
+          >
+            <div
+              class="w-12 h-12 rounded-full bg-[#E8FAF8] flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#4ECDC4"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+                ></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+            </div>
+            <h3 class="font-bold text-[15px] text-[#2B2622] mb-1">
+              Photographe pro
+            </h3>
+            <p class="text-[28px] font-extrabold text-[#2B2622] mb-2">150€</p>
+            <p class="text-[13px] text-gray-400 font-medium">
+              Shooting photo de votre bien. Disponible à La Réunion.
+            </p>
+          </div>
+          <div
+            class="bg-white rounded-[20px] border border-gray-200 p-6 shadow-sm text-center"
+          >
+            <div
+              class="w-12 h-12 rounded-full bg-[#E8FAF8] flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#4ECDC4"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-[15px] text-[#2B2622] mb-1">
+              Maintenance
+            </h3>
+            <p class="text-[28px] font-extrabold text-[#2B2622] mb-2">
+              37€<span class="text-[14px] text-gray-400 font-medium"
+                >/mois</span
+              >
+            </p>
+            <p class="text-[13px] text-gray-400 font-medium">
+              Mises à jour, modifications mineures et support prioritaire.
+            </p>
+          </div>
+          <div
+            class="bg-white rounded-[20px] border border-gray-200 p-6 shadow-sm text-center"
+          >
+            <div
+              class="w-12 h-12 rounded-full bg-[#E8FAF8] flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#4ECDC4"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                ></path>
+                <path
+                  d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-[15px] text-[#2B2622] mb-1">
+              Modification site existant
+            </h3>
+            <p class="text-[28px] font-extrabold text-[#2B2622] mb-2">
+              Sur devis
+            </p>
+            <p class="text-[13px] text-gray-400 font-medium">
+              Vous avez déjà un site ? Tarif adapté selon votre demande.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARATIF VS AGENCE -->
+    <section class="pb-20 px-6">
+      <div class="reveal max-w-4xl mx-auto">
+        <h2
+          class="text-[1.8rem] font-extrabold text-[#2B2622] text-center mb-4"
+        >
+          Pourquoi nous plutôt qu'une agence ?
+        </h2>
+        <p
+          class="text-gray-500 text-center max-w-[480px] mx-auto text-[1rem] font-medium mb-12"
+        >
+          Le même résultat, sans le budget agence.
+        </p>
+        <div
+          class="bg-white rounded-[24px] border border-gray-200 overflow-hidden shadow-sm"
+        >
+          <table class="w-full text-[14px]">
+            <thead>
+              <tr class="border-b border-gray-100">
+                <th
+                  class="text-left py-4 px-6 font-bold text-gray-400 text-[12px] uppercase tracking-wider w-1/3"
+                ></th>
+                <th class="py-4 px-6 text-center">
+                  <div class="flex flex-col items-center gap-1">
+                    <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+                      <circle cx="16" cy="16" r="16" fill="#4ECDC4"></circle>
+                      <path
+                        d="M16 9V23M9 16H23M12 12L20 20M12 20L20 12"
+                        stroke="white"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      ></path>
+                    </svg>
+                    <span class="font-extrabold text-[#2B2622]"
+                      >Porphyre Studio</span
+                    >
+                  </div>
+                </th>
+                <th class="py-4 px-6 text-center">
+                  <span class="font-bold text-gray-400">Agence classique</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="font-medium">
+              <tr class="border-b border-gray-50">
+                <td class="py-4 px-6 text-gray-500">Prix</td>
+                <td class="py-4 px-6 text-center font-bold text-[#2B2622]">
+                  À partir de 497€
+                </td>
+                <td class="py-4 px-6 text-center text-gray-400">
+                  2 000 — 10 000€
+                </td>
+              </tr>
+              <tr class="border-b border-gray-50">
+                <td class="py-4 px-6 text-gray-500">Délai</td>
+                <td class="py-4 px-6 text-center font-bold text-[#2B2622]">
+                  48h
+                </td>
+                <td class="py-4 px-6 text-center text-gray-400">
+                  4 à 12 semaines
+                </td>
+              </tr>
+              <tr class="border-b border-gray-50">
+                <td class="py-4 px-6 text-gray-500">Commission</td>
+                <td class="py-4 px-6 text-center font-bold text-[#4ECDC4]">
+                  0%
+                </td>
+                <td class="py-4 px-6 text-center text-gray-400">
+                  0% (coût mensuel)
+                </td>
+              </tr>
+              <tr class="border-b border-gray-50">
+                <td class="py-4 px-6 text-gray-500">Hébergement</td>
+                <td class="py-4 px-6 text-center font-bold text-[#2B2622]">
+                  Vercel (gratuit)
+                </td>
+                <td class="py-4 px-6 text-center text-gray-400">
+                  10 — 50€/mois
+                </td>
+              </tr>
+              <tr class="border-b border-gray-50">
+                <td class="py-4 px-6 text-gray-500">Paiement en ligne</td>
+                <td class="py-4 px-6 text-center font-bold text-[#2B2622]">
+                  Stripe intégré
+                </td>
+                <td class="py-4 px-6 text-center text-gray-400">
+                  En supplément
+                </td>
+              </tr>
+              <tr class="border-b border-gray-50">
+                <td class="py-4 px-6 text-gray-500">Sync Airbnb</td>
+                <td class="py-4 px-6 text-center font-bold text-[#2B2622]">
+                  Inclus
+                </td>
+                <td class="py-4 px-6 text-center text-gray-400">
+                  Plugin payant
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-6 text-gray-500">Garantie</td>
+                <td class="py-4 px-6 text-center font-bold text-[#4ECDC4]">
+                  Satisfait ou remboursé 7j
+                </td>
+                <td class="py-4 px-6 text-center text-gray-400">Aucune</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- GARANTIES -->
+    <section class="pb-20 px-6">
+      <div class="reveal max-w-4xl mx-auto">
+        <h2
+          class="text-[1.8rem] font-extrabold text-[#2B2622] text-center mb-12"
+        >
+          Inclus avec chaque offre
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="text-center">
+            <div
+              class="w-14 h-14 rounded-full bg-[#E8FAF8] flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#4ECDC4"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <h3 class="font-bold text-[16px] text-[#2B2622] mb-2">
+              Livré en 48h
+            </h3>
+            <p class="text-[13px] text-gray-400 font-medium leading-relaxed">
+              Votre site est en ligne en 2 jours après réception de vos
+              contenus.
+            </p>
+          </div>
+          <div class="text-center">
+            <div
+              class="w-14 h-14 rounded-full bg-[#E8FAF8] flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#4ECDC4"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-[16px] text-[#2B2622] mb-2">
+              Satisfait ou remboursé
+            </h3>
+            <p class="text-[13px] text-gray-400 font-medium leading-relaxed">
+              7 jours pour changer d'avis. Remboursement intégral, sans
+              condition.
+            </p>
+          </div>
+          <div class="text-center">
+            <div
+              class="w-14 h-14 rounded-full bg-[#E8FAF8] flex items-center justify-center mx-auto mb-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#4ECDC4"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="font-bold text-[16px] text-[#2B2622] mb-2">
+              Support inclus
+            </h3>
+            <p class="text-[13px] text-gray-400 font-medium leading-relaxed">
+              Un interlocuteur unique qui répond à vos questions rapidement.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="pb-20 px-6">
+      <div class="reveal max-w-3xl mx-auto text-center">
+        <h2
+          class="text-[2rem] md:text-[2.5rem] font-extrabold tracking-[-0.03em] text-[#2B2622] mb-4"
+        >
+          Prêt à lancer votre site ?
+        </h2>
+        <p
+          class="text-gray-500 max-w-[480px] mx-auto text-[1rem] font-medium mb-8"
+        >
+          Choisissez votre offre ci-dessus ou réservez un appel gratuit pour en
+          discuter.
+        </p>
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <a
+            href="/rendez-vous"
+            class="w-full sm:w-auto bg-[#2B2622] text-white px-8 py-4 rounded-full font-bold text-[15px] hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-md uppercase tracking-wider"
+          >
+            Réserver mon appel gratuit
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[var(--color-dark-bg)] text-white pt-16 pb-8 px-6">
+      <div class="max-w-6xl mx-auto border-t border-white/10 pt-12">
+        <div class="grid md:grid-cols-4 gap-10 mb-12">
+          <div>
+            <div class="flex items-center gap-2.5 font-bold text-[15px] mb-4">
+              <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="16" fill="#4ECDC4"></circle>
+                <path
+                  d="M16 9V23M9 16H23M12 12L20 20M12 20L20 12"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                ></path>
+              </svg>
+              Porphyre Studio
+            </div>
+            <p class="text-gray-400 text-[13px] font-medium leading-relaxed">
+              Sites web clé en main pour locations saisonnières.
+            </p>
+          </div>
+          <div>
+            <h4
+              class="font-bold text-[13px] mb-4 text-white/80 uppercase tracking-wider"
+            >
+              Navigation
+            </h4>
+            <ul class="flex flex-col gap-2.5">
+              <li>
+                <a
+                  href="/"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Accueil</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/tarifs"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Tarifs</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/portfolio"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Portfolio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/blog"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Blog</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              class="font-bold text-[13px] mb-4 text-white/80 uppercase tracking-wider"
+            >
+              Réalisations
+            </h4>
+            <ul class="flex flex-col gap-2.5">
+              <li>
+                <a
+                  href="/portfolio"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Les Sardines Blanches</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/portfolio"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >K'Ban Lorizon</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/portfolio"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Avis clients</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              class="font-bold text-[13px] mb-4 text-white/80 uppercase tracking-wider"
+            >
+              Contact
+            </h4>
+            <ul class="flex flex-col gap-2.5">
+              <li>
+                <a
+                  href="/rendez-vous"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Prendre un appel</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://wa.me/262693120918"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >WhatsApp</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://instagram.com/ninoporphyre"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >Instagram</a
+                >
+              </li>
+              <li>
+                <a
+                  href="mailto:contact@ninoporphyre.fr"
+                  class="text-gray-400 hover:text-white transition text-[13px] font-medium"
+                  >contact@ninoporphyre.fr</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-gray-500 font-medium"
+        >
+          <span>&copy; 2026 Porphyre Studio. Tous droits réservés.</span>
+          <div class="flex items-center gap-4">
+            <span>Mentions légales</span>
+            <span class="text-white/20">|</span>
+            <span>SIRET 933 521 056 000 12</span>
+          </div>
+        </div>
+        <div
+          class="border-t border-white/10 mt-8 pt-8 text-[11px] text-gray-600 font-medium leading-relaxed max-w-3xl"
+        >
+          <p class="mb-2">
+            <strong class="text-gray-400">Éditeur :</strong> Nino Porphyre —
+            SIRET 933 521 056 000 12 — TVA non applicable, art. 293B du CGI —
+            contact@ninoporphyre.fr
+          </p>
+          <p>
+            <strong class="text-gray-400">Hébergement :</strong> Vercel Inc. —
+            440 N Barranca Ave #4133, Covina, CA 91723, USA
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Scroll Reveal
+      function handleReveal() {
+        document.querySelectorAll(".reveal").forEach((el) => {
+          if (el.getBoundingClientRect().top < window.innerHeight - 80) {
+            el.classList.add("active");
+          }
+        });
+      }
+      window.addEventListener("scroll", handleReveal);
+      window.addEventListener("DOMContentLoaded", handleReveal);
+      handleReveal();
+    </script>
+  </body>
+</html>
