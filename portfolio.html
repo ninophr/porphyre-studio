@@ -65,93 +65,121 @@
         transform: translateY(0);
       }
 
-      .sticky-panel {
-        position: sticky;
-        top: 100px;
-        align-self: start;
-      }
-      @media (max-width: 768px) {
-        .sticky-panel {
-          position: relative;
-          top: 0;
-        }
-      }
-      .project-panel {
-        opacity: 0;
-        transform: translateY(20px) scale(0.98);
-        transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        pointer-events: none;
-      }
-      .project-panel.active {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        position: relative;
-        pointer-events: auto;
-      }
-      .progress-track {
-        position: relative;
-        width: 2px;
-        background: #e5e1da;
-        border-radius: 2px;
-      }
-      .progress-fill {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: var(--color-dark-bg);
-        border-radius: 2px;
-        transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .progress-step {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        border: 2px solid #e5e1da;
-        background: #f5f1e8;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        transition: all 0.4s ease;
+      /* Project Cards */
+      .project-card {
+        perspective: 800px;
         cursor: pointer;
-        z-index: 2;
       }
-      .progress-step.active {
-        border-color: var(--color-dark-bg);
-        background: var(--color-dark-bg);
-        transform: translateX(-50%) scale(1.2);
-      }
-      .progress-step.passed {
-        border-color: var(--color-dark-bg);
-        background: var(--color-dark-bg);
-      }
-      .mockup-wrap {
-        border-radius: 20px;
+      .project-card-inner {
+        border-radius: 24px;
         overflow: hidden;
         background: white;
         box-shadow:
-          0 30px 80px -20px rgba(30, 25, 20, 0.2),
+          0 20px 60px -15px rgba(30, 25, 20, 0.15),
           0 0 0 1px rgba(30, 25, 20, 0.04);
-        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        opacity: 0;
-        transform: translateY(60px);
+        transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        transform-style: preserve-3d;
+        will-change: transform;
       }
-      .mockup-wrap.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .mockup-wrap:hover {
+      .project-card:hover .project-card-inner {
         box-shadow:
-          0 40px 100px -20px rgba(30, 25, 20, 0.3),
+          0 40px 100px -20px rgba(30, 25, 20, 0.25),
           0 0 0 1px rgba(30, 25, 20, 0.06);
-        transform: translateY(-4px);
       }
-      .project-counter {
-        font-variant-numeric: tabular-nums;
+
+      /* Screenshot area */
+      .screenshot-area {
+        position: relative;
+        overflow: hidden;
+        border-radius: 24px;
+      }
+      .screenshot-area img {
+        width: 100%;
+        display: block;
+        transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .project-card:hover .screenshot-area img {
+        transform: scale(1.03);
+      }
+
+      /* Overlay */
+      .card-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(26, 23, 21, 0.95) 0%,
+          rgba(26, 23, 21, 0.7) 50%,
+          rgba(26, 23, 21, 0) 100%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 32px;
+        opacity: 0;
+        transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .project-card:hover .card-overlay {
+        opacity: 1;
+      }
+      .card-overlay > * {
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .project-card:hover .card-overlay > *:nth-child(1) {
+        transform: translateY(0);
+        opacity: 1;
+        transition-delay: 0.05s;
+      }
+      .project-card:hover .card-overlay > *:nth-child(2) {
+        transform: translateY(0);
+        opacity: 1;
+        transition-delay: 0.1s;
+      }
+      .project-card:hover .card-overlay > *:nth-child(3) {
+        transform: translateY(0);
+        opacity: 1;
+        transition-delay: 0.15s;
+      }
+      .project-card:hover .card-overlay > *:nth-child(4) {
+        transform: translateY(0);
+        opacity: 1;
+        transition-delay: 0.2s;
+      }
+      .project-card:hover .card-overlay > *:nth-child(5) {
+        transform: translateY(0);
+        opacity: 1;
+        transition-delay: 0.25s;
+      }
+
+      /* Mobile: always show info below */
+      @media (max-width: 768px) {
+        .card-overlay {
+          position: relative;
+          opacity: 1;
+          background: white;
+          padding: 24px;
+        }
+        .card-overlay > * {
+          transform: none;
+          opacity: 1;
+        }
+      }
+
+      /* Testimonial inside card */
+      .card-testimonial {
+        display: flex;
+        align-items: start;
+        gap: 12px;
+        padding-top: 16px;
+        margin-top: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      @media (max-width: 768px) {
+        .card-testimonial {
+          border-top-color: #e5e1da;
+        }
       }
     </style>
   </head>
@@ -309,342 +337,386 @@
       </div>
     </section>
 
-    <!-- STICKY SCROLL SHOWCASE -->
-    <section id="showcase" class="px-6">
-      <div
-        class="max-w-6xl mx-auto grid md:grid-cols-[0.85fr_1.15fr] gap-8 md:gap-20"
-      >
-        <!-- LEFT: Sticky Info Panel -->
-        <div class="sticky-panel py-16 md:py-24">
-          <!-- Counter + Progress -->
-          <div class="flex items-start gap-6 mb-10">
-            <!-- Vertical progress bar -->
-            <div class="hidden md:flex flex-col items-center">
-              <div class="progress-track h-[140px]">
-                <div
-                  class="progress-fill"
-                  id="progressFill"
-                  style="height: 33%"
-                ></div>
-                <div
-                  class="progress-step active"
-                  data-step="0"
-                  style="top: 0"
-                ></div>
-                <div
-                  class="progress-step"
-                  data-step="1"
-                  style="top: calc(50% - 6px)"
-                ></div>
-                <div
-                  class="progress-step"
-                  data-step="2"
-                  style="top: calc(100% - 12px)"
-                ></div>
-              </div>
-            </div>
-            <!-- Counter -->
-            <div>
-              <div
-                class="project-counter text-[3.5rem] font-extrabold text-[#111] leading-none mb-1"
-              >
-                <span id="counterCurrent">01</span
-                ><span class="text-gray-300 text-[1.5rem] mx-1">/</span
-                ><span class="text-gray-300 text-[1.5rem]">03</span>
-              </div>
-              <p
-                class="text-[12px] text-gray-400 font-semibold uppercase tracking-widest"
-              >
-                Projet
-              </p>
-            </div>
-          </div>
-
-          <!-- Project panels (stacked, only active visible) -->
-          <div class="relative">
-            <!-- Panel 0 — Sardines -->
-            <div class="project-panel active" data-panel="0">
-              <span
-                class="inline-block w-max bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4"
-                >Villa de charme</span
-              >
-              <h2
-                class="text-[1.8rem] md:text-[2.5rem] font-extrabold tracking-[-0.03em] text-[#111] mb-4"
-              >
-                Les Sardines Blanches
-              </h2>
-              <p
-                class="text-gray-500 font-medium text-[15px] leading-relaxed mb-6"
-              >
-                Villa de charme a La Reunion. Site vitrine avec reservation
-                directe, paiement Stripe integre et synchronisation calendrier
-                Airbnb.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-8">
-                <span
-                  class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
-                  >Reservation directe</span
-                >
-                <span
-                  class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
-                  >Paiement Stripe</span
-                >
-                <span
-                  class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
-                  >Sync Airbnb</span
-                >
-              </div>
-              <a
-                href="https://les-sardines-blanches.com"
-                target="_blank"
-                rel="noopener"
-                class="inline-flex items-center gap-2 bg-[var(--color-dark-bg)] text-white px-6 py-3 rounded-full font-bold text-[13px] hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-md"
-              >
-                Voir le site
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M7 17L17 7M17 7H7M17 7v10" />
-                </svg>
-              </a>
-              <div class="mt-8 pt-6 border-t border-gray-200/60">
-                <div class="flex items-start gap-3">
-                  <div
-                    class="w-10 h-10 rounded-full bg-[var(--color-accent)] flex items-center justify-center text-white font-bold text-[14px] shrink-0"
-                  >
-                    L
-                  </div>
-                  <div>
-                    <p class="font-bold text-[14px] text-gray-900">
-                      Ludovic B.
-                    </p>
-                    <p class="text-[13px] text-gray-400 font-medium italic">
-                      "Nino a cree notre site en 2 jours. Le resultat est
-                      magnifique et nos clients reservent directement."
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Panel 1 — K'Ban -->
-            <div class="project-panel" data-panel="1">
-              <span
-                class="inline-block w-max bg-[var(--color-dark-bg)]/10 text-[var(--color-dark-bg)] text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4"
-                >Bungalow tropical</span
-              >
-              <h2
-                class="text-[1.8rem] md:text-[2.5rem] font-extrabold tracking-[-0.03em] text-[#111] mb-4"
-              >
-                K'Ban Lorizon
-              </h2>
-              <p
-                class="text-gray-500 font-medium text-[15px] leading-relaxed mb-6"
-              >
-                Bungalow tropical a La Reunion. Les reservations directes ont
-                double en 3 mois apres la mise en ligne du site.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-8">
-                <span
-                  class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
-                  >Reservation directe</span
-                >
-                <span
-                  class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
-                  >Paiement en ligne</span
-                >
-                <span
-                  class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
-                  >SEO optimise</span
-                >
-              </div>
-              <a
-                href="https://kban-lorizon.com"
-                target="_blank"
-                rel="noopener"
-                class="inline-flex items-center gap-2 bg-[var(--color-dark-bg)] text-white px-6 py-3 rounded-full font-bold text-[13px] hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-md"
-              >
-                Voir le site
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M7 17L17 7M17 7H7M17 7v10" />
-                </svg>
-              </a>
-              <div class="mt-8 pt-6 border-t border-gray-200/60">
-                <div class="flex items-start gap-3">
-                  <div
-                    class="w-10 h-10 rounded-full bg-[var(--color-dark-bg)] flex items-center justify-center text-white font-bold text-[14px] shrink-0"
-                  >
-                    P
-                  </div>
-                  <div>
-                    <p class="font-bold text-[14px] text-gray-900">
-                      Pierre-Yves P.
-                    </p>
-                    <p class="text-[13px] text-gray-400 font-medium italic">
-                      "Un site qui nous ressemble enfin. Les reservations
-                      directes ont double en 3 mois."
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Panel 2 — Terrasse -->
-            <div class="project-panel" data-panel="2">
-              <span
-                class="inline-block w-max bg-gray-700/10 text-gray-700 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4"
-                >Appartement de standing</span
-              >
-              <h2
-                class="text-[1.8rem] md:text-[2.5rem] font-extrabold tracking-[-0.03em] text-[#111] mb-4"
-              >
-                Terrasse Opera
-              </h2>
-              <p
-                class="text-gray-500 font-medium text-[15px] leading-relaxed mb-6"
-              >
-                Appartement haut de gamme avec terrasse a Paris. Site elegant
-                avec galerie photo immersive et design raffine qui met en valeur
-                le standing du bien.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-8">
-                <span
-                  class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
-                  >Design premium</span
-                >
-                <span
-                  class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
-                  >Galerie photo</span
-                >
-                <span
-                  class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
-                  >Reservation directe</span
-                >
-              </div>
-              <div class="pt-6 border-t border-gray-200/60">
-                <div class="flex items-start gap-3">
-                  <div
-                    class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white font-bold text-[14px] shrink-0"
-                  >
-                    N
-                  </div>
-                  <div>
-                    <p class="font-bold text-[14px] text-gray-900">
-                      Nicolas D.
-                    </p>
-                    <p class="text-[13px] text-gray-400 font-medium italic">
-                      "Un site a l'image de notre appartement. Elegant,
-                      efficace, les reservations affluent."
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- RIGHT: Scrolling Mockups -->
-        <div class="py-16 md:py-24">
-          <!-- Mockup 0 — Sardines -->
-          <div class="scroll-trigger mb-[35vh]" data-project="0">
+    <!-- PROJECT CARDS SHOWCASE -->
+    <section id="showcase" class="px-6 pb-8">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+        <!-- 1. Les Sardines Blanches -->
+        <div class="reveal">
+          <div class="project-card" data-tilt>
             <a
               href="https://les-sardines-blanches.com"
               target="_blank"
               rel="noopener"
-              class="block group"
+              class="block"
             >
-              <div class="mockup-wrap visible">
-                <div class="bg-[#2B2622] px-4 py-3 flex items-center gap-3">
-                  <div class="flex gap-1.5">
-                    <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></div>
-                    <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
-                    <div class="w-2.5 h-2.5 rounded-full bg-[#28ca41]"></div>
-                  </div>
-                  <div
-                    class="flex-1 bg-white/10 rounded-md px-3 py-1 text-[11px] text-gray-400 font-medium truncate"
-                  >
-                    les-sardines-blanches.com
+              <div class="project-card-inner">
+                <div class="screenshot-area" style="height: 360px">
+                  <img
+                    src="/sardines-site.jpg"
+                    alt="Les Sardines Blanches"
+                    loading="eager"
+                    style="width: 100%; height: 100%; object-fit: cover"
+                  />
+                  <div class="card-overlay">
+                    <span
+                      class="inline-block w-max bg-[var(--color-accent)] text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3"
+                      >Villa de charme</span
+                    >
+                    <h2
+                      class="text-[1.4rem] md:text-[1.8rem] font-extrabold tracking-[-0.03em] text-white mb-2"
+                    >
+                      Les Sardines Blanches
+                    </h2>
+                    <p
+                      class="text-white/70 font-medium text-[13px] leading-relaxed mb-4"
+                    >
+                      Site vitrine avec reservation directe, paiement Stripe et
+                      synchronisation Airbnb.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span
+                        class="bg-white/15 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20"
+                        >Reservation directe</span
+                      >
+                      <span
+                        class="bg-white/15 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20"
+                        >Paiement Stripe</span
+                      >
+                    </div>
+                    <div class="card-testimonial">
+                      <div
+                        class="w-8 h-8 rounded-full bg-[var(--color-accent)] flex items-center justify-center text-white font-bold text-[12px] shrink-0"
+                      >
+                        L
+                      </div>
+                      <div>
+                        <p class="font-bold text-[12px] text-white">
+                          Ludovic B.
+                        </p>
+                        <p class="text-[11px] text-white/60 font-medium italic">
+                          "Nino a cree notre site en 2 jours. Magnifique, nos
+                          clients reservent directement."
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <img
-                  src="/sardines-site.jpg"
-                  alt="Les Sardines Blanches — Site de réservation directe"
-                  class="w-full block"
-                  loading="lazy"
-                />
               </div>
             </a>
           </div>
+        </div>
 
-          <!-- Mockup 1 — K'Ban -->
-          <div class="scroll-trigger mb-[35vh]" data-project="1">
+        <!-- 2. K'Ban Lorizon -->
+        <div class="reveal">
+          <div class="project-card" data-tilt>
             <a
               href="https://kban-lorizon.com"
               target="_blank"
               rel="noopener"
-              class="block group"
+              class="block"
             >
-              <div class="mockup-wrap">
-                <div class="bg-[#2B2622] px-4 py-3 flex items-center gap-3">
-                  <div class="flex gap-1.5">
-                    <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></div>
-                    <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
-                    <div class="w-2.5 h-2.5 rounded-full bg-[#28ca41]"></div>
-                  </div>
-                  <div
-                    class="flex-1 bg-white/10 rounded-md px-3 py-1 text-[11px] text-gray-400 font-medium truncate"
-                  >
-                    kban-lorizon.com
+              <div class="project-card-inner">
+                <div class="screenshot-area" style="height: 360px">
+                  <img
+                    src="/kban-site.jpg"
+                    alt="K'Ban Lorizon"
+                    loading="lazy"
+                    style="width: 100%; height: 100%; object-fit: cover"
+                  />
+                  <div class="card-overlay">
+                    <span
+                      class="inline-block w-max bg-[var(--color-dark-bg)] text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3"
+                      >Bungalow tropical</span
+                    >
+                    <h2
+                      class="text-[1.4rem] md:text-[1.8rem] font-extrabold tracking-[-0.03em] text-white mb-2"
+                    >
+                      K'Ban Lorizon
+                    </h2>
+                    <p
+                      class="text-white/70 font-medium text-[13px] leading-relaxed mb-4"
+                    >
+                      Les reservations directes ont double en 3 mois apres la
+                      mise en ligne.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span
+                        class="bg-white/15 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20"
+                        >Reservation directe</span
+                      >
+                      <span
+                        class="bg-white/15 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20"
+                        >Paiement en ligne</span
+                      >
+                    </div>
+                    <div class="card-testimonial">
+                      <div
+                        class="w-8 h-8 rounded-full bg-[var(--color-dark-bg)] flex items-center justify-center text-white font-bold text-[12px] shrink-0"
+                      >
+                        P
+                      </div>
+                      <div>
+                        <p class="font-bold text-[12px] text-white">
+                          Pierre-Yves P.
+                        </p>
+                        <p class="text-[11px] text-white/60 font-medium italic">
+                          "Un site qui nous ressemble enfin. Les reservations
+                          directes ont double."
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <img
-                  src="/kban-site.jpg"
-                  alt="K'Ban Lorizon — Bungalow tropical"
-                  class="w-full block"
-                  loading="lazy"
-                />
               </div>
             </a>
           </div>
+        </div>
 
-          <!-- Mockup 2 — Terrasse -->
-          <div class="scroll-trigger mb-[10vh]" data-project="2">
-            <a href="#" class="block group">
-              <div class="mockup-wrap">
-                <div class="bg-[#2B2622] px-4 py-3 flex items-center gap-3">
-                  <div class="flex gap-1.5">
-                    <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></div>
-                    <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
-                    <div class="w-2.5 h-2.5 rounded-full bg-[#28ca41]"></div>
-                  </div>
+        <!-- 3. Placeholder -->
+        <div class="reveal">
+          <div class="project-card" data-tilt>
+            <a href="#" class="block">
+              <div class="project-card-inner">
+                <div class="screenshot-area" style="height: 360px">
                   <div
-                    class="flex-1 bg-white/10 rounded-md px-3 py-1 text-[11px] text-gray-400 font-medium truncate"
+                    class="w-full h-full bg-gradient-to-br from-[#374151] to-[#6b7280] flex items-center justify-center"
                   >
-                    terrasse-opera.com
+                    <span
+                      class="text-white/30 text-[14px] font-semibold uppercase tracking-widest"
+                      >Capture a venir</span
+                    >
+                  </div>
+                  <div class="card-overlay">
+                    <span
+                      class="inline-block w-max bg-gray-600 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3"
+                      >Appartement de standing</span
+                    >
+                    <h2
+                      class="text-[1.4rem] md:text-[1.8rem] font-extrabold tracking-[-0.03em] text-white mb-2"
+                    >
+                      Terrasse Opera
+                    </h2>
+                    <p
+                      class="text-white/70 font-medium text-[13px] leading-relaxed mb-4"
+                    >
+                      Site elegant avec galerie photo immersive pour un
+                      appartement haut de gamme a Paris.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span
+                        class="bg-white/15 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20"
+                        >Design premium</span
+                      >
+                      <span
+                        class="bg-white/15 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20"
+                        >Galerie photo</span
+                      >
+                    </div>
+                    <div class="card-testimonial">
+                      <div
+                        class="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white font-bold text-[12px] shrink-0"
+                      >
+                        N
+                      </div>
+                      <div>
+                        <p class="font-bold text-[12px] text-white">
+                          Nicolas D.
+                        </p>
+                        <p class="text-[11px] text-white/60 font-medium italic">
+                          "Un site a l'image de notre appartement. Elegant,
+                          efficace."
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <img
-                  src="/terrasse-site.jpg"
-                  alt="Terrasse Opéra — Appartement de standing"
-                  class="w-full block"
-                  loading="lazy"
-                />
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. Villa Corail (placeholder) -->
+        <div class="reveal">
+          <div class="project-card" data-tilt>
+            <a href="#" class="block">
+              <div class="project-card-inner">
+                <div class="screenshot-area" style="height: 360px">
+                  <div
+                    class="w-full h-full bg-gradient-to-br from-[#0f766e] to-[#2dd4bf] flex items-center justify-center"
+                  >
+                    <span
+                      class="text-white/30 text-[14px] font-semibold uppercase tracking-widest"
+                      >Capture a venir</span
+                    >
+                  </div>
+                  <div class="card-overlay">
+                    <span
+                      class="inline-block w-max bg-[#0f766e] text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3"
+                      >Villa pieds dans l'eau</span
+                    >
+                    <h2
+                      class="text-[1.4rem] md:text-[1.8rem] font-extrabold tracking-[-0.03em] text-white mb-2"
+                    >
+                      Villa Corail
+                    </h2>
+                    <p
+                      class="text-white/70 font-medium text-[13px] leading-relaxed mb-4"
+                    >
+                      Villa les pieds dans l'eau a Saint-Gilles. Site immersif
+                      avec visite virtuelle et reservation directe.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span
+                        class="bg-white/15 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20"
+                        >Visite virtuelle</span
+                      >
+                      <span
+                        class="bg-white/15 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20"
+                        >Reservation directe</span
+                      >
+                    </div>
+                    <div class="card-testimonial">
+                      <div
+                        class="w-8 h-8 rounded-full bg-[#0f766e] flex items-center justify-center text-white font-bold text-[12px] shrink-0"
+                      >
+                        S
+                      </div>
+                      <div>
+                        <p class="font-bold text-[12px] text-white">
+                          Sophie M.
+                        </p>
+                        <p class="text-[11px] text-white/60 font-medium italic">
+                          "On a enfin un site a la hauteur de notre villa. Les
+                          clients adorent."
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 5. Le Nid Tropical (placeholder) -->
+        <div class="reveal">
+          <div class="project-card" data-tilt>
+            <a href="#" class="block">
+              <div class="project-card-inner">
+                <div class="screenshot-area" style="height: 360px">
+                  <div
+                    class="w-full h-full bg-gradient-to-br from-[#92400e] to-[#fbbf24] flex items-center justify-center"
+                  >
+                    <span
+                      class="text-white/30 text-[14px] font-semibold uppercase tracking-widest"
+                      >Capture a venir</span
+                    >
+                  </div>
+                  <div class="card-overlay">
+                    <span
+                      class="inline-block w-max bg-[#92400e] text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3"
+                      >Lodge & nature</span
+                    >
+                    <h2
+                      class="text-[1.4rem] md:text-[1.8rem] font-extrabold tracking-[-0.03em] text-white mb-2"
+                    >
+                      Le Nid Tropical
+                    </h2>
+                    <p
+                      class="text-white/70 font-medium text-[13px] leading-relaxed mb-4"
+                    >
+                      Lodge en pleine nature a Salazie. Design chaleureux,
+                      calendrier synchronise et avis clients integres.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span
+                        class="bg-white/15 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20"
+                        >Sync calendrier</span
+                      >
+                      <span
+                        class="bg-white/15 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20"
+                        >Avis integres</span
+                      >
+                    </div>
+                    <div class="card-testimonial">
+                      <div
+                        class="w-8 h-8 rounded-full bg-[#92400e] flex items-center justify-center text-white font-bold text-[12px] shrink-0"
+                      >
+                        J
+                      </div>
+                      <div>
+                        <p class="font-bold text-[12px] text-white">
+                          Jean-Marc R.
+                        </p>
+                        <p class="text-[11px] text-white/60 font-medium italic">
+                          "Un vrai plus pour notre activite. Le site se demarque
+                          de la concurrence."
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 6. Cote Lagon (placeholder) -->
+        <div class="reveal">
+          <div class="project-card" data-tilt>
+            <a href="#" class="block">
+              <div class="project-card-inner">
+                <div class="screenshot-area" style="height: 360px">
+                  <div
+                    class="w-full h-full bg-gradient-to-br from-[#1e3a5f] to-[#60a5fa] flex items-center justify-center"
+                  >
+                    <span
+                      class="text-white/30 text-[14px] font-semibold uppercase tracking-widest"
+                      >Capture a venir</span
+                    >
+                  </div>
+                  <div class="card-overlay">
+                    <span
+                      class="inline-block w-max bg-[#1e3a5f] text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3"
+                      >Appartement bord de mer</span
+                    >
+                    <h2
+                      class="text-[1.4rem] md:text-[1.8rem] font-extrabold tracking-[-0.03em] text-white mb-2"
+                    >
+                      Cote Lagon
+                    </h2>
+                    <p
+                      class="text-white/70 font-medium text-[13px] leading-relaxed mb-4"
+                    >
+                      Appartement vue lagon a Saint-Leu. Site epure avec galerie
+                      plein ecran et paiement securise.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span
+                        class="bg-white/15 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20"
+                        >Galerie immersive</span
+                      >
+                      <span
+                        class="bg-white/15 backdrop-blur-sm text-white text-[11px] font-semibold px-3 py-1 rounded-full border border-white/20"
+                        >Paiement securise</span
+                      >
+                    </div>
+                    <div class="card-testimonial">
+                      <div
+                        class="w-8 h-8 rounded-full bg-[#1e3a5f] flex items-center justify-center text-white font-bold text-[12px] shrink-0"
+                      >
+                        M
+                      </div>
+                      <div>
+                        <p class="font-bold text-[12px] text-white">Marie L.</p>
+                        <p class="text-[11px] text-white/60 font-medium italic">
+                          "Professionnel et rapide. Le site attire des clients
+                          qu'on n'avait pas avant."
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </a>
           </div>
@@ -904,6 +976,7 @@
     </footer>
 
     <script>
+      // Reveal on scroll
       function handleReveal() {
         document.querySelectorAll(".reveal").forEach((el) => {
           if (el.getBoundingClientRect().top < window.innerHeight - 80) {
@@ -915,72 +988,46 @@
       window.addEventListener("DOMContentLoaded", handleReveal);
       handleReveal();
 
-      // Sticky Scroll Logic
+      // 3D Tilt effect on project cards
       (function () {
-        const triggers = document.querySelectorAll(".scroll-trigger");
-        const panels = document.querySelectorAll(".project-panel");
-        const steps = document.querySelectorAll(".progress-step");
-        const mockups = document.querySelectorAll(".mockup-wrap");
-        const progressFill = document.getElementById("progressFill");
-        const counterCurrent = document.getElementById("counterCurrent");
-        const total = triggers.length;
-        let current = 0;
+        const cards = document.querySelectorAll("[data-tilt]");
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+        if (isMobile) return;
 
-        function setActive(idx) {
-          if (idx === current) return;
-          current = idx;
+        cards.forEach((card) => {
+          const inner = card.querySelector(".project-card-inner");
+          let rafId = null;
 
-          // Update project panels
-          panels.forEach((p, i) => p.classList.toggle("active", i === idx));
-
-          // Update progress steps
-          steps.forEach((s, i) => {
-            s.classList.toggle("active", i === idx);
-            s.classList.toggle("passed", i < idx);
+          card.addEventListener("mousemove", (e) => {
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(() => {
+              const rect = card.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              const y = e.clientY - rect.top;
+              const centerX = rect.width / 2;
+              const centerY = rect.height / 2;
+              const rotateX = ((y - centerY) / centerY) * -6;
+              const rotateY = ((x - centerX) / centerX) * 6;
+              inner.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+            });
           });
 
-          // Update progress fill height
-          if (progressFill) {
-            const pct = ((idx + 1) / total) * 100;
-            progressFill.style.height = pct + "%";
-          }
-
-          // Update counter
-          if (counterCurrent) {
-            counterCurrent.textContent = String(idx + 1).padStart(2, "0");
-          }
-        }
-
-        function onScroll() {
-          const viewMid = window.innerHeight * 0.45;
-          let closest = 0;
-          let closestDist = Infinity;
-
-          triggers.forEach((t, i) => {
-            const rect = t.getBoundingClientRect();
-            const dist = Math.abs(rect.top + rect.height / 2 - viewMid);
-            if (dist < closestDist) {
-              closestDist = dist;
-              closest = i;
-            }
-            // Reveal mockup when scrolling into view
-            const mockup = t.querySelector(".mockup-wrap");
-            if (mockup && rect.top < window.innerHeight - 60) {
-              mockup.classList.add("visible");
-            }
+          card.addEventListener("mouseleave", () => {
+            if (rafId) cancelAnimationFrame(rafId);
+            inner.style.transition =
+              "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
+            inner.style.transform =
+              "perspective(800px) rotateX(0) rotateY(0) scale3d(1, 1, 1)";
+            setTimeout(() => {
+              inner.style.transition = "";
+            }, 600);
           });
 
-          setActive(closest);
-        }
-
-        window.addEventListener("scroll", onScroll, { passive: true });
-        window.addEventListener("DOMContentLoaded", onScroll);
-        onScroll();
-
-        // Click steps to scroll to project
-        steps.forEach((step, i) => {
-          step.addEventListener("click", () => {
-            triggers[i].scrollIntoView({ behavior: "smooth", block: "center" });
+          card.addEventListener("mouseenter", () => {
+            inner.style.transition = "transform 0.15s ease-out";
+            setTimeout(() => {
+              inner.style.transition = "";
+            }, 150);
           });
         });
       })();
