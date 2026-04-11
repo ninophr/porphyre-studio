@@ -40,45 +40,66 @@
         -webkit-font-smoothing: antialiased;
         background-color: #f5f1e8;
       }
+
+      /* Stepper */
       .step-dot {
-        width: 32px;
-        height: 32px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 13px;
         font-weight: 700;
-        transition: all 0.3s;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       }
       .step-dot.active {
         background: var(--color-dark-bg);
         color: white;
+        box-shadow: 0 4px 12px rgba(26, 23, 21, 0.25);
       }
       .step-dot.done {
         background: var(--color-accent);
         color: white;
       }
       .step-dot.inactive {
-        background: #e5e7eb;
-        color: #9ca3af;
+        background: transparent;
+        color: #c4bfb8;
+        border: 2px solid #e0dbd4;
       }
       .step-line {
         height: 2px;
         flex: 1;
+        border-radius: 2px;
+        transition: background 0.4s;
       }
       .step-line.active {
         background: var(--color-dark-bg);
       }
       .step-line.inactive {
-        background: #e5e7eb;
+        background: #e0dbd4;
       }
+
+      /* Form steps */
       .form-step {
         display: none;
+        animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       }
       .form-step.active {
         display: block;
       }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Inputs */
       input[type="text"],
       input[type="email"],
       input[type="tel"],
@@ -86,30 +107,55 @@
       select,
       textarea {
         width: 100%;
-        padding: 12px 16px;
-        border-radius: 12px;
-        border: 1px solid #e5e7eb;
+        padding: 14px 18px;
+        border-radius: 16px;
+        border: 1.5px solid #e0dbd4;
         font-size: 14px;
         font-weight: 500;
-        background: white;
-        transition: border-color 0.2s;
+        background: #faf8f4;
+        transition: all 0.25s;
         font-family: "Plus Jakarta Sans", sans-serif;
+        color: #2b2622;
+      }
+      input::placeholder,
+      textarea::placeholder,
+      select {
+        color: #b8b0a6;
       }
       input:focus,
       select:focus,
       textarea:focus {
         outline: none;
         border-color: var(--color-accent);
-        box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
+        box-shadow: 0 0 0 4px rgba(78, 205, 196, 0.08);
+        background: white;
       }
       textarea {
         resize: vertical;
-        min-height: 100px;
+        min-height: 110px;
+      }
+      select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23b8b0a6' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 16px center;
+      }
+
+      /* Summary card glow */
+      .summary-card {
+        background: white;
+        border-radius: 28px;
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        box-shadow:
+          0 8px 32px rgba(30, 25, 20, 0.06),
+          0 0 0 1px rgba(30, 25, 20, 0.02);
+        transition: box-shadow 0.3s;
       }
     </style>
   </head>
   <body>
-    <!-- NAV MINIMAL -->
+    <!-- NAV -->
     <nav
       class="fixed top-0 left-0 right-0 z-50 bg-[var(--color-dark-bg)] text-white px-6 py-4"
     >
@@ -131,7 +177,6 @@
           class="text-[13px] text-gray-400 hover:text-white transition font-medium flex items-center gap-1.5"
         >
           <svg
-            xmlns="http://www.w3.org/2000/svg"
             width="14"
             height="14"
             viewBox="0 0 24 24"
@@ -139,7 +184,6 @@
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"
-            stroke-linejoin="round"
           >
             <path d="M19 12H5"></path>
             <path d="m12 19-7-7 7-7"></path>
@@ -150,32 +194,32 @@
     </nav>
 
     <main class="pt-24 pb-20 px-6">
-      <div class="max-w-5xl mx-auto flex flex-col lg:flex-row gap-10">
+      <div class="max-w-5xl mx-auto flex flex-col lg:flex-row gap-12">
         <!-- LEFT: FORM -->
-        <div class="flex-1">
+        <div class="flex-1 max-w-[640px]">
           <!-- STEPPER -->
-          <div class="flex items-center gap-0 mb-10 max-w-[400px]">
-            <div class="flex flex-col items-center gap-1">
+          <div class="flex items-center gap-0 mb-12 max-w-[380px]">
+            <div class="flex flex-col items-center gap-1.5">
               <div class="step-dot active" id="dot-1">1</div>
               <span
-                class="text-[11px] font-bold text-[#2B2622] uppercase tracking-wider"
-                >Identité</span
+                class="text-[10px] font-bold text-[#2B2622] uppercase tracking-widest"
+                >Identite</span
               >
             </div>
             <div class="step-line active" id="line-1"></div>
-            <div class="flex flex-col items-center gap-1">
+            <div class="flex flex-col items-center gap-1.5">
               <div class="step-dot inactive" id="dot-2">2</div>
               <span
-                class="text-[11px] font-bold text-gray-400 uppercase tracking-wider"
+                class="text-[10px] font-bold text-[#c4bfb8] uppercase tracking-widest"
                 id="label-2"
                 >Contenus</span
               >
             </div>
             <div class="step-line inactive" id="line-2"></div>
-            <div class="flex flex-col items-center gap-1">
+            <div class="flex flex-col items-center gap-1.5">
               <div class="step-dot inactive" id="dot-3">3</div>
               <span
-                class="text-[11px] font-bold text-gray-400 uppercase tracking-wider"
+                class="text-[10px] font-bold text-[#c4bfb8] uppercase tracking-widest"
                 id="label-3"
                 >Technique</span
               >
@@ -184,16 +228,18 @@
 
           <!-- STEP 1: IDENTITÉ -->
           <div class="form-step active" id="step-1">
-            <h2 class="text-[1.5rem] font-extrabold text-[#2B2622] mb-2">
+            <h2
+              class="text-[1.6rem] font-extrabold text-[#2B2622] mb-2 tracking-[-0.02em]"
+            >
               Parlez-nous de vous
             </h2>
-            <p class="text-gray-500 text-[14px] font-medium mb-8">
+            <p class="text-[#9a938b] text-[14px] font-medium mb-8">
               Ces informations nous permettent de personnaliser votre site.
             </p>
-            <div class="flex flex-col gap-5">
+            <div class="flex flex-col gap-6">
               <div>
                 <label
-                  class="block text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2"
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
                   >Nom complet *</label
                 >
                 <input
@@ -205,7 +251,7 @@
               </div>
               <div>
                 <label
-                  class="block text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2"
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
                   >Email *</label
                 >
                 <input
@@ -217,8 +263,8 @@
               </div>
               <div>
                 <label
-                  class="block text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2"
-                  >Téléphone</label
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
+                  >Telephone</label
                 >
                 <input
                   type="tel"
@@ -228,7 +274,7 @@
               </div>
               <div>
                 <label
-                  class="block text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2"
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
                   >Nom du bien *</label
                 >
                 <input
@@ -240,27 +286,27 @@
               </div>
               <div>
                 <label
-                  class="block text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2"
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
                   >Localisation *</label
                 >
                 <input
                   type="text"
                   id="f-location"
-                  placeholder="Saint-Gilles les Bains, La Réunion"
+                  placeholder="Saint-Gilles les Bains, La Reunion"
                   required
                 />
               </div>
               <div>
                 <label
-                  class="block text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2"
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
                   >Type de bien</label
                 >
                 <select id="f-type">
-                  <option value="">Sélectionnez...</option>
+                  <option value="">Selectionnez...</option>
                   <option>Villa</option>
                   <option>Appartement</option>
-                  <option>Gîte</option>
-                  <option>Chambre d'hôtes</option>
+                  <option>Gite</option>
+                  <option>Chambre d'hotes</option>
                   <option>Chalet</option>
                   <option>Bungalow</option>
                   <option>Autre</option>
@@ -269,7 +315,7 @@
             </div>
             <button
               onclick="goToStep(2)"
-              class="mt-8 w-full bg-[var(--color-dark-bg)] text-white py-4 rounded-full font-bold text-[14px] hover:opacity-90 transition-all uppercase tracking-wider"
+              class="mt-10 w-full bg-[var(--color-dark-bg)] text-white py-4 rounded-full font-bold text-[14px] hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all uppercase tracking-wider"
             >
               Continuer
             </button>
@@ -277,16 +323,18 @@
 
           <!-- STEP 2: CONTENUS -->
           <div class="form-step" id="step-2">
-            <h2 class="text-[1.5rem] font-extrabold text-[#2B2622] mb-2">
+            <h2
+              class="text-[1.6rem] font-extrabold text-[#2B2622] mb-2 tracking-[-0.02em]"
+            >
               Vos contenus
             </h2>
-            <p class="text-gray-500 text-[14px] font-medium mb-8">
+            <p class="text-[#9a938b] text-[14px] font-medium mb-8">
               Envoyez-nous ce que vous avez. On s'occupe du reste.
             </p>
-            <div class="flex flex-col gap-5">
+            <div class="flex flex-col gap-6">
               <div>
                 <label
-                  class="block text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2"
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
                   >Lien Airbnb / Booking (si existant)</label
                 >
                 <input
@@ -297,29 +345,29 @@
               </div>
               <div>
                 <label
-                  class="block text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2"
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
                   >Description de votre bien</label
                 >
                 <textarea
                   id="f-desc"
-                  placeholder="Décrivez votre bien, ses points forts, les alentours..."
+                  placeholder="Decrivez votre bien, ses points forts, les alentours..."
                 ></textarea>
               </div>
               <div>
                 <label
-                  class="block text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2"
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
                   >Photos</label
                 >
                 <div
-                  class="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center bg-white"
+                  class="border-2 border-dashed border-[#e0dbd4] rounded-2xl p-10 text-center bg-[#faf8f4]"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="32"
-                    height="32"
+                    width="28"
+                    height="28"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="#9ca3af"
+                    stroke="#c4bfb8"
                     stroke-width="1.5"
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -329,29 +377,29 @@
                     <polyline points="17 8 12 3 7 8"></polyline>
                     <line x1="12" y1="3" x2="12" y2="15"></line>
                   </svg>
-                  <p class="text-[13px] text-gray-400 font-medium">
-                    Envoyez vos photos par email après la commande
+                  <p class="text-[13px] text-[#9a938b] font-medium">
+                    Envoyez vos photos par email apres la commande
                   </p>
-                  <p class="text-[12px] text-gray-300 mt-1">
+                  <p class="text-[12px] text-[#c4bfb8] mt-1 font-medium">
                     contact@ninoporphyre.fr
                   </p>
                 </div>
               </div>
               <div>
                 <label
-                  class="block text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2"
-                  >Couleurs / style souhaité</label
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
+                  >Couleurs / style souhaite</label
                 >
                 <input
                   type="text"
                   id="f-style"
-                  placeholder="Moderne, épuré, tons bleus..."
+                  placeholder="Moderne, epure, tons bleus..."
                 />
               </div>
               <div>
                 <label
-                  class="block text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2"
-                  >Remarques / demandes spéciales</label
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
+                  >Remarques / demandes speciales</label
                 >
                 <textarea
                   id="f-notes"
@@ -359,16 +407,16 @@
                 ></textarea>
               </div>
             </div>
-            <div class="flex gap-4 mt-8">
+            <div class="flex gap-4 mt-10">
               <button
                 onclick="goToStep(1)"
-                class="flex-1 bg-gray-100 text-[var(--color-dark-bg)] py-4 rounded-full font-bold text-[14px] hover:bg-gray-200 transition-all uppercase tracking-wider"
+                class="flex-1 bg-[#eae6de] text-[var(--color-dark-bg)] py-4 rounded-full font-bold text-[14px] hover:bg-[#e0dbd4] transition-all uppercase tracking-wider"
               >
                 Retour
               </button>
               <button
                 onclick="goToStep(3)"
-                class="flex-1 bg-[var(--color-dark-bg)] text-white py-4 rounded-full font-bold text-[14px] hover:opacity-90 transition-all uppercase tracking-wider"
+                class="flex-1 bg-[var(--color-dark-bg)] text-white py-4 rounded-full font-bold text-[14px] hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all uppercase tracking-wider"
               >
                 Continuer
               </button>
@@ -377,41 +425,43 @@
 
           <!-- STEP 3: TECHNIQUE -->
           <div class="form-step" id="step-3">
-            <h2 class="text-[1.5rem] font-extrabold text-[#2B2622] mb-2">
-              Dernière étape
+            <h2
+              class="text-[1.6rem] font-extrabold text-[#2B2622] mb-2 tracking-[-0.02em]"
+            >
+              Derniere etape
             </h2>
-            <p class="text-gray-500 text-[14px] font-medium mb-8">
-              Quelques détails techniques pour finaliser.
+            <p class="text-[#9a938b] text-[14px] font-medium mb-8">
+              Quelques details techniques pour finaliser.
             </p>
-            <div class="flex flex-col gap-5">
+            <div class="flex flex-col gap-6">
               <div>
                 <label
-                  class="block text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2"
-                  >Nom de domaine souhaité</label
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
+                  >Nom de domaine souhaite</label
                 >
                 <input
                   type="text"
                   id="f-domain"
                   placeholder="monsuperlogement.com"
                 />
-                <p class="text-[11px] text-gray-400 mt-1.5 font-medium">
-                  Si vous n'en avez pas, on vous aide à en choisir un.
+                <p class="text-[11px] text-[#c4bfb8] mt-2 font-medium">
+                  Si vous n'en avez pas, on vous aide a en choisir un.
                 </p>
               </div>
               <div>
                 <label
-                  class="block text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2"
-                  >Avez-vous déjà un compte Stripe ?</label
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
+                  >Avez-vous deja un compte Stripe ?</label
                 >
                 <select id="f-stripe">
-                  <option value="">Sélectionnez...</option>
+                  <option value="">Selectionnez...</option>
                   <option>Oui</option>
                   <option>Non, j'ai besoin d'aide</option>
                 </select>
               </div>
               <div>
                 <label
-                  class="block text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-2"
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
                   >Calendrier iCal (Airbnb / Booking)</label
                 >
                 <input
@@ -419,55 +469,55 @@
                   id="f-ical"
                   placeholder="https://airbnb.com/calendar/ical/..."
                 />
-                <p class="text-[11px] text-gray-400 mt-1.5 font-medium">
-                  On vous expliquera comment le récupérer si besoin.
+                <p class="text-[11px] text-[#c4bfb8] mt-2 font-medium">
+                  On vous expliquera comment le recuperer si besoin.
                 </p>
               </div>
             </div>
 
-            <!-- RÉCAP -->
+            <!-- RECAP -->
             <div
-              class="mt-10 bg-white rounded-[20px] border border-gray-200 p-6"
+              class="mt-10 bg-[#faf8f4] rounded-[20px] border border-[#e0dbd4] p-7"
             >
               <h3
-                class="font-bold text-[14px] text-[#2B2622] mb-4 uppercase tracking-wider"
+                class="font-bold text-[13px] text-[#2B2622] mb-5 uppercase tracking-widest"
               >
-                Récapitulatif
+                Recapitulatif
               </h3>
-              <div class="flex flex-col gap-2 text-[14px] font-medium">
+              <div class="flex flex-col gap-3 text-[14px] font-medium">
                 <div class="flex justify-between">
-                  <span class="text-gray-500">Offre</span
-                  ><span class="text-[#2B2622] font-bold">Réservation</span>
+                  <span class="text-[#9a938b]">Offre</span
+                  ><span class="text-[#2B2622] font-bold">Complet</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-gray-500">Prix</span
-                  ><span class="text-[#2B2622] font-bold">1 297€</span>
+                  <span class="text-[#9a938b]">Prix</span
+                  ><span class="text-[#2B2622] font-bold">1 297&#8364;</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-gray-500">Livraison</span
+                  <span class="text-[#9a938b]">Livraison</span
                   ><span class="text-[#2B2622] font-bold"
-                    >48h après réception</span
+                    >48h apres reception</span
                   >
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-gray-500">Garantie</span
-                  ><span class="text-[#4ECDC4] font-bold"
-                    >Remboursé sous 7j</span
+                  <span class="text-[#9a938b]">Garantie</span
+                  ><span class="text-[var(--color-accent)] font-bold"
+                    >Rembourse sous 7j</span
                   >
                 </div>
               </div>
             </div>
 
-            <div class="flex gap-4 mt-8">
+            <div class="flex gap-4 mt-10">
               <button
                 onclick="goToStep(2)"
-                class="flex-1 bg-gray-100 text-[var(--color-dark-bg)] py-4 rounded-full font-bold text-[14px] hover:bg-gray-200 transition-all uppercase tracking-wider"
+                class="flex-1 bg-[#eae6de] text-[var(--color-dark-bg)] py-4 rounded-full font-bold text-[14px] hover:bg-[#e0dbd4] transition-all uppercase tracking-wider"
               >
                 Retour
               </button>
               <button
                 onclick="submitOrder()"
-                class="flex-1 bg-[var(--color-dark-bg)] text-white py-4 rounded-full font-bold text-[14px] hover:opacity-90 transition-all uppercase tracking-wider"
+                class="flex-1 bg-[var(--color-dark-bg)] text-white py-4 rounded-full font-bold text-[14px] hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all uppercase tracking-wider"
               >
                 Envoyer ma commande
               </button>
@@ -476,7 +526,7 @@
 
           <!-- SUCCESS -->
           <div class="form-step" id="step-success">
-            <div class="text-center py-12">
+            <div class="text-center py-16">
               <div
                 class="w-20 h-20 rounded-full bg-[#E8FAF8] flex items-center justify-center mx-auto mb-6"
               >
@@ -494,19 +544,21 @@
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
               </div>
-              <h2 class="text-[1.8rem] font-extrabold text-[#2B2622] mb-3">
-                Commande envoyée !
+              <h2
+                class="text-[1.8rem] font-extrabold text-[#2B2622] mb-3 tracking-[-0.02em]"
+              >
+                Commande envoyee !
               </h2>
               <p
-                class="text-gray-500 text-[15px] font-medium max-w-[400px] mx-auto mb-8"
+                class="text-[#9a938b] text-[15px] font-medium max-w-[400px] mx-auto mb-8"
               >
                 Merci ! Vous recevrez un email de confirmation sous quelques
-                minutes. On commence votre site dès réception de vos contenus.
+                minutes. On commence votre site des reception de vos contenus.
               </p>
               <a
                 href="/"
-                class="inline-block bg-[var(--color-dark-bg)] text-white px-8 py-3.5 rounded-full font-bold text-[14px] hover:opacity-90 transition-all uppercase tracking-wider"
-                >Retour à l'accueil</a
+                class="inline-block bg-[var(--color-dark-bg)] text-white px-8 py-3.5 rounded-full font-bold text-[14px] hover:opacity-90 hover:-translate-y-0.5 transition-all uppercase tracking-wider"
+                >Retour a l'accueil</a
               >
             </div>
           </div>
@@ -514,116 +566,120 @@
 
         <!-- RIGHT: ORDER SUMMARY (desktop) -->
         <div class="hidden lg:block w-[340px] flex-shrink-0">
-          <div
-            class="sticky top-28 bg-white rounded-[24px] border border-gray-200 p-7 shadow-sm"
-          >
-            <div class="flex items-center justify-between mb-5">
-              <h3 class="font-extrabold text-[16px] text-[#2B2622]">
-                Réservation
+          <div class="summary-card sticky top-28 p-8">
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="font-extrabold text-[17px] text-[#2B2622]">
+                Essentiel
               </h3>
               <span
-                class="bg-[#4ECDC4] text-white text-[10px] font-bold px-3 py-0.5 rounded-full uppercase"
+                class="bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider"
                 >Populaire</span
               >
             </div>
             <p
-              class="text-[2.2rem] font-extrabold text-[#2B2622] tracking-tight mb-1"
+              class="text-[2.5rem] font-extrabold text-[#2B2622] tracking-tight leading-none mb-1"
             >
-              1 297€
+              1 297&#8364;
             </p>
-            <p class="text-[13px] text-gray-400 font-medium mb-6">
+            <p class="text-[13px] text-[#c4bfb8] font-medium mb-7">
               Paiement unique
             </p>
 
-            <div class="border-t border-gray-100 pt-5 mb-5">
+            <div class="border-t border-[#f0ece5] pt-6 mb-6">
               <ul
-                class="flex flex-col gap-2.5 text-[13px] font-medium text-gray-600"
+                class="flex flex-col gap-3 text-[13px] font-medium text-[#6b6560]"
               >
-                <li class="flex items-center gap-2">
+                <li class="flex items-start gap-2.5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
+                    width="15"
+                    height="15"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#4ECDC4"
                     stroke-width="2.5"
                     stroke-linecap="round"
+                    class="mt-0.5 shrink-0"
                   >
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
-                  Site responsive (pages illimitées)
+                  Site responsive (pages illimitees)
                 </li>
-                <li class="flex items-center gap-2">
+                <li class="flex items-start gap-2.5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
+                    width="15"
+                    height="15"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#4ECDC4"
                     stroke-width="2.5"
                     stroke-linecap="round"
+                    class="mt-0.5 shrink-0"
                   >
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
                   Animations premium
                 </li>
-                <li class="flex items-center gap-2">
+                <li class="flex items-start gap-2.5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
+                    width="15"
+                    height="15"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#4ECDC4"
                     stroke-width="2.5"
                     stroke-linecap="round"
+                    class="mt-0.5 shrink-0"
                   >
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
-                  Paiement Stripe intégré
+                  Paiement Stripe integre
                 </li>
-                <li class="flex items-center gap-2">
+                <li class="flex items-start gap-2.5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
+                    width="15"
+                    height="15"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#4ECDC4"
                     stroke-width="2.5"
                     stroke-linecap="round"
+                    class="mt-0.5 shrink-0"
                   >
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
                   Sync calendrier Airbnb
                 </li>
-                <li class="flex items-center gap-2">
+                <li class="flex items-start gap-2.5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
+                    width="15"
+                    height="15"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#4ECDC4"
                     stroke-width="2.5"
                     stroke-linecap="round"
+                    class="mt-0.5 shrink-0"
                   >
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
-                  SEO avancé + sitemap
+                  Livraison en 48h
                 </li>
-                <li class="flex items-center gap-2">
+                <li class="flex items-start gap-2.5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
+                    width="15"
+                    height="15"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#4ECDC4"
                     stroke-width="2.5"
                     stroke-linecap="round"
+                    class="mt-0.5 shrink-0"
                   >
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
@@ -632,9 +688,9 @@
               </ul>
             </div>
 
-            <div class="border-t border-gray-100 pt-5 flex flex-col gap-3">
+            <div class="border-t border-[#f0ece5] pt-5 flex flex-col gap-3">
               <div
-                class="flex items-center gap-2 text-[12px] font-bold text-[#2B2622]"
+                class="flex items-center gap-2.5 text-[12px] font-bold text-[#2B2622]"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -653,7 +709,7 @@
                 Livraison en 48h
               </div>
               <div
-                class="flex items-center gap-2 text-[12px] font-bold text-[#4ECDC4]"
+                class="flex items-center gap-2.5 text-[12px] font-bold text-[var(--color-accent)]"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -668,16 +724,16 @@
                 >
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
-                Satisfait ou remboursé 7j
+                Satisfait ou rembourse 7j
               </div>
             </div>
 
             <!-- URGENCE -->
             <div
-              class="mt-6 bg-[#FFF8E1] border border-[#FFE082] rounded-xl p-3 text-center"
+              class="mt-7 bg-[var(--color-accent)]/5 border border-[var(--color-accent)]/15 rounded-2xl p-4 text-center"
             >
-              <p class="text-[12px] font-bold text-[#F59E0B]">
-                3 créneaux restants cette semaine
+              <p class="text-[12px] font-bold text-[var(--color-accent)]">
+                3 creneaux restants cette semaine
               </p>
             </div>
           </div>
@@ -701,13 +757,13 @@
         }
 
         currentStep = step;
-        document.querySelectorAll(".form-step").forEach(function (s) {
-          s.classList.remove("active");
-        });
+        document
+          .querySelectorAll(".form-step")
+          .forEach((s) => s.classList.remove("active"));
         document.getElementById("step-" + step).classList.add("active");
 
-        for (var i = 1; i <= 3; i++) {
-          var dot = document.getElementById("dot-" + i);
+        for (let i = 1; i <= 3; i++) {
+          const dot = document.getElementById("dot-" + i);
           dot.className =
             "step-dot " +
             (i < step ? "done" : i === step ? "active" : "inactive");
@@ -719,24 +775,18 @@
         document.getElementById("line-2").className =
           "step-line " + (step >= 3 ? "active" : "inactive");
 
-        var label2 = document.getElementById("label-2");
-        var label3 = document.getElementById("label-3");
-        if (label2)
-          label2.className =
-            "text-[11px] font-bold uppercase tracking-wider " +
-            (step >= 2 ? "text-[#2B2622]" : "text-gray-400");
-        if (label3)
-          label3.className =
-            "text-[11px] font-bold uppercase tracking-wider " +
-            (step >= 3 ? "text-[#2B2622]" : "text-gray-400");
+        const label2 = document.getElementById("label-2");
+        const label3 = document.getElementById("label-3");
+        if (label2) label2.style.color = step >= 2 ? "#2B2622" : "#c4bfb8";
+        if (label3) label3.style.color = step >= 3 ? "#2B2622" : "#c4bfb8";
 
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
       function submitOrder() {
-        document.querySelectorAll(".form-step").forEach(function (s) {
-          s.classList.remove("active");
-        });
+        document
+          .querySelectorAll(".form-step")
+          .forEach((s) => s.classList.remove("active"));
         document.getElementById("step-success").classList.add("active");
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
