@@ -225,95 +225,106 @@
     </section>
 
     <!-- PROJECT 1 — Les Sardines Blanches -->
-    <section class="py-12 px-6">
+    <section class="py-16 md:py-24 px-6">
       <div
-        class="reveal project-card max-w-6xl mx-auto bg-white rounded-[32px] border border-gray-100 overflow-hidden shadow-[0_8px_30px_rgba(30,25,20,0.04)] hover:shadow-[0_20px_60px_rgba(30,25,20,0.1)] transition-all duration-500"
+        class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center"
       >
-        <div class="overflow-hidden rounded-t-[32px]">
-          <img
-            src="/sardines-site.jpg"
-            alt="Les Sardines Blanches — Site web location saisonniere"
-            class="project-image w-full transition-transform duration-700"
-          />
-        </div>
-        <div class="p-8 md:p-12">
-          <div
-            class="flex flex-col md:flex-row md:items-start md:justify-between gap-6"
+        <!-- Browser Mockup -->
+        <div class="reveal">
+          <a
+            href="https://les-sardines-blanches.com"
+            target="_blank"
+            rel="noopener"
+            class="block group"
           >
-            <div class="flex-1">
-              <span
-                class="inline-block w-max bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4"
-                >Location saisonniere</span
-              >
-              <h2
-                class="text-[1.8rem] md:text-[2.2rem] font-extrabold tracking-[-0.02em] text-[#111] mb-3"
-              >
-                Les Sardines Blanches
-              </h2>
-              <p
-                class="text-gray-500 font-medium text-[15px] leading-relaxed mb-6 max-w-[520px]"
-              >
-                Villa de charme a La Reunion. Site vitrine avec reservation
-                directe, paiement Stripe integre et synchronisation calendrier
-                Airbnb. Design epure qui reflete l'ambiance du lieu.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-6">
-                <span
-                  class="bg-gray-100 text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full"
-                  >Reservation directe</span
-                >
-                <span
-                  class="bg-gray-100 text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full"
-                  >Paiement Stripe</span
-                >
-                <span
-                  class="bg-gray-100 text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full"
-                  >Sync Airbnb</span
-                >
-                <span
-                  class="bg-gray-100 text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full"
-                  >Responsive</span
-                >
-              </div>
-              <a
-                href="https://les-sardines-blanches.com"
-                target="_blank"
-                rel="noopener"
-                class="inline-flex items-center gap-2 bg-[var(--color-dark-bg)] text-white px-6 py-3 rounded-full font-bold text-[13px] hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-md"
-              >
-                Voir le site
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M7 17L17 7M17 7H7M17 7v10" />
-                </svg>
-              </a>
-            </div>
             <div
-              class="md:ml-8 md:mt-6 pt-6 md:pt-0 border-t md:border-t-0 md:border-l border-gray-100 md:pl-8"
+              class="rounded-[16px] overflow-hidden shadow-[0_25px_80px_-15px_rgba(30,25,20,0.25)] group-hover:shadow-[0_35px_100px_-15px_rgba(30,25,20,0.35)] transition-all duration-500 group-hover:-translate-y-2"
             >
-              <div class="flex items-center gap-3">
+              <!-- Browser Bar -->
+              <div class="bg-[#2B2622] px-4 py-2.5 flex items-center gap-3">
+                <div class="flex gap-1.5">
+                  <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></div>
+                  <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
+                  <div class="w-2.5 h-2.5 rounded-full bg-[#28ca41]"></div>
+                </div>
                 <div
-                  class="w-10 h-10 rounded-full bg-[var(--color-accent)] flex items-center justify-center text-white font-bold text-[14px]"
+                  class="flex-1 bg-white/10 rounded-md px-3 py-1 text-[11px] text-gray-400 font-medium truncate"
                 >
-                  L
+                  les-sardines-blanches.com
                 </div>
-                <div>
-                  <p class="font-bold text-[14px] text-gray-900">Ludovic B.</p>
-                  <p
-                    class="text-[12px] text-gray-400 font-medium italic max-w-[240px]"
-                  >
-                    "Nino a cree notre site en 2 jours. Le resultat est
-                    magnifique et nos clients reservent directement."
-                  </p>
-                </div>
+              </div>
+              <!-- Screenshot -->
+              <img
+                src="/sardines-site.jpg"
+                alt="Les Sardines Blanches"
+                class="w-full"
+              />
+            </div>
+          </a>
+        </div>
+        <!-- Info -->
+        <div class="reveal">
+          <span
+            class="inline-block w-max bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4"
+            >Villa de charme</span
+          >
+          <h2
+            class="text-[2rem] md:text-[2.5rem] font-extrabold tracking-[-0.03em] text-[#111] mb-4"
+          >
+            Les Sardines Blanches
+          </h2>
+          <p class="text-gray-500 font-medium text-[15px] leading-relaxed mb-6">
+            Villa de charme a La Reunion. Site vitrine avec reservation directe,
+            paiement Stripe integre et synchronisation calendrier Airbnb.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-8">
+            <span
+              class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
+              >Reservation directe</span
+            >
+            <span
+              class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
+              >Paiement Stripe</span
+            >
+            <span
+              class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
+              >Sync Airbnb</span
+            >
+          </div>
+          <a
+            href="https://les-sardines-blanches.com"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 bg-[var(--color-dark-bg)] text-white px-6 py-3 rounded-full font-bold text-[13px] hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-md"
+          >
+            Voir le site
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M7 17L17 7M17 7H7M17 7v10" />
+            </svg>
+          </a>
+          <!-- Testimonial -->
+          <div class="mt-8 pt-6 border-t border-gray-200/60">
+            <div class="flex items-start gap-3">
+              <div
+                class="w-10 h-10 rounded-full bg-[var(--color-accent)] flex items-center justify-center text-white font-bold text-[14px] shrink-0"
+              >
+                L
+              </div>
+              <div>
+                <p class="font-bold text-[14px] text-gray-900">Ludovic B.</p>
+                <p class="text-[13px] text-gray-400 font-medium italic">
+                  "Nino a cree notre site en 2 jours. Le resultat est magnifique
+                  et nos clients reservent directement."
+                </p>
               </div>
             </div>
           </div>
@@ -321,175 +332,185 @@
       </div>
     </section>
 
-    <!-- PROJECT 2 — K'Ban Lorizon -->
-    <section class="py-12 px-6">
+    <!-- PROJECT 2 — K'Ban Lorizon (reversed) -->
+    <section class="py-16 md:py-24 px-6">
       <div
-        class="reveal project-card max-w-6xl mx-auto bg-white rounded-[32px] border border-gray-100 overflow-hidden shadow-[0_8px_30px_rgba(30,25,20,0.04)] hover:shadow-[0_20px_60px_rgba(30,25,20,0.1)] transition-all duration-500"
+        class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center"
       >
-        <div class="overflow-hidden rounded-t-[32px]">
-          <img
-            src="/kban-site.jpg"
-            alt="K'Ban Lorizon — Site web location saisonniere"
-            class="project-image w-full transition-transform duration-700"
-          />
-        </div>
-        <div class="p-8 md:p-12">
-          <div
-            class="flex flex-col md:flex-row md:items-start md:justify-between gap-6"
+        <!-- Info (first on desktop) -->
+        <div class="reveal md:order-1 order-2">
+          <span
+            class="inline-block w-max bg-[var(--color-dark-bg)]/10 text-[var(--color-dark-bg)] text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4"
+            >Bungalow tropical</span
           >
-            <div class="flex-1">
-              <span
-                class="inline-block w-max bg-[var(--color-dark-bg)]/10 text-[var(--color-dark-bg)] text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4"
-                >Location saisonniere</span
-              >
-              <h2
-                class="text-[1.8rem] md:text-[2.2rem] font-extrabold tracking-[-0.02em] text-[#111] mb-3"
-              >
-                K'Ban Lorizon
-              </h2>
-              <p
-                class="text-gray-500 font-medium text-[15px] leading-relaxed mb-6 max-w-[520px]"
-              >
-                Bungalow tropical a La Reunion. Site avec systeme de reservation
-                directe et paiement en ligne. Les reservations directes ont
-                double en 3 mois apres la mise en ligne.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-6">
-                <span
-                  class="bg-gray-100 text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full"
-                  >Reservation directe</span
-                >
-                <span
-                  class="bg-gray-100 text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full"
-                  >Paiement en ligne</span
-                >
-                <span
-                  class="bg-gray-100 text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full"
-                  >Design tropical</span
-                >
-                <span
-                  class="bg-gray-100 text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full"
-                  >SEO optimise</span
-                >
-              </div>
-              <a
-                href="https://kban-lorizon.com"
-                target="_blank"
-                rel="noopener"
-                class="inline-flex items-center gap-2 bg-[var(--color-dark-bg)] text-white px-6 py-3 rounded-full font-bold text-[13px] hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-md"
-              >
-                Voir le site
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M7 17L17 7M17 7H7M17 7v10" />
-                </svg>
-              </a>
-            </div>
-            <div
-              class="md:ml-8 md:mt-6 pt-6 md:pt-0 border-t md:border-t-0 md:border-l border-gray-100 md:pl-8"
+          <h2
+            class="text-[2rem] md:text-[2.5rem] font-extrabold tracking-[-0.03em] text-[#111] mb-4"
+          >
+            K'Ban Lorizon
+          </h2>
+          <p class="text-gray-500 font-medium text-[15px] leading-relaxed mb-6">
+            Bungalow tropical a La Reunion. Les reservations directes ont double
+            en 3 mois apres la mise en ligne du site.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-8">
+            <span
+              class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
+              >Reservation directe</span
             >
-              <div class="flex items-center gap-3">
-                <div
-                  class="w-10 h-10 rounded-full bg-[var(--color-dark-bg)] flex items-center justify-center text-white font-bold text-[14px]"
-                >
-                  P
-                </div>
-                <div>
-                  <p class="font-bold text-[14px] text-gray-900">
-                    Pierre-Yves P.
-                  </p>
-                  <p
-                    class="text-[12px] text-gray-400 font-medium italic max-w-[240px]"
-                  >
-                    "Un site qui nous ressemble enfin. Les reservations directes
-                    ont double en 3 mois."
-                  </p>
-                </div>
+            <span
+              class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
+              >Paiement en ligne</span
+            >
+            <span
+              class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
+              >SEO optimise</span
+            >
+          </div>
+          <a
+            href="https://kban-lorizon.com"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 bg-[var(--color-dark-bg)] text-white px-6 py-3 rounded-full font-bold text-[13px] hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-md"
+          >
+            Voir le site
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M7 17L17 7M17 7H7M17 7v10" />
+            </svg>
+          </a>
+          <!-- Testimonial -->
+          <div class="mt-8 pt-6 border-t border-gray-200/60">
+            <div class="flex items-start gap-3">
+              <div
+                class="w-10 h-10 rounded-full bg-[var(--color-dark-bg)] flex items-center justify-center text-white font-bold text-[14px] shrink-0"
+              >
+                P
+              </div>
+              <div>
+                <p class="font-bold text-[14px] text-gray-900">
+                  Pierre-Yves P.
+                </p>
+                <p class="text-[13px] text-gray-400 font-medium italic">
+                  "Un site qui nous ressemble enfin. Les reservations directes
+                  ont double en 3 mois."
+                </p>
               </div>
             </div>
           </div>
+        </div>
+        <!-- Browser Mockup (second on desktop) -->
+        <div class="reveal md:order-2 order-1">
+          <a
+            href="https://kban-lorizon.com"
+            target="_blank"
+            rel="noopener"
+            class="block group"
+          >
+            <div
+              class="rounded-[16px] overflow-hidden shadow-[0_25px_80px_-15px_rgba(30,25,20,0.25)] group-hover:shadow-[0_35px_100px_-15px_rgba(30,25,20,0.35)] transition-all duration-500 group-hover:-translate-y-2"
+            >
+              <div class="bg-[#2B2622] px-4 py-2.5 flex items-center gap-3">
+                <div class="flex gap-1.5">
+                  <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></div>
+                  <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
+                  <div class="w-2.5 h-2.5 rounded-full bg-[#28ca41]"></div>
+                </div>
+                <div
+                  class="flex-1 bg-white/10 rounded-md px-3 py-1 text-[11px] text-gray-400 font-medium truncate"
+                >
+                  kban-lorizon.com
+                </div>
+              </div>
+              <img src="/kban-site.jpg" alt="K'Ban Lorizon" class="w-full" />
+            </div>
+          </a>
         </div>
       </div>
     </section>
 
     <!-- PROJECT 3 — Terrasse Opera -->
-    <section class="py-12 px-6">
+    <section class="py-16 md:py-24 px-6">
       <div
-        class="reveal project-card max-w-6xl mx-auto bg-white rounded-[32px] border border-gray-100 overflow-hidden shadow-[0_8px_30px_rgba(30,25,20,0.04)] hover:shadow-[0_20px_60px_rgba(30,25,20,0.1)] transition-all duration-500"
+        class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center"
       >
-        <div class="overflow-hidden rounded-t-[32px]">
-          <img
-            src="/terrasse-site.jpg"
-            alt="Terrasse Opera — Site web location saisonniere"
-            class="project-image w-full transition-transform duration-700"
-          />
-        </div>
-        <div class="p-8 md:p-12">
-          <div
-            class="flex flex-col md:flex-row md:items-start md:justify-between gap-6"
-          >
-            <div class="flex-1">
-              <span
-                class="inline-block w-max bg-gray-700/10 text-gray-700 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4"
-                >Appartement de standing</span
-              >
-              <h2
-                class="text-[1.8rem] md:text-[2.2rem] font-extrabold tracking-[-0.02em] text-[#111] mb-3"
-              >
-                Terrasse Opera
-              </h2>
-              <p
-                class="text-gray-500 font-medium text-[15px] leading-relaxed mb-6 max-w-[520px]"
-              >
-                Appartement haut de gamme avec terrasse. Site elegant avec
-                galerie photo immersive, reservation en ligne et design raffine
-                qui met en valeur le standing du bien.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-6">
-                <span
-                  class="bg-gray-100 text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full"
-                  >Design premium</span
-                >
-                <span
-                  class="bg-gray-100 text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full"
-                  >Galerie photo</span
-                >
-                <span
-                  class="bg-gray-100 text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full"
-                  >Reservation directe</span
-                >
-                <span
-                  class="bg-gray-100 text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full"
-                  >Responsive</span
-                >
-              </div>
-            </div>
+        <!-- Browser Mockup -->
+        <div class="reveal">
+          <div class="block">
             <div
-              class="md:ml-8 md:mt-6 pt-6 md:pt-0 border-t md:border-t-0 md:border-l border-gray-100 md:pl-8"
+              class="rounded-[16px] overflow-hidden shadow-[0_25px_80px_-15px_rgba(30,25,20,0.25)]"
             >
-              <div class="flex items-center gap-3">
+              <div class="bg-[#2B2622] px-4 py-2.5 flex items-center gap-3">
+                <div class="flex gap-1.5">
+                  <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></div>
+                  <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
+                  <div class="w-2.5 h-2.5 rounded-full bg-[#28ca41]"></div>
+                </div>
                 <div
-                  class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white font-bold text-[14px]"
+                  class="flex-1 bg-white/10 rounded-md px-3 py-1 text-[11px] text-gray-400 font-medium truncate"
                 >
-                  N
+                  terrasse-opera.com
                 </div>
-                <div>
-                  <p class="font-bold text-[14px] text-gray-900">Nicolas D.</p>
-                  <p
-                    class="text-[12px] text-gray-400 font-medium italic max-w-[240px]"
-                  >
-                    "Un site a l'image de notre appartement. Elegant, efficace,
-                    les reservations affluent."
-                  </p>
-                </div>
+              </div>
+              <img
+                src="/terrasse-site.jpg"
+                alt="Terrasse Opera"
+                class="w-full"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- Info -->
+        <div class="reveal">
+          <span
+            class="inline-block w-max bg-gray-700/10 text-gray-700 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4"
+            >Appartement de standing</span
+          >
+          <h2
+            class="text-[2rem] md:text-[2.5rem] font-extrabold tracking-[-0.03em] text-[#111] mb-4"
+          >
+            Terrasse Opera
+          </h2>
+          <p class="text-gray-500 font-medium text-[15px] leading-relaxed mb-6">
+            Appartement haut de gamme avec terrasse a Paris. Site elegant avec
+            galerie photo immersive et design raffine qui met en valeur le
+            standing du bien.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-8">
+            <span
+              class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
+              >Design premium</span
+            >
+            <span
+              class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
+              >Galerie photo</span
+            >
+            <span
+              class="bg-white text-gray-600 text-[12px] font-semibold px-3 py-1.5 rounded-full border border-gray-200"
+              >Reservation directe</span
+            >
+          </div>
+          <!-- Testimonial -->
+          <div class="pt-6 border-t border-gray-200/60">
+            <div class="flex items-start gap-3">
+              <div
+                class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white font-bold text-[14px] shrink-0"
+              >
+                N
+              </div>
+              <div>
+                <p class="font-bold text-[14px] text-gray-900">Nicolas D.</p>
+                <p class="text-[13px] text-gray-400 font-medium italic">
+                  "Un site a l'image de notre appartement. Elegant, efficace,
+                  les reservations affluent."
+                </p>
               </div>
             </div>
           </div>
