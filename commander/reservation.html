@@ -42,34 +42,68 @@
       }
 
       /* Stepper */
+      .stepper {
+        display: flex;
+        align-items: flex-start;
+        max-width: 380px;
+        margin-bottom: 2rem;
+      }
+      .step-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        position: relative;
+        z-index: 1;
+      }
       .step-dot {
-        width: 36px;
-        height: 36px;
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
         transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       }
       .step-dot.active {
         background: var(--color-dark-bg);
         color: white;
-        box-shadow: 0 4px 12px rgba(26, 23, 21, 0.25);
+        box-shadow: 0 2px 8px rgba(26, 23, 21, 0.2);
       }
       .step-dot.done {
         background: var(--color-accent);
         color: white;
       }
       .step-dot.inactive {
-        background: transparent;
+        background: #f0ece5;
+        color: #b8b0a6;
+        border: 1.5px solid #e0dbd4;
+      }
+      .step-label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        transition: color 0.4s;
+      }
+      .step-label.active {
+        color: #2b2622;
+      }
+      .step-label.inactive {
         color: #c4bfb8;
-        border: 2px solid #e0dbd4;
+      }
+      .step-line-wrap {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        height: 32px;
+        padding: 0 6px;
       }
       .step-line {
         height: 2px;
-        flex: 1;
+        width: 100%;
         border-radius: 2px;
         transition: background 0.4s;
       }
@@ -215,31 +249,24 @@
         <!-- LEFT: FORM -->
         <div class="flex-1 max-w-[680px]">
           <!-- STEPPER -->
-          <div class="flex items-center gap-0 mb-7 max-w-[340px]">
-            <div class="flex flex-col items-center gap-1">
+          <div class="stepper">
+            <div class="step-item">
               <div class="step-dot active" id="dot-1">1</div>
-              <span
-                class="text-[10px] font-bold text-[#2B2622] uppercase tracking-widest"
-                >Identite</span
-              >
+              <span class="step-label active" id="label-1">Identite</span>
             </div>
-            <div class="step-line active" id="line-1"></div>
-            <div class="flex flex-col items-center gap-1">
+            <div class="step-line-wrap">
+              <div class="step-line active" id="line-1"></div>
+            </div>
+            <div class="step-item">
               <div class="step-dot inactive" id="dot-2">2</div>
-              <span
-                class="text-[10px] font-bold text-[#c4bfb8] uppercase tracking-widest"
-                id="label-2"
-                >Contenus</span
-              >
+              <span class="step-label inactive" id="label-2">Contenus</span>
             </div>
-            <div class="step-line inactive" id="line-2"></div>
-            <div class="flex flex-col items-center gap-1">
+            <div class="step-line-wrap">
+              <div class="step-line inactive" id="line-2"></div>
+            </div>
+            <div class="step-item">
               <div class="step-dot inactive" id="dot-3">3</div>
-              <span
-                class="text-[10px] font-bold text-[#c4bfb8] uppercase tracking-widest"
-                id="label-3"
-                >Technique</span
-              >
+              <span class="step-label inactive" id="label-3">Technique</span>
             </div>
           </div>
 
@@ -799,10 +826,12 @@
         document.getElementById("line-2").className =
           "step-line " + (step >= 3 ? "active" : "inactive");
 
-        const label2 = document.getElementById("label-2");
-        const label3 = document.getElementById("label-3");
-        if (label2) label2.style.color = step >= 2 ? "#2B2622" : "#c4bfb8";
-        if (label3) label3.style.color = step >= 3 ? "#2B2622" : "#c4bfb8";
+        for (let i = 1; i <= 3; i++) {
+          const label = document.getElementById("label-" + i);
+          if (label)
+            label.className =
+              "step-label " + (i <= step ? "active" : "inactive");
+        }
 
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
