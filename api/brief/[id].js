@@ -61,6 +61,7 @@ module.exports = async (req, res) => {
       await put(`briefs/${id}.json`, JSON.stringify(brief), {
         access: "public",
         contentType: "application/json",
+        token: process.env.BLOB_READ_WRITE_TOKEN,
         addRandomSuffix: false,
       });
       return res.status(200).json({ success: true });

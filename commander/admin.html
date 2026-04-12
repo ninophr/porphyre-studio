@@ -22,6 +22,7 @@
               dark: "#1a1715",
               cream: "#f5f1e8",
               sand: "#ebe5d8",
+              warm: "#4a4540",
             },
           },
         },
@@ -30,12 +31,128 @@
     <style>
       body {
         font-family: "Plus Jakarta Sans", sans-serif;
-        background-color: #f5f1e8;
+        background: #f5f1e8;
         color: #4a4540;
       }
-      .status-draft {
-        background: #e5e7eb;
-        color: #4b5563;
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+      @keyframes slideOut {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(100%);
+        }
+      }
+      @keyframes pulseDot {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+      .fade-up {
+        opacity: 0;
+        animation: fadeUp 0.5s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+      }
+      .d1 {
+        animation-delay: 0.05s;
+      }
+      .d2 {
+        animation-delay: 0.1s;
+      }
+      .d3 {
+        animation-delay: 0.15s;
+      }
+      .d4 {
+        animation-delay: 0.2s;
+      }
+      .d5 {
+        animation-delay: 0.25s;
+      }
+      .d6 {
+        animation-delay: 0.3s;
+      }
+      .d7 {
+        animation-delay: 0.35s;
+      }
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #d5cfc4;
+        border-radius: 3px;
+      }
+      .nav-item {
+        transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+        border-radius: 10px;
+      }
+      .nav-item:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .nav-item.active {
+        background: rgba(78, 205, 196, 0.12);
+        color: #4ecdc4;
+      }
+      .stat-card {
+        transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+      }
+      .stat-card:hover {
+        transform: translateY(-2px);
+      }
+      .p-row {
+        transition: all 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+      }
+      .p-row:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 32px rgba(26, 23, 21, 0.06);
+      }
+      .pipe-seg {
+        transition: width 0.7s cubic-bezier(0.32, 0.72, 0, 1);
+      }
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        display: inline-block;
+      }
+      .dot-paid {
+        background: #10b981;
+      }
+      .dot-building {
+        background: #f59e0b;
+        animation: pulseDot 2s infinite;
+      }
+      .dot-review {
+        background: #3b82f6;
+      }
+      .dot-delivered {
+        background: #059669;
+      }
+      .dot-draft {
+        background: #9ca3af;
       }
       .status-paid {
         background: #d1fae5;
@@ -53,163 +170,675 @@
         background: #d1fae5;
         color: #166534;
       }
+      .status-draft {
+        background: #f3f4f6;
+        color: #6b7280;
+      }
+      .fpill {
+        transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+      }
+      .fpill.on {
+        background: #1a1715;
+        color: #fff;
+        border-color: #1a1715;
+      }
+      .panel-in {
+        animation: slideIn 0.32s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+      }
+      .panel-out {
+        animation: slideOut 0.22s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+      }
+      #panel {
+        box-shadow: -16px 0 48px rgba(26, 23, 21, 0.06);
+      }
+      .press {
+        transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+      }
+      .press:active {
+        transform: scale(0.97);
+      }
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #4ecdc4;
+        box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.08);
+      }
+      @media (max-width: 767px) {
+        #sidebar {
+          transform: translateX(-100%);
+          transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        #sidebar.open {
+          transform: translateX(0);
+        }
+      }
     </style>
   </head>
   <body class="min-h-screen">
-    <!-- Login -->
+    <!-- ==================== LOGIN ==================== -->
     <div
       id="login-screen"
-      class="flex items-center justify-center min-h-screen"
+      class="flex items-center justify-center min-h-screen px-4"
     >
-      <div
-        class="bg-white rounded-2xl p-8 w-full max-w-sm border border-sand shadow-lg"
-      >
-        <h1 class="text-2xl font-bold text-dark mb-6">Admin Porphyre</h1>
-        <input
-          id="api-key-input"
-          type="password"
-          placeholder="Clé API admin"
-          class="w-full bg-cream border border-sand rounded-lg px-4 py-3 text-dark placeholder-gray-400 focus:outline-none focus:border-brand mb-4"
-          onkeydown="if (event.key === 'Enter') login();"
-        />
-        <button
-          onclick="login()"
-          class="w-full bg-brand text-white font-semibold py-3 rounded-lg hover:bg-opacity-90 transition"
+      <div class="w-full max-w-sm fade-up">
+        <div
+          class="bg-sand/40 rounded-[20px] p-[3px] shadow-[0_2px_40px_rgba(26,23,21,.05)]"
         >
-          Connexion
-        </button>
-        <p id="login-error" class="text-red-500 text-sm mt-3 hidden">
-          Clé invalide
-        </p>
+          <div class="bg-white rounded-[17px] p-8">
+            <div class="flex items-center gap-3 mb-8">
+              <div
+                class="w-10 h-10 rounded-xl bg-brand/10 flex items-center justify-center"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#4ECDC4"
+                  stroke-width="1.5"
+                >
+                  <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                  <polyline points="2 17 12 22 22 17" />
+                  <polyline points="2 12 12 17 22 12" />
+                </svg>
+              </div>
+              <div>
+                <h1 class="text-lg font-bold text-dark">Porphyre</h1>
+                <p class="text-[11px] text-warm/40">Administration</p>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <label
+                  class="text-[10px] font-semibold uppercase tracking-[.15em] text-warm/40 mb-1.5 block"
+                  >Cle API</label
+                >
+                <input
+                  id="api-key-input"
+                  type="password"
+                  placeholder="••••••••••"
+                  class="w-full bg-cream/50 border border-sand rounded-xl px-4 py-3 text-sm text-dark placeholder-warm/25"
+                  onkeydown="if (event.key === 'Enter') login();"
+                />
+              </div>
+              <button
+                onclick="login()"
+                class="press w-full bg-dark text-white font-semibold py-3 rounded-xl hover:bg-dark/90 transition-all duration-300"
+              >
+                Connexion
+              </button>
+            </div>
+            <p
+              id="login-error"
+              class="text-red-500 text-xs mt-3 hidden text-center"
+            >
+              Cle invalide
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Dashboard -->
+    <!-- ==================== DASHBOARD ==================== -->
     <div id="dashboard" class="hidden">
-      <header class="bg-dark px-6 py-4">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-          <h1 class="text-xl font-bold text-brand">Porphyre Admin</h1>
-          <div class="flex items-center gap-4">
-            <button
-              onclick="loadProjects()"
-              class="text-sm bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg transition"
+      <!-- Sidebar -->
+      <aside
+        id="sidebar"
+        class="fixed left-0 top-0 bottom-0 w-[260px] bg-dark z-40 flex flex-col"
+      >
+        <div class="px-5 py-5 border-b border-white/[.04]">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-9 h-9 rounded-[10px] bg-brand/15 flex items-center justify-center"
             >
-              Rafraîchir
-            </button>
-            <button
-              onclick="logout()"
-              class="text-sm text-white/50 hover:text-white transition"
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#4ECDC4"
+                stroke-width="1.5"
+              >
+                <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                <polyline points="2 17 12 22 22 17" />
+                <polyline points="2 12 12 17 22 12" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-white font-bold text-[13px]">Porphyre Studio</p>
+              <p class="text-white/25 text-[10px]">CRM Admin</p>
+            </div>
+          </div>
+        </div>
+        <nav class="flex-1 px-3 py-4">
+          <p
+            class="text-white/15 text-[9px] uppercase tracking-[.2em] font-semibold px-3 mb-2"
+          >
+            Menu
+          </p>
+          <a
+            onclick="showView('dashboard')"
+            class="nav-item active flex items-center gap-3 px-3 py-2.5 text-[13px] text-white/70 mb-0.5 cursor-pointer"
+            data-view="dashboard"
+          >
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
             >
-              Déconnexion
+              <rect x="3" y="3" width="7" height="7" rx="1.5" />
+              <rect x="14" y="3" width="7" height="7" rx="1.5" />
+              <rect x="3" y="14" width="7" height="7" rx="1.5" />
+              <rect x="14" y="14" width="7" height="7" rx="1.5" />
+            </svg>
+            Tableau de bord
+          </a>
+          <a
+            onclick="showView('calendar')"
+            class="nav-item flex items-center gap-3 px-3 py-2.5 text-[13px] text-white/30 mb-0.5 cursor-pointer"
+            data-view="calendar"
+          >
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+            Calendrier
+          </a>
+          <a
+            onclick="showView('clients')"
+            class="nav-item flex items-center gap-3 px-3 py-2.5 text-[13px] text-white/30 cursor-pointer"
+            data-view="clients"
+          >
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <circle cx="12" cy="8" r="4" />
+              <path d="M20 21a8 8 0 10-16 0" />
+            </svg>
+            Clients
+          </a>
+        </nav>
+        <div class="px-3 py-4 border-t border-white/[.04]">
+          <button
+            onclick="logout()"
+            class="nav-item flex items-center gap-3 px-3 py-2.5 text-[13px] text-white/25 w-full text-left"
+          >
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            Deconnexion
+          </button>
+        </div>
+      </aside>
+
+      <!-- Sidebar overlay mobile -->
+      <div
+        id="sidebar-overlay"
+        class="hidden fixed inset-0 bg-black/20 z-30 md:hidden"
+        onclick="toggleSidebar()"
+      ></div>
+
+      <!-- Main -->
+      <main class="md:ml-[260px] min-h-screen">
+        <!-- Header -->
+        <header
+          class="sticky top-0 z-20 bg-cream/80 backdrop-blur-xl border-b border-sand/30"
+        >
+          <div class="flex items-center gap-4 px-5 lg:px-8 h-[60px]">
+            <button
+              onclick="toggleSidebar()"
+              class="md:hidden w-9 h-9 rounded-xl bg-white border border-sand/40 flex items-center justify-center text-warm/40 press"
+            >
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <line x1="4" y1="6" x2="20" y2="6" />
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <line x1="4" y1="18" x2="20" y2="18" />
+              </svg>
             </button>
+            <div class="flex-1 max-w-md relative">
+              <svg
+                class="absolute left-3.5 top-1/2 -translate-y-1/2 text-warm/20"
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <path d="M21 21l-4.35-4.35" />
+              </svg>
+              <input
+                id="search-input"
+                type="text"
+                placeholder="Rechercher un projet, client..."
+                oninput="searchProjects(this.value)"
+                class="w-full bg-white border border-sand/40 rounded-xl pl-10 pr-4 py-2 text-sm text-dark placeholder-warm/20"
+              />
+            </div>
+            <div class="flex items-center gap-3 ml-auto">
+              <span
+                class="text-[11px] text-warm/25 hidden lg:block"
+                id="current-date"
+              ></span>
+              <button
+                onclick="loadProjects()"
+                class="press w-9 h-9 rounded-xl bg-white border border-sand/40 flex items-center justify-center text-warm/35 hover:text-dark transition-colors"
+                title="Rafraichir"
+              >
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path d="M1 4v6h6" />
+                  <path d="M23 20v-6h-6" />
+                  <path
+                    d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <div class="max-w-7xl mx-auto px-6 py-6">
-        <!-- Stats -->
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-          <div class="bg-white rounded-xl p-4 border border-sand shadow-sm">
-            <p class="text-gray-400 text-sm">Total</p>
-            <p id="stat-total" class="text-2xl font-bold text-dark">0</p>
+        <!-- Content -->
+        <div class="px-5 lg:px-8 py-7">
+          <!-- ===== CALENDAR VIEW ===== -->
+          <div id="calendar-view" class="hidden">
+            <div class="mb-7 fade-up">
+              <h2 class="text-[22px] font-extrabold text-dark tracking-tight">
+                Calendrier
+              </h2>
+              <p class="text-warm/35 text-sm mt-0.5">
+                Paiements, deadlines et livraisons
+              </p>
+            </div>
+            <div class="fade-up d1">
+              <div class="bg-sand/25 rounded-[20px] p-[3px]">
+                <div class="bg-white rounded-[17px] p-5">
+                  <!-- Month nav -->
+                  <div class="flex items-center justify-between mb-5">
+                    <button
+                      onclick="calPrev()"
+                      class="press w-8 h-8 rounded-lg bg-cream/60 hover:bg-sand flex items-center justify-center text-warm/40 transition-colors"
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path d="M15 18l-6-6 6-6" />
+                      </svg>
+                    </button>
+                    <h3
+                      id="cal-month-label"
+                      class="text-sm font-bold text-dark"
+                    ></h3>
+                    <button
+                      onclick="calNext()"
+                      class="press w-8 h-8 rounded-lg bg-cream/60 hover:bg-sand flex items-center justify-center text-warm/40 transition-colors"
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path d="M9 18l6-6-6-6" />
+                      </svg>
+                    </button>
+                  </div>
+                  <!-- Day headers -->
+                  <div class="grid grid-cols-7 mb-1">
+                    <div
+                      class="text-center text-[10px] font-semibold uppercase tracking-wider text-warm/25 py-2"
+                    >
+                      Lun
+                    </div>
+                    <div
+                      class="text-center text-[10px] font-semibold uppercase tracking-wider text-warm/25 py-2"
+                    >
+                      Mar
+                    </div>
+                    <div
+                      class="text-center text-[10px] font-semibold uppercase tracking-wider text-warm/25 py-2"
+                    >
+                      Mer
+                    </div>
+                    <div
+                      class="text-center text-[10px] font-semibold uppercase tracking-wider text-warm/25 py-2"
+                    >
+                      Jeu
+                    </div>
+                    <div
+                      class="text-center text-[10px] font-semibold uppercase tracking-wider text-warm/25 py-2"
+                    >
+                      Ven
+                    </div>
+                    <div
+                      class="text-center text-[10px] font-semibold uppercase tracking-wider text-warm/25 py-2"
+                    >
+                      Sam
+                    </div>
+                    <div
+                      class="text-center text-[10px] font-semibold uppercase tracking-wider text-warm/25 py-2"
+                    >
+                      Dim
+                    </div>
+                  </div>
+                  <!-- Day grid -->
+                  <div id="cal-grid" class="grid grid-cols-7"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Day detail -->
+            <div id="cal-day-detail" class="mt-4 hidden">
+              <div class="bg-sand/25 rounded-[20px] p-[3px]">
+                <div class="bg-white rounded-[17px] p-5">
+                  <h4
+                    id="cal-day-title"
+                    class="text-xs font-bold text-dark mb-3"
+                  ></h4>
+                  <div id="cal-day-events" class="space-y-2"></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="bg-white rounded-xl p-4 border border-sand shadow-sm">
-            <p class="text-gray-400 text-sm">Payé</p>
-            <p id="stat-paid" class="text-2xl font-bold text-green-600">0</p>
-          </div>
-          <div class="bg-white rounded-xl p-4 border border-sand shadow-sm">
-            <p class="text-gray-400 text-sm">En cours</p>
-            <p id="stat-building" class="text-2xl font-bold text-yellow-600">
-              0
-            </p>
-          </div>
-          <div class="bg-white rounded-xl p-4 border border-sand shadow-sm">
-            <p class="text-gray-400 text-sm">Review</p>
-            <p id="stat-review" class="text-2xl font-bold text-blue-600">0</p>
-          </div>
-          <div class="bg-white rounded-xl p-4 border border-sand shadow-sm">
-            <p class="text-gray-400 text-sm">Livrés</p>
-            <p id="stat-delivered" class="text-2xl font-bold text-emerald-600">
-              0
-            </p>
-          </div>
-        </div>
 
-        <!-- Filters -->
-        <div class="flex flex-wrap gap-2 mb-6">
-          <button
-            onclick="filterBy('all')"
-            class="filter-btn active px-3 py-1.5 rounded-lg text-sm bg-brand text-white font-semibold"
-            data-filter="all"
-          >
-            Tous
-          </button>
-          <button
-            onclick="filterBy('paid')"
-            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-white text-gray-500 border border-sand hover:bg-sand"
-            data-filter="paid"
-          >
-            Payé
-          </button>
-          <button
-            onclick="filterBy('building')"
-            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-white text-gray-500 border border-sand hover:bg-sand"
-            data-filter="building"
-          >
-            En cours
-          </button>
-          <button
-            onclick="filterBy('review')"
-            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-white text-gray-500 border border-sand hover:bg-sand"
-            data-filter="review"
-          >
-            Review
-          </button>
-          <button
-            onclick="filterBy('delivered')"
-            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-white text-gray-500 border border-sand hover:bg-sand"
-            data-filter="delivered"
-          >
-            Livré
-          </button>
-        </div>
+          <!-- ===== DASHBOARD VIEW ===== -->
+          <div id="dashboard-view">
+            <!-- Title -->
+            <div class="mb-7 fade-up">
+              <h2 class="text-[22px] font-extrabold text-dark tracking-tight">
+                Tableau de bord
+              </h2>
+              <p class="text-warm/35 text-sm mt-0.5">
+                Gerez vos projets clients
+              </p>
+            </div>
 
-        <!-- Projects -->
-        <div id="projects-list" class="space-y-4">
-          <p class="text-gray-400 text-center py-12">Chargement...</p>
+            <!-- Stats -->
+            <div class="grid grid-cols-2 lg:grid-cols-6 gap-3 mb-7">
+              <!-- Revenue -->
+              <div class="stat-card col-span-2 fade-up d1">
+                <div class="bg-dark rounded-[20px] p-[3px]">
+                  <div
+                    class="bg-dark rounded-[17px] p-5 relative overflow-hidden"
+                  >
+                    <div
+                      class="absolute -right-6 -top-6 w-28 h-28 bg-brand/15 rounded-full blur-2xl pointer-events-none"
+                    ></div>
+                    <div class="relative">
+                      <div class="flex items-center gap-2 mb-3">
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="#4ECDC4"
+                          stroke-width="1.5"
+                        >
+                          <rect x="2" y="4" width="20" height="16" rx="2" />
+                          <path d="M2 10h20" />
+                        </svg>
+                        <span
+                          class="text-[10px] font-semibold uppercase tracking-[.15em] text-white/30"
+                          >Chiffre d'affaires</span
+                        >
+                      </div>
+                      <p
+                        id="stat-revenue"
+                        class="text-[28px] font-extrabold text-white tracking-tight"
+                      >
+                        0&euro;
+                      </p>
+                      <p class="text-white/25 text-xs mt-1">
+                        <span id="stat-total">0</span> projets au total
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Paid -->
+              <div class="stat-card fade-up d2">
+                <div class="bg-emerald-100/40 rounded-[20px] p-[3px]">
+                  <div class="bg-white rounded-[17px] p-4">
+                    <div class="flex items-center gap-1.5 mb-2">
+                      <span class="dot dot-paid"></span
+                      ><span
+                        class="text-[10px] font-semibold uppercase tracking-[.12em] text-warm/30"
+                        >Paye</span
+                      >
+                    </div>
+                    <p
+                      id="stat-paid"
+                      class="text-2xl font-extrabold text-emerald-600"
+                    >
+                      0
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Building -->
+              <div class="stat-card fade-up d3">
+                <div class="bg-amber-100/40 rounded-[20px] p-[3px]">
+                  <div class="bg-white rounded-[17px] p-4">
+                    <div class="flex items-center gap-1.5 mb-2">
+                      <span class="dot dot-building"></span
+                      ><span
+                        class="text-[10px] font-semibold uppercase tracking-[.12em] text-warm/30"
+                        >En cours</span
+                      >
+                    </div>
+                    <p
+                      id="stat-building"
+                      class="text-2xl font-extrabold text-amber-600"
+                    >
+                      0
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Review -->
+              <div class="stat-card fade-up d4">
+                <div class="bg-blue-100/40 rounded-[20px] p-[3px]">
+                  <div class="bg-white rounded-[17px] p-4">
+                    <div class="flex items-center gap-1.5 mb-2">
+                      <span class="dot dot-review"></span
+                      ><span
+                        class="text-[10px] font-semibold uppercase tracking-[.12em] text-warm/30"
+                        >Review</span
+                      >
+                    </div>
+                    <p
+                      id="stat-review"
+                      class="text-2xl font-extrabold text-blue-600"
+                    >
+                      0
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Delivered -->
+              <div class="stat-card fade-up d5">
+                <div class="bg-emerald-100/25 rounded-[20px] p-[3px]">
+                  <div class="bg-white rounded-[17px] p-4">
+                    <div class="flex items-center gap-1.5 mb-2">
+                      <span class="dot dot-delivered"></span
+                      ><span
+                        class="text-[10px] font-semibold uppercase tracking-[.12em] text-warm/30"
+                        >Livres</span
+                      >
+                    </div>
+                    <p
+                      id="stat-delivered"
+                      class="text-2xl font-extrabold text-emerald-700"
+                    >
+                      0
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pipeline -->
+            <div class="mb-7 fade-up d6">
+              <div class="bg-sand/25 rounded-[20px] p-[3px]">
+                <div class="bg-white rounded-[17px] px-5 py-4">
+                  <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-xs font-bold text-dark">Pipeline</h3>
+                    <span
+                      class="text-[11px] text-warm/30"
+                      id="pipeline-summary"
+                    ></span>
+                  </div>
+                  <div
+                    class="flex h-2 rounded-full overflow-hidden bg-sand/30 gap-[2px]"
+                    id="pipeline-bar"
+                  ></div>
+                  <div class="flex gap-4 mt-2.5" id="pipeline-legend"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex items-center justify-between mb-5 fade-up d7">
+              <div class="flex gap-1.5 flex-wrap">
+                <button
+                  onclick="filterBy('all')"
+                  class="filter-btn fpill on px-3 py-1.5 rounded-xl text-[11px] font-semibold border border-sand/40"
+                  data-filter="all"
+                >
+                  Tous
+                </button>
+                <button
+                  onclick="filterBy('paid')"
+                  class="filter-btn fpill px-3 py-1.5 rounded-xl text-[11px] font-medium text-warm/40 border border-sand/40 bg-white"
+                  data-filter="paid"
+                >
+                  Paye
+                </button>
+                <button
+                  onclick="filterBy('building')"
+                  class="filter-btn fpill px-3 py-1.5 rounded-xl text-[11px] font-medium text-warm/40 border border-sand/40 bg-white"
+                  data-filter="building"
+                >
+                  En cours
+                </button>
+                <button
+                  onclick="filterBy('review')"
+                  class="filter-btn fpill px-3 py-1.5 rounded-xl text-[11px] font-medium text-warm/40 border border-sand/40 bg-white"
+                  data-filter="review"
+                >
+                  Review
+                </button>
+                <button
+                  onclick="filterBy('delivered')"
+                  class="filter-btn fpill px-3 py-1.5 rounded-xl text-[11px] font-medium text-warm/40 border border-sand/40 bg-white"
+                  data-filter="delivered"
+                >
+                  Livre
+                </button>
+              </div>
+              <span
+                id="filtered-count"
+                class="text-[11px] text-warm/25 hidden sm:block"
+              ></span>
+            </div>
+
+            <!-- Projects -->
+            <div id="projects-list" class="space-y-2.5">
+              <p class="text-warm/30 text-center py-16 text-sm">
+                Chargement...
+              </p>
+            </div>
+          </div>
+          <!-- /dashboard-view -->
         </div>
-      </div>
+      </main>
     </div>
 
-    <!-- Detail modal -->
-    <div
-      id="modal"
-      class="hidden fixed inset-0 bg-black/40 z-50 flex items-start justify-center pt-16 px-4 overflow-y-auto"
-    >
+    <!-- ==================== DETAIL PANEL ==================== -->
+    <div id="modal" class="hidden fixed inset-0 z-50">
+      <div class="absolute inset-0 bg-black/15" onclick="closeModal()"></div>
       <div
-        class="bg-white rounded-2xl border border-sand shadow-xl w-full max-w-2xl mb-16"
+        id="panel"
+        class="absolute right-0 top-0 bottom-0 w-full max-w-[520px] bg-white border-l border-sand/20 overflow-y-auto"
       >
-        <div class="flex items-center justify-between p-6 border-b border-sand">
-          <h2 id="modal-title" class="text-lg font-bold text-dark"></h2>
+        <div
+          class="sticky top-0 z-10 bg-white/90 backdrop-blur-xl border-b border-sand/20 px-6 py-4 flex items-center justify-between"
+        >
+          <h2 id="modal-title" class="font-bold text-dark text-[15px]"></h2>
           <button
             onclick="closeModal()"
-            class="text-gray-400 hover:text-dark text-2xl"
+            class="press w-8 h-8 rounded-xl bg-cream/60 hover:bg-sand flex items-center justify-center text-warm/40 transition-colors"
           >
-            &times;
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
           </button>
         </div>
         <div id="modal-body" class="p-6"></div>
       </div>
     </div>
 
+    <!-- ==================== SCRIPT ==================== -->
     <script>
-      // All user-provided strings are escaped via esc() before DOM insertion
-      // to prevent XSS. Data comes from authenticated admin API only.
+      var API_KEY = "";
+      var projects = [];
+      var currentFilter = "all";
+      var searchQuery = "";
 
-      let API_KEY = "";
-      let projects = [];
-      let currentFilter = "all";
-
+      /* ---- Helpers ---- */
       function esc(s) {
         if (!s) return "";
         var d = document.createElement("div");
@@ -218,36 +847,59 @@
       }
 
       function statusLabel(s) {
-        var map = {
+        var m = {
           draft: "Brouillon",
-          paid: "Payé",
+          paid: "Paye",
           building: "En cours",
           review: "Review",
-          delivered: "Livré",
+          delivered: "Livre",
         };
-        return map[s] || s;
+        return m[s] || s;
       }
-
       function offreLabel(o) {
-        var map = {
-          essentiel: "Essentiel 497€",
-          reservation: "Réservation 897€",
-          complet: "Complet 1297€",
+        var m = {
+          essentiel: "Essentiel 497\u20ac",
+          reservation: "Reservation 897\u20ac",
+          complet: "Complet 1297\u20ac",
         };
-        return map[o] || o;
+        return m[o] || o;
+      }
+      function timeAgo(d) {
+        var diff = Date.now() - new Date(d).getTime();
+        var m = Math.floor(diff / 60000);
+        if (m < 60) return "il y a " + m + "min";
+        var h = Math.floor(m / 60);
+        if (h < 24) return "il y a " + h + "h";
+        return "il y a " + Math.floor(h / 24) + "j";
+      }
+      function getInitials(name) {
+        if (!name) return "?";
+        return name
+          .split(" ")
+          .map(function (w) {
+            return w[0];
+          })
+          .join("")
+          .toUpperCase()
+          .substring(0, 2);
+      }
+      function getAvatarColor(name) {
+        var colors = [
+          "#4ECDC4",
+          "#E8846B",
+          "#8B7EC8",
+          "#A8B86F",
+          "#D4A853",
+          "#E07BA0",
+          "#6BA3D6",
+        ];
+        var h = 0;
+        for (var i = 0; i < name.length; i++)
+          h = name.charCodeAt(i) + ((h << 5) - h);
+        return colors[Math.abs(h) % colors.length];
       }
 
-      function timeAgo(dateStr) {
-        var diff = Date.now() - new Date(dateStr).getTime();
-        var mins = Math.floor(diff / 60000);
-        if (mins < 60) return "il y a " + mins + "min";
-        var hours = Math.floor(mins / 60);
-        if (hours < 24) return "il y a " + hours + "h";
-        var days = Math.floor(hours / 24);
-        return "il y a " + days + "j";
-      }
-
-      // Auth
+      /* ---- Auth ---- */
       function login() {
         API_KEY = document.getElementById("api-key-input").value.trim();
         if (!API_KEY) return;
@@ -262,7 +914,6 @@
           }
         });
       }
-
       function logout() {
         API_KEY = "";
         localStorage.removeItem("porphyre_admin_key");
@@ -270,12 +921,10 @@
         document.getElementById("login-screen").classList.remove("hidden");
         document.getElementById("api-key-input").value = "";
       }
-
-      // Auto-login
       (function () {
-        var saved = localStorage.getItem("porphyre_admin_key");
-        if (saved) {
-          API_KEY = saved;
+        var s = localStorage.getItem("porphyre_admin_key");
+        if (s) {
+          API_KEY = s;
           loadProjects().then(function (ok) {
             if (ok) {
               document.getElementById("login-screen").classList.add("hidden");
@@ -285,7 +934,7 @@
         }
       })();
 
-      // API
+      /* ---- API ---- */
       function apiFetch(url, opts) {
         opts = opts || {};
         opts.headers = opts.headers || {};
@@ -296,7 +945,6 @@
         }
         return fetch(url, opts);
       }
-
       function loadProjects() {
         return apiFetch("/api/projects")
           .then(function (res) {
@@ -304,6 +952,7 @@
             return res.json().then(function (data) {
               projects = data.projects || [];
               updateStats();
+              updatePipeline();
               renderProjects();
               return true;
             });
@@ -313,8 +962,16 @@
           });
       }
 
+      /* ---- Stats & Pipeline ---- */
       function updateStats() {
         document.getElementById("stat-total").textContent = projects.length;
+        var rev = projects.reduce(function (s, p) {
+          return s + (p.stripe_amount || 0);
+        }, 0);
+        document.getElementById("stat-revenue").textContent =
+          rev === 0
+            ? "0\u20ac"
+            : (rev / 100).toLocaleString("fr-FR") + "\u20ac";
         document.getElementById("stat-paid").textContent = projects.filter(
           function (p) {
             return p.status === "paid";
@@ -336,108 +993,224 @@
           },
         ).length;
       }
+      function updatePipeline() {
+        var bar = document.getElementById("pipeline-bar");
+        var legend = document.getElementById("pipeline-legend");
+        var summary = document.getElementById("pipeline-summary");
+        var total = projects.length;
+        var stages = [
+          { key: "paid", label: "Paye", color: "#10b981", count: 0 },
+          { key: "building", label: "En cours", color: "#f59e0b", count: 0 },
+          { key: "review", label: "Review", color: "#3b82f6", count: 0 },
+          { key: "delivered", label: "Livre", color: "#059669", count: 0 },
+        ];
+        projects.forEach(function (p) {
+          stages.forEach(function (s) {
+            if (p.status === s.key) s.count++;
+          });
+        });
+        bar.textContent = "";
+        legend.textContent = "";
+        if (total === 0) {
+          summary.textContent = "Aucun projet dans le pipeline";
+          var e = document.createElement("div");
+          e.className = "w-full h-full bg-sand/30 rounded-full";
+          bar.appendChild(e);
+          return;
+        }
+        summary.textContent = total + " projet" + (total > 1 ? "s" : "");
+        stages.forEach(function (s) {
+          if (!s.count) return;
+          var seg = document.createElement("div");
+          seg.className = "pipe-seg h-full";
+          seg.style.width = (s.count / total) * 100 + "%";
+          seg.style.backgroundColor = s.color;
+          seg.style.minWidth = "8px";
+          bar.appendChild(seg);
+        });
+        stages.forEach(function (s) {
+          var item = document.createElement("div");
+          item.className = "flex items-center gap-1.5";
+          var d = document.createElement("span");
+          d.className = "w-1.5 h-1.5 rounded-full flex-shrink-0";
+          d.style.backgroundColor = s.color;
+          var t = document.createElement("span");
+          t.className = "text-[11px] text-warm/40";
+          t.textContent = s.label + " " + s.count;
+          item.appendChild(d);
+          item.appendChild(t);
+          legend.appendChild(item);
+        });
+      }
 
+      /* ---- Filtering & Search ---- */
       function filterBy(f) {
         currentFilter = f;
         document.querySelectorAll(".filter-btn").forEach(function (btn) {
           if (btn.dataset.filter === f) {
             btn.className =
-              "filter-btn active px-3 py-1.5 rounded-lg text-sm bg-brand text-white font-semibold";
+              "filter-btn fpill on px-3 py-1.5 rounded-xl text-[11px] font-semibold border border-dark bg-dark text-white";
           } else {
             btn.className =
-              "filter-btn px-3 py-1.5 rounded-lg text-sm bg-white text-gray-500 border border-sand hover:bg-sand";
+              "filter-btn fpill px-3 py-1.5 rounded-xl text-[11px] font-medium text-warm/40 border border-sand/40 bg-white";
           }
         });
         renderProjects();
       }
+      function searchProjects(q) {
+        searchQuery = q;
+        renderProjects();
+      }
 
+      /* ---- Render Projects ---- */
       function renderProjects() {
-        var container = document.getElementById("projects-list");
+        var c = document.getElementById("projects-list");
         var filtered =
           currentFilter === "all"
             ? projects
             : projects.filter(function (p) {
                 return p.status === currentFilter;
               });
+        if (searchQuery) {
+          var q = searchQuery.toLowerCase();
+          filtered = filtered.filter(function (p) {
+            return (
+              (p.nom || "").toLowerCase().indexOf(q) !== -1 ||
+              (p.bien || "").toLowerCase().indexOf(q) !== -1 ||
+              (p.localisation || "").toLowerCase().indexOf(q) !== -1 ||
+              (p.email || "").toLowerCase().indexOf(q) !== -1
+            );
+          });
+        }
+        c.textContent = "";
+        var countEl = document.getElementById("filtered-count");
+        if (countEl)
+          countEl.textContent =
+            filtered.length + " projet" + (filtered.length !== 1 ? "s" : "");
 
-        if (filtered.length === 0) {
-          container.textContent = "";
-          var msg = document.createElement("p");
-          msg.className = "text-gray-400 text-center py-12";
-          msg.textContent = "Aucun projet";
-          container.appendChild(msg);
+        if (!filtered.length) {
+          var empty = document.createElement("div");
+          empty.className = "text-center py-20";
+          var iw = document.createElement("div");
+          iw.className =
+            "w-14 h-14 rounded-2xl bg-sand/30 flex items-center justify-center mx-auto mb-3";
+          iw.innerHTML =
+            '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b5afa4" stroke-width="1.5"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>';
+          var t = document.createElement("h3");
+          t.className = "text-sm font-semibold text-dark mb-0.5";
+          t.textContent = "Aucun projet";
+          var d = document.createElement("p");
+          d.className = "text-xs text-warm/30";
+          d.textContent = searchQuery
+            ? 'Aucun resultat pour "' + searchQuery + '"'
+            : "Les projets apparaitront ici apres un paiement";
+          empty.appendChild(iw);
+          empty.appendChild(t);
+          empty.appendChild(d);
+          c.appendChild(empty);
           return;
         }
 
-        container.textContent = "";
-        filtered.forEach(function (p) {
+        filtered.forEach(function (p, i) {
           var card = document.createElement("div");
           card.className =
-            "bg-white rounded-xl border border-sand p-5 hover:shadow-md transition cursor-pointer";
+            "p-row bg-white rounded-2xl border border-sand/25 px-5 py-4 cursor-pointer opacity-0 fade-up";
+          card.style.animationDelay = 0.38 + i * 0.04 + "s";
           card.onclick = function () {
             openProject(p.brief_id);
           };
 
           var row = document.createElement("div");
-          row.className = "flex items-start justify-between gap-4";
+          row.className = "flex items-center gap-4";
+
+          var av = document.createElement("div");
+          av.className =
+            "w-10 h-10 rounded-full flex items-center justify-center text-white text-[11px] font-bold flex-shrink-0 tracking-wide";
+          av.style.background = getAvatarColor(p.nom || "");
+          av.textContent = getInitials(p.nom || "?");
 
           var info = document.createElement("div");
           info.className = "flex-1 min-w-0";
-
-          var titleRow = document.createElement("div");
-          titleRow.className = "flex items-center gap-3 mb-2";
-          var title = document.createElement("h3");
-          title.className = "font-semibold text-dark truncate";
-          title.textContent = p.bien;
-          var badge = document.createElement("span");
-          badge.className =
-            "status-" +
-            p.status +
-            " text-xs px-2 py-0.5 rounded-full font-medium whitespace-nowrap";
-          badge.textContent = statusLabel(p.status);
-          titleRow.appendChild(title);
-          titleRow.appendChild(badge);
-
+          var h = document.createElement("h3");
+          h.className = "font-semibold text-dark text-[13px] truncate";
+          h.textContent = p.bien;
           var meta = document.createElement("div");
           meta.className =
-            "flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500";
-          var spans = [p.nom, p.localisation];
-          spans.forEach(function (t) {
-            var s = document.createElement("span");
-            s.textContent = t;
-            meta.appendChild(s);
-          });
-          var offreSpan = document.createElement("span");
-          offreSpan.className = "text-brand font-semibold";
-          offreSpan.textContent = offreLabel(p.offre);
-          meta.appendChild(offreSpan);
-          if (p.paid_at) {
-            var timeSpan = document.createElement("span");
-            timeSpan.textContent = timeAgo(p.paid_at);
-            meta.appendChild(timeSpan);
+            "flex items-center gap-1.5 text-[11px] text-warm/35 mt-0.5";
+          var nm = document.createElement("span");
+          nm.textContent = p.nom;
+          meta.appendChild(nm);
+          if (p.localisation) {
+            var sep = document.createElement("span");
+            sep.className = "text-warm/15";
+            sep.textContent = "\u00b7";
+            meta.appendChild(sep);
+            var loc = document.createElement("span");
+            loc.textContent = p.localisation;
+            meta.appendChild(loc);
           }
-
-          info.appendChild(titleRow);
+          info.appendChild(h);
           info.appendChild(meta);
 
-          var actions = document.createElement("div");
-          actions.className = "flex gap-2 shrink-0";
-          var copyBtn = document.createElement("button");
-          copyBtn.className =
-            "text-xs bg-cream hover:bg-sand px-2 py-1 rounded";
-          copyBtn.title = "Copier /location";
-          copyBtn.textContent = "📋";
-          copyBtn.onclick = function (e) {
+          var right = document.createElement("div");
+          right.className = "flex items-center gap-2.5 flex-shrink-0";
+          var offre = document.createElement("span");
+          offre.className =
+            "text-[11px] font-semibold text-brand hidden md:block";
+          offre.textContent = offreLabel(p.offre);
+          var badge = document.createElement("span");
+          badge.className =
+            "inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-lg status-" +
+            p.status;
+          var dot = document.createElement("span");
+          dot.className = "dot dot-" + p.status;
+          badge.appendChild(dot);
+          badge.appendChild(document.createTextNode(statusLabel(p.status)));
+          right.appendChild(offre);
+          right.appendChild(badge);
+          if (p.paid_at) {
+            var time = document.createElement("span");
+            time.className = "text-[11px] text-warm/20 hidden lg:block";
+            time.textContent = timeAgo(p.paid_at);
+            right.appendChild(time);
+          }
+          var cp = document.createElement("button");
+          cp.className =
+            "press w-8 h-8 rounded-lg bg-cream/40 hover:bg-sand/60 flex items-center justify-center text-warm/30 hover:text-dark transition-colors";
+          cp.title = "Copier /location";
+          cp.innerHTML =
+            '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
+          cp.onclick = function (e) {
             e.stopPropagation();
-            copyCommand(p.brief_url, copyBtn);
+            copyCommand(p.brief_url, cp);
           };
-          actions.appendChild(copyBtn);
+          right.appendChild(cp);
 
+          row.appendChild(av);
           row.appendChild(info);
-          row.appendChild(actions);
+          row.appendChild(right);
           card.appendChild(row);
-          container.appendChild(card);
+          c.appendChild(card);
         });
+      }
+
+      /* ---- Detail Panel ---- */
+      function mkSection(title) {
+        var s = document.createElement("div");
+        s.className = "py-5 border-b border-sand/15";
+        var h = document.createElement("h4");
+        h.className =
+          "text-[10px] uppercase tracking-[.15em] font-semibold text-warm/30 mb-3";
+        h.textContent = title;
+        s.appendChild(h);
+        return s;
+      }
+      function mkBtn(text, cls) {
+        var b = document.createElement("button");
+        b.className =
+          "press px-4 py-2 rounded-xl text-[12px] font-medium border " + cls;
+        b.textContent = text;
+        return b;
       }
 
       function openProject(id) {
@@ -445,258 +1218,268 @@
           return x.brief_id === id;
         });
         if (!p) return;
-
-        document.getElementById("modal-title").textContent = p.bien;
+        document.getElementById("modal-title").textContent = p.bien || "Projet";
         var body = document.getElementById("modal-body");
         body.textContent = "";
+        var w = document.createElement("div");
 
-        var wrapper = document.createElement("div");
-        wrapper.className = "space-y-6";
-
-        // Client info section
-        var clientSection = document.createElement("div");
-        var clientTitle = document.createElement("h3");
-        clientTitle.className =
-          "text-sm font-semibold text-gray-400 uppercase mb-3";
-        clientTitle.textContent = "Client";
-        clientSection.appendChild(clientTitle);
-
-        var grid = document.createElement("div");
-        grid.className = "grid grid-cols-2 gap-2 text-sm";
-        var fields = [
-          ["Nom", p.nom],
-          ["Email", p.email],
-          ["Tél", p.telephone || "—"],
-          ["Lieu", p.localisation],
-          ["Type", p.type_bien || "—"],
-          ["Offre", offreLabel(p.offre)],
-        ];
-        fields.forEach(function (f) {
-          var div = document.createElement("div");
-          var label = document.createElement("span");
-          label.className = "text-gray-400";
-          label.textContent = f[0] + ": ";
-          div.appendChild(label);
-          if (f[0] === "Email") {
-            var link = document.createElement("a");
-            link.href = "mailto:" + f[1];
-            link.className = "text-brand";
-            link.textContent = f[1];
-            div.appendChild(link);
-          } else if (f[0] === "Offre") {
-            var s = document.createElement("span");
-            s.className = "text-brand font-semibold";
-            s.textContent = f[1];
-            div.appendChild(s);
-          } else {
-            div.appendChild(document.createTextNode(f[1]));
+        // Client header
+        var ch = document.createElement("div");
+        ch.className = "flex items-center gap-4 pb-5 border-b border-sand/15";
+        var av = document.createElement("div");
+        av.className =
+          "w-12 h-12 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0";
+        av.style.background = getAvatarColor(p.nom || "");
+        av.textContent = getInitials(p.nom || "?");
+        var ci = document.createElement("div");
+        ci.className = "min-w-0";
+        var cn = document.createElement("h3");
+        cn.className = "font-bold text-dark text-base";
+        cn.textContent = p.nom;
+        var cm = document.createElement("div");
+        cm.className =
+          "flex flex-wrap items-center gap-1.5 text-[12px] text-warm/40 mt-0.5";
+        if (p.email) {
+          var el = document.createElement("a");
+          el.href = "mailto:" + p.email;
+          el.className = "hover:text-brand transition-colors";
+          el.textContent = p.email;
+          cm.appendChild(el);
+        }
+        if (p.telephone) {
+          if (p.email) {
+            var sp = document.createElement("span");
+            sp.className = "text-warm/15";
+            sp.textContent = "\u00b7";
+            cm.appendChild(sp);
           }
-          grid.appendChild(div);
+          var tl = document.createElement("span");
+          tl.textContent = p.telephone;
+          cm.appendChild(tl);
+        }
+        ci.appendChild(cn);
+        ci.appendChild(cm);
+        ch.appendChild(av);
+        ch.appendChild(ci);
+        w.appendChild(ch);
+
+        // Details
+        var ds = mkSection("Details");
+        var gr = document.createElement("div");
+        gr.className = "grid grid-cols-2 gap-3";
+        [
+          ["Lieu", p.localisation],
+          ["Type", p.type_bien || "\u2014"],
+          ["Offre", offreLabel(p.offre)],
+          ["Domaine", p.domaine || "\u2014"],
+        ].forEach(function (f) {
+          var cell = document.createElement("div");
+          var lb = document.createElement("p");
+          lb.className =
+            "text-[10px] uppercase tracking-[.12em] text-warm/25 font-medium mb-0.5";
+          lb.textContent = f[0];
+          var vl = document.createElement("p");
+          vl.className =
+            f[0] === "Offre"
+              ? "text-[13px] text-brand font-semibold"
+              : "text-[13px] text-dark font-medium";
+          vl.textContent = f[1];
+          cell.appendChild(lb);
+          cell.appendChild(vl);
+          gr.appendChild(cell);
         });
+        ds.appendChild(gr);
         if (p.lien_airbnb) {
-          var airbnbDiv = document.createElement("div");
-          airbnbDiv.className = "col-span-2";
-          var al = document.createElement("span");
-          al.className = "text-gray-400";
-          al.textContent = "Airbnb: ";
-          airbnbDiv.appendChild(al);
-          var alink = document.createElement("a");
-          alink.href = p.lien_airbnb;
-          alink.target = "_blank";
-          alink.className = "text-brand";
-          alink.textContent = p.lien_airbnb;
-          airbnbDiv.appendChild(alink);
-          grid.appendChild(airbnbDiv);
+          var ad = document.createElement("div");
+          ad.className = "mt-3";
+          var al = document.createElement("p");
+          al.className =
+            "text-[10px] uppercase tracking-[.12em] text-warm/25 font-medium mb-0.5";
+          al.textContent = "Airbnb";
+          var ak = document.createElement("a");
+          ak.href = p.lien_airbnb;
+          ak.target = "_blank";
+          ak.className = "text-[12px] text-brand hover:underline break-all";
+          ak.textContent = p.lien_airbnb;
+          ad.appendChild(al);
+          ad.appendChild(ak);
+          ds.appendChild(ad);
         }
-        if (p.domaine) {
-          var domDiv = document.createElement("div");
-          var dl = document.createElement("span");
-          dl.className = "text-gray-400";
-          dl.textContent = "Domaine: ";
-          domDiv.appendChild(dl);
-          domDiv.appendChild(document.createTextNode(p.domaine));
-          grid.appendChild(domDiv);
-        }
-        clientSection.appendChild(grid);
-
         if (p.description) {
-          var descDiv = document.createElement("div");
-          descDiv.className = "mt-3";
-          var descLabel = document.createElement("span");
-          descLabel.className = "text-gray-400 text-sm";
-          descLabel.textContent = "Description:";
-          descDiv.appendChild(descLabel);
-          var descP = document.createElement("p");
-          descP.className = "text-sm text-gray-600 mt-1 whitespace-pre-wrap";
-          descP.textContent = p.description;
-          descDiv.appendChild(descP);
-          clientSection.appendChild(descDiv);
+          var dd = document.createElement("div");
+          dd.className = "mt-3";
+          var dl = document.createElement("p");
+          dl.className =
+            "text-[10px] uppercase tracking-[.12em] text-warm/25 font-medium mb-1";
+          dl.textContent = "Description";
+          var dp = document.createElement("p");
+          dp.className =
+            "text-[12px] text-warm/60 whitespace-pre-wrap leading-relaxed";
+          dp.textContent = p.description;
+          dd.appendChild(dl);
+          dd.appendChild(dp);
+          ds.appendChild(dd);
         }
-        wrapper.appendChild(clientSection);
+        w.appendChild(ds);
 
-        // Status section
-        var statusSection = document.createElement("div");
-        var statusTitle = document.createElement("h3");
-        statusTitle.className =
-          "text-sm font-semibold text-gray-400 uppercase mb-3";
-        statusTitle.textContent = "Statut";
-        statusSection.appendChild(statusTitle);
-        var statusBtns = document.createElement("div");
-        statusBtns.className = "flex flex-wrap gap-2";
+        // Status
+        var ss = mkSection("Statut");
+        var sr = document.createElement("div");
+        sr.className = "flex flex-wrap gap-2";
         ["paid", "building", "review", "delivered"].forEach(function (s) {
-          var btn = document.createElement("button");
-          btn.className =
-            "px-3 py-1.5 rounded-lg text-sm font-medium transition " +
+          var b = document.createElement("button");
+          b.className =
+            "press flex items-center gap-2 px-3.5 py-2 rounded-xl text-[12px] font-medium border transition-all duration-200 " +
             (p.status === s
-              ? "bg-brand text-white"
-              : "bg-white text-gray-500 border border-sand hover:bg-sand");
-          btn.textContent = statusLabel(s);
-          btn.onclick = function () {
+              ? "bg-dark text-white border-dark"
+              : "bg-white text-warm/50 border-sand/40 hover:border-warm/20 hover:text-dark");
+          var d = document.createElement("span");
+          d.className = "dot dot-" + s;
+          b.appendChild(d);
+          b.appendChild(document.createTextNode(statusLabel(s)));
+          b.onclick = function () {
             changeStatus(id, s);
           };
-          statusBtns.appendChild(btn);
+          sr.appendChild(b);
         });
-        statusSection.appendChild(statusBtns);
-        wrapper.appendChild(statusSection);
+        ss.appendChild(sr);
+        w.appendChild(ss);
 
-        // Delivery section
-        var deliverSection = document.createElement("div");
-        var deliverTitle = document.createElement("h3");
-        deliverTitle.className =
-          "text-sm font-semibold text-gray-400 uppercase mb-3";
-        deliverTitle.textContent = "Livraison";
-        deliverSection.appendChild(deliverTitle);
-        var deliverRow = document.createElement("div");
-        deliverRow.className = "flex gap-2";
-        var siteInput = document.createElement("input");
-        siteInput.id = "site-url-input";
-        siteInput.type = "text";
-        siteInput.placeholder = "https://monsupersite.com";
-        siteInput.value = p.site_url || "";
-        siteInput.className =
-          "flex-1 bg-cream border border-sand rounded-lg px-3 py-2 text-sm text-dark placeholder-gray-400 focus:outline-none focus:border-brand";
-        deliverRow.appendChild(siteInput);
-        var deliverBtn = document.createElement("button");
-        deliverBtn.className =
-          "bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition";
-        deliverBtn.textContent = "Livrer";
-        deliverBtn.onclick = function () {
+        // Delivery
+        var ls = mkSection("Livraison");
+        var lr = document.createElement("div");
+        lr.className = "flex gap-2";
+        var si = document.createElement("input");
+        si.id = "site-url-input";
+        si.type = "text";
+        si.placeholder = "https://monsupersite.com";
+        si.value = p.site_url || "";
+        si.className =
+          "flex-1 bg-cream/40 border border-sand/40 rounded-xl px-4 py-2.5 text-[13px] text-dark placeholder-warm/20";
+        var lb2 = document.createElement("button");
+        lb2.className =
+          "press bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-[12px] font-semibold transition-colors";
+        lb2.textContent = "Livrer";
+        lb2.onclick = function () {
           deliver(id);
         };
-        deliverRow.appendChild(deliverBtn);
-        deliverSection.appendChild(deliverRow);
-        wrapper.appendChild(deliverSection);
+        lr.appendChild(si);
+        lr.appendChild(lb2);
+        ls.appendChild(lr);
+        w.appendChild(ls);
 
-        // Notes section
-        var notesSection = document.createElement("div");
-        var notesTitle = document.createElement("h3");
-        notesTitle.className =
-          "text-sm font-semibold text-gray-400 uppercase mb-3";
-        notesTitle.textContent = "Notes internes";
-        notesSection.appendChild(notesTitle);
-        var notesArea = document.createElement("textarea");
-        notesArea.id = "notes-input";
-        notesArea.rows = 3;
-        notesArea.className =
-          "w-full bg-cream border border-sand rounded-lg px-3 py-2 text-sm text-dark placeholder-gray-400 focus:outline-none focus:border-brand";
-        notesArea.placeholder = "Notes...";
-        notesArea.value = p.notes || "";
-        notesSection.appendChild(notesArea);
-        var notesBtn = document.createElement("button");
-        notesBtn.className =
-          "mt-2 bg-sand hover:bg-gray-300 text-dark px-3 py-1.5 rounded-lg text-sm transition";
-        notesBtn.textContent = "Sauvegarder notes";
-        notesBtn.onclick = function () {
+        // Notes
+        var ns = mkSection("Notes internes");
+        var na = document.createElement("textarea");
+        na.id = "notes-input";
+        na.rows = 3;
+        na.className =
+          "w-full bg-cream/40 border border-sand/40 rounded-xl px-4 py-3 text-[13px] text-dark placeholder-warm/20 resize-none";
+        na.placeholder = "Ajouter des notes...";
+        na.value = p.notes || "";
+        ns.appendChild(na);
+        var nb = document.createElement("button");
+        nb.className =
+          "press mt-2 bg-sand/50 hover:bg-sand text-dark px-4 py-2 rounded-xl text-[12px] font-medium transition-colors";
+        nb.textContent = "Sauvegarder";
+        nb.onclick = function () {
           saveNotes(id);
         };
-        notesSection.appendChild(notesBtn);
-        wrapper.appendChild(notesSection);
+        ns.appendChild(nb);
+        w.appendChild(ns);
 
-        // Actions section
-        var actionsSection = document.createElement("div");
-        var actionsTitle = document.createElement("h3");
-        actionsTitle.className =
-          "text-sm font-semibold text-gray-400 uppercase mb-3";
-        actionsTitle.textContent = "Actions";
-        actionsSection.appendChild(actionsTitle);
-        var actionsBtns = document.createElement("div");
-        actionsBtns.className = "flex flex-wrap gap-2";
-
-        var cpBtn = document.createElement("button");
-        cpBtn.className =
-          "bg-cream hover:bg-sand text-dark px-3 py-1.5 rounded-lg text-sm transition";
-        cpBtn.textContent = "Copier /location";
-        cpBtn.onclick = function () {
-          copyCommand(p.brief_url, cpBtn);
+        // Actions
+        var as = mkSection("Actions");
+        var ar = document.createElement("div");
+        ar.className = "flex flex-wrap gap-2";
+        var cpb = mkBtn(
+          "Copier /location",
+          "bg-cream/60 hover:bg-sand text-dark border-sand/40",
+        );
+        cpb.onclick = function () {
+          copyCommand(p.brief_url, cpb);
         };
-        actionsBtns.appendChild(cpBtn);
-
-        var relanceBtn = document.createElement("button");
-        relanceBtn.className =
-          "bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1.5 rounded-lg text-sm transition";
-        relanceBtn.textContent = "Relance brief";
-        relanceBtn.onclick = function () {
+        var rlb = mkBtn(
+          "Relance brief",
+          "bg-amber-50 hover:bg-amber-100 text-amber-700 border-amber-200",
+        );
+        rlb.onclick = function () {
           sendRelance(id);
         };
-        actionsBtns.appendChild(relanceBtn);
-
-        var jsonLink = document.createElement("a");
-        jsonLink.href = p.brief_url;
-        jsonLink.target = "_blank";
-        jsonLink.className =
-          "bg-cream hover:bg-sand text-dark px-3 py-1.5 rounded-lg text-sm transition inline-block";
-        jsonLink.textContent = "Brief JSON";
-        actionsBtns.appendChild(jsonLink);
-
-        var delBtn = document.createElement("button");
-        delBtn.className =
-          "bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-3 py-1.5 rounded-lg text-sm transition";
-        delBtn.textContent = "Supprimer";
-        delBtn.onclick = function () {
+        var jl = document.createElement("a");
+        jl.href = p.brief_url;
+        jl.target = "_blank";
+        jl.className =
+          "press px-4 py-2 rounded-xl text-[12px] font-medium border bg-cream/60 hover:bg-sand text-dark border-sand/40 inline-flex items-center";
+        jl.textContent = "Brief JSON";
+        var dlb = mkBtn(
+          "Supprimer",
+          "bg-red-50 hover:bg-red-100 text-red-500 border-red-200",
+        );
+        dlb.onclick = function () {
           deleteProject(id);
         };
-        actionsBtns.appendChild(delBtn);
-
-        actionsSection.appendChild(actionsBtns);
-        wrapper.appendChild(actionsSection);
+        ar.appendChild(cpb);
+        ar.appendChild(rlb);
+        ar.appendChild(jl);
+        ar.appendChild(dlb);
+        as.appendChild(ar);
+        w.appendChild(as);
 
         // Webhook info
-        var webhookInfo = document.createElement("div");
-        webhookInfo.className =
-          "text-xs text-gray-400 space-y-1 border-t border-sand pt-4";
-        var wLine = document.createElement("p");
-        wLine.textContent =
-          "Webhook: " +
-          (p.webhook_processed ? "OK" : "Non") +
-          " | Email client: " +
-          (p.client_email_sent ? "OK" : "Non") +
-          " | Email Nino: " +
-          (p.nino_email_sent ? "OK" : "Non") +
-          " | Calendar: " +
-          (p.calendar_event_created ? "OK" : "Non");
-        webhookInfo.appendChild(wLine);
+        var wi = document.createElement("div");
+        wi.className = "pt-4 space-y-2";
+        var items = [
+          { label: "Webhook", ok: p.webhook_processed },
+          { label: "Email client", ok: p.client_email_sent },
+          { label: "Email Nino", ok: p.nino_email_sent },
+          { label: "Calendar", ok: p.calendar_event_created },
+        ];
+        var wr = document.createElement("div");
+        wr.className = "flex flex-wrap gap-2";
+        items.forEach(function (it) {
+          var bg = document.createElement("span");
+          bg.className =
+            "inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-md " +
+            (it.ok
+              ? "bg-emerald-50 text-emerald-500"
+              : "bg-red-50/60 text-red-300");
+          bg.textContent = (it.ok ? "\u2713" : "\u2717") + " " + it.label;
+          wr.appendChild(bg);
+        });
+        wi.appendChild(wr);
         if (p.paid_at) {
-          var paidLine = document.createElement("p");
-          paidLine.textContent =
-            "Payé le " + new Date(p.paid_at).toLocaleString("fr-FR");
-          webhookInfo.appendChild(paidLine);
+          var pi = document.createElement("p");
+          pi.className = "text-[11px] text-warm/25";
+          pi.textContent =
+            "Paye le " + new Date(p.paid_at).toLocaleString("fr-FR");
+          if (p.stripe_amount)
+            pi.textContent += " \u00b7 " + p.stripe_amount / 100 + "\u20ac";
+          wi.appendChild(pi);
         }
-        if (p.stripe_amount) {
-          var amountLine = document.createElement("p");
-          amountLine.textContent = "Montant: " + p.stripe_amount / 100 + "€";
-          webhookInfo.appendChild(amountLine);
-        }
-        wrapper.appendChild(webhookInfo);
+        w.appendChild(wi);
+        body.appendChild(w);
+        showPanel();
+      }
 
-        body.appendChild(wrapper);
+      function showPanel() {
         document.getElementById("modal").classList.remove("hidden");
+        var p = document.getElementById("panel");
+        p.classList.remove("panel-out");
+        p.classList.add("panel-in");
+        document.body.style.overflow = "hidden";
       }
-
       function closeModal() {
-        document.getElementById("modal").classList.add("hidden");
+        var p = document.getElementById("panel");
+        p.classList.remove("panel-in");
+        p.classList.add("panel-out");
+        setTimeout(function () {
+          document.getElementById("modal").classList.add("hidden");
+          document.body.style.overflow = "";
+        }, 220);
       }
 
-      // Actions
+      /* ---- Actions ---- */
       function changeStatus(id, status) {
         apiFetch("/api/projects/" + id, {
           method: "PATCH",
@@ -707,50 +1490,44 @@
           });
         });
       }
-
       function deliver(id) {
-        var siteUrl = document.getElementById("site-url-input").value.trim();
-        if (!siteUrl) return alert("Entrez l'URL du site");
+        var u = document.getElementById("site-url-input").value.trim();
+        if (!u) return alert("Entrez l'URL du site");
         apiFetch("/api/projects/" + id, {
           method: "PATCH",
-          body: { status: "delivered", site_url: siteUrl },
+          body: { status: "delivered", site_url: u },
         }).then(function () {
-          alert("Site livré ! Email envoyé au client.");
+          alert("Site livre ! Email envoye au client.");
           loadProjects().then(function () {
             openProject(id);
           });
         });
       }
-
       function saveNotes(id) {
-        var notes = document.getElementById("notes-input").value;
+        var n = document.getElementById("notes-input").value;
         apiFetch("/api/projects/" + id, {
           method: "PATCH",
-          body: { notes: notes },
+          body: { notes: n },
         }).then(function () {
           loadProjects();
-          alert("Notes sauvegardées");
+          alert("Notes sauvegardees");
         });
       }
-
       function sendRelance(id) {
         if (!confirm("Envoyer un email de relance au client ?")) return;
         apiFetch("/api/brief/" + id + "/send", { method: "POST" }).then(
           function (res) {
             res.json().then(function (data) {
-              if (data.sent) {
+              if (data.sent)
                 alert(
-                  "Email de relance envoyé !\nChamps manquants : " +
+                  "Email de relance envoye !\nChamps manquants : " +
                     data.missing.join(", "),
                 );
-              } else {
-                alert(data.error || "Erreur");
-              }
+              else alert(data.error || "Erreur");
             });
           },
         );
       }
-
       function deleteProject(id) {
         var pwd = prompt("Mot de passe pour supprimer :");
         if (pwd !== "mutu") return alert("Mauvais mot de passe");
@@ -760,26 +1537,286 @@
           loadProjects();
         });
       }
-
       function copyCommand(briefUrl, btnEl) {
-        var cmd = "/location " + briefUrl;
-        navigator.clipboard.writeText(cmd);
-        if (btnEl) {
+        navigator.clipboard.writeText("/location " + briefUrl);
+        if (!btnEl) return;
+        if (btnEl.textContent.trim()) {
           var orig = btnEl.textContent;
-          btnEl.textContent = "Copié !";
+          btnEl.textContent = "Copie !";
           setTimeout(function () {
             btnEl.textContent = orig;
-          }, 1500);
+          }, 1200);
+        } else {
+          btnEl.style.background = "#d1fae5";
+          setTimeout(function () {
+            btnEl.style.background = "";
+          }, 800);
         }
       }
 
-      // Modal events
-      document.getElementById("modal").addEventListener("click", function (e) {
-        if (e.target === document.getElementById("modal")) closeModal();
-      });
+      /* ---- UI ---- */
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("open");
+        document.getElementById("sidebar-overlay").classList.toggle("hidden");
+      }
+      (function initDate() {
+        var s = new Date().toLocaleDateString("fr-FR", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+        });
+        s = s.charAt(0).toUpperCase() + s.slice(1);
+        var el = document.getElementById("current-date");
+        if (el) el.textContent = s;
+      })();
+
       document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") closeModal();
+        if (
+          e.key === "Escape" &&
+          !document.getElementById("modal").classList.contains("hidden")
+        )
+          closeModal();
       });
+
+      /* ---- View Switching ---- */
+      var currentView = "dashboard";
+      function showView(view) {
+        currentView = view;
+        document.getElementById("dashboard-view").classList.add("hidden");
+        document.getElementById("calendar-view").classList.add("hidden");
+        if (view === "dashboard") {
+          document.getElementById("dashboard-view").classList.remove("hidden");
+        } else if (view === "calendar") {
+          document.getElementById("calendar-view").classList.remove("hidden");
+          renderCalendar();
+        }
+        document
+          .querySelectorAll(".nav-item[data-view]")
+          .forEach(function (el) {
+            if (el.dataset.view === view) {
+              el.classList.add("active");
+              el.classList.remove("text-white/30");
+              el.classList.add("text-white/70");
+            } else {
+              el.classList.remove("active");
+              el.classList.remove("text-white/70");
+              el.classList.add("text-white/30");
+            }
+          });
+      }
+
+      /* ---- Calendar ---- */
+      var calYear = new Date().getFullYear();
+      var calMonth = new Date().getMonth();
+      var MONTH_NAMES = [
+        "Janvier",
+        "Fevrier",
+        "Mars",
+        "Avril",
+        "Mai",
+        "Juin",
+        "Juillet",
+        "Aout",
+        "Septembre",
+        "Octobre",
+        "Novembre",
+        "Decembre",
+      ];
+
+      function calPrev() {
+        calMonth--;
+        if (calMonth < 0) {
+          calMonth = 11;
+          calYear--;
+        }
+        renderCalendar();
+      }
+      function calNext() {
+        calMonth++;
+        if (calMonth > 11) {
+          calMonth = 0;
+          calYear++;
+        }
+        renderCalendar();
+      }
+
+      function getCalEvents() {
+        var events = [];
+        projects.forEach(function (p) {
+          if (p.paid_at) {
+            var d = new Date(p.paid_at);
+            events.push({
+              date: fmtDate(d),
+              type: "paid",
+              label: "Paiement",
+              project: p,
+              color: "#10b981",
+            });
+            var deadline = new Date(d.getTime() + 48 * 60 * 60 * 1000);
+            events.push({
+              date: fmtDate(deadline),
+              type: "deadline",
+              label: "Deadline livraison",
+              project: p,
+              color: "#f59e0b",
+            });
+          }
+          if (p.status === "delivered" && p.updated_at) {
+            events.push({
+              date: fmtDate(new Date(p.updated_at)),
+              type: "delivered",
+              label: "Livre",
+              project: p,
+              color: "#4ECDC4",
+            });
+          }
+        });
+        return events;
+      }
+
+      function fmtDate(d) {
+        return (
+          d.getFullYear() +
+          "-" +
+          String(d.getMonth() + 1).padStart(2, "0") +
+          "-" +
+          String(d.getDate()).padStart(2, "0")
+        );
+      }
+
+      function renderCalendar() {
+        document.getElementById("cal-month-label").textContent =
+          MONTH_NAMES[calMonth] + " " + calYear;
+        var grid = document.getElementById("cal-grid");
+        grid.textContent = "";
+
+        var firstDay = new Date(calYear, calMonth, 1);
+        var startDow = (firstDay.getDay() + 6) % 7;
+        var daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+        var today = fmtDate(new Date());
+        var allEvents = getCalEvents();
+
+        var evByDate = {};
+        allEvents.forEach(function (ev) {
+          if (!evByDate[ev.date]) evByDate[ev.date] = [];
+          evByDate[ev.date].push(ev);
+        });
+
+        for (var i = 0; i < startDow; i++) {
+          var blank = document.createElement("div");
+          blank.className = "p-1";
+          grid.appendChild(blank);
+        }
+
+        for (var day = 1; day <= daysInMonth; day++) {
+          var dateStr =
+            calYear +
+            "-" +
+            String(calMonth + 1).padStart(2, "0") +
+            "-" +
+            String(day).padStart(2, "0");
+          var cell = document.createElement("div");
+          var isToday = dateStr === today;
+          cell.className =
+            "p-1 text-center rounded-xl cursor-pointer transition-all duration-200 hover:bg-cream/60 " +
+            (isToday ? "bg-dark text-white rounded-xl" : "");
+          cell.style.minHeight = "56px";
+
+          var num = document.createElement("p");
+          num.className =
+            "text-[12px] font-semibold " +
+            (isToday ? "text-white" : "text-dark");
+          num.textContent = day;
+          cell.appendChild(num);
+
+          var dayEvents = evByDate[dateStr];
+          if (dayEvents) {
+            var dots = document.createElement("div");
+            dots.className = "flex justify-center gap-[3px] mt-1";
+            var seen = {};
+            dayEvents.forEach(function (ev) {
+              if (seen[ev.type]) return;
+              seen[ev.type] = true;
+              var dot = document.createElement("span");
+              dot.className = "w-[5px] h-[5px] rounded-full";
+              dot.style.backgroundColor = ev.color;
+              dots.appendChild(dot);
+            });
+            cell.appendChild(dots);
+          }
+
+          (function (ds, de) {
+            cell.onclick = function () {
+              showDayDetail(ds, de);
+            };
+          })(dateStr, dayEvents);
+
+          grid.appendChild(cell);
+        }
+
+        document.getElementById("cal-day-detail").classList.add("hidden");
+      }
+
+      function showDayDetail(dateStr, events) {
+        var detail = document.getElementById("cal-day-detail");
+        var title = document.getElementById("cal-day-title");
+        var container = document.getElementById("cal-day-events");
+
+        var d = new Date(dateStr + "T12:00:00");
+        title.textContent = d.toLocaleDateString("fr-FR", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+        });
+
+        container.textContent = "";
+
+        if (!events || !events.length) {
+          var empty = document.createElement("p");
+          empty.className = "text-[12px] text-warm/30";
+          empty.textContent = "Aucun evenement ce jour";
+          container.appendChild(empty);
+          detail.classList.remove("hidden");
+          return;
+        }
+
+        events.forEach(function (ev) {
+          var row = document.createElement("div");
+          row.className =
+            "flex items-center gap-3 p-3 rounded-xl bg-cream/30 cursor-pointer hover:bg-cream/60 transition-colors";
+          row.onclick = function () {
+            openProject(ev.project.brief_id);
+          };
+
+          var dot = document.createElement("span");
+          dot.className = "w-2 h-2 rounded-full flex-shrink-0";
+          dot.style.backgroundColor = ev.color;
+
+          var info = document.createElement("div");
+          info.className = "flex-1 min-w-0";
+          var lbl = document.createElement("p");
+          lbl.className = "text-[12px] font-semibold text-dark";
+          lbl.textContent = ev.label;
+          var sub = document.createElement("p");
+          sub.className = "text-[11px] text-warm/40";
+          sub.textContent = ev.project.bien + " — " + ev.project.nom;
+          info.appendChild(lbl);
+          info.appendChild(sub);
+
+          var badge = document.createElement("span");
+          badge.className =
+            "text-[10px] font-medium px-2 py-0.5 rounded-md status-" +
+            ev.project.status;
+          badge.textContent = statusLabel(ev.project.status);
+
+          row.appendChild(dot);
+          row.appendChild(info);
+          row.appendChild(badge);
+          container.appendChild(row);
+        });
+
+        detail.classList.remove("hidden");
+      }
     </script>
   </body>
 </html>
