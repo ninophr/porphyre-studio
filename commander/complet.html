@@ -373,18 +373,18 @@
           <!-- STEP 2: CONTENUS -->
           <div class="form-step" id="step-2">
             <h2
-              class="text-[1.6rem] font-extrabold text-[#2B2622] mb-2 tracking-[-0.02em]"
+              class="text-[1.4rem] font-extrabold text-[#2B2622] mb-1 tracking-[-0.02em]"
             >
               Vos contenus
             </h2>
-            <p class="text-[#9a938b] text-[14px] font-medium mb-8">
+            <p class="text-[#9a938b] text-[13px] font-medium mb-5">
               Envoyez-nous ce que vous avez. On s'occupe du reste.
             </p>
-            <div class="flex flex-col gap-6">
+            <div class="grid grid-cols-2 gap-x-5 gap-y-4">
               <div>
                 <label
-                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
-                  >Lien Airbnb / Booking (si existant)</label
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-1.5"
+                  >Lien Airbnb / Booking</label
                 >
                 <input
                   type="url"
@@ -394,49 +394,7 @@
               </div>
               <div>
                 <label
-                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
-                  >Description de votre bien</label
-                >
-                <textarea
-                  id="f-desc"
-                  placeholder="Decrivez votre bien, ses points forts, les alentours..."
-                ></textarea>
-              </div>
-              <div>
-                <label
-                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
-                  >Photos</label
-                >
-                <div
-                  class="border-2 border-dashed border-[#e0dbd4] rounded-2xl p-10 text-center bg-[#faf8f4]"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="28"
-                    height="28"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#c4bfb8"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="mx-auto mb-3"
-                  >
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="17 8 12 3 7 8"></polyline>
-                    <line x1="12" y1="3" x2="12" y2="15"></line>
-                  </svg>
-                  <p class="text-[13px] text-[#9a938b] font-medium">
-                    Envoyez vos photos par email apres la commande
-                  </p>
-                  <p class="text-[12px] text-[#c4bfb8] mt-1 font-medium">
-                    contact@ninoporphyre.fr
-                  </p>
-                </div>
-              </div>
-              <div>
-                <label
-                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-1.5"
                   >Couleurs / style souhaite</label
                 >
                 <input
@@ -445,27 +403,65 @@
                   placeholder="Moderne, epure, tons bleus..."
                 />
               </div>
-              <div>
+              <div class="col-span-2">
                 <label
-                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-1.5"
+                  >Description de votre bien</label
+                >
+                <textarea
+                  id="f-desc"
+                  placeholder="Decrivez votre bien, ses points forts, les alentours..."
+                  style="min-height: 80px"
+                ></textarea>
+              </div>
+              <div class="col-span-2">
+                <label
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-1.5"
                   >Remarques / demandes speciales</label
                 >
                 <textarea
                   id="f-notes"
                   placeholder="Tout ce que vous voulez nous dire..."
+                  style="min-height: 80px"
                 ></textarea>
               </div>
+              <div class="col-span-2">
+                <div
+                  class="border-2 border-dashed border-[#e0dbd4] rounded-2xl p-5 text-center bg-[#faf8f4] flex items-center justify-center gap-3"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#c4bfb8"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="shrink-0"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                  <p class="text-[13px] text-[#9a938b] font-medium">
+                    Photos par email apres la commande —
+                    <span class="text-[#c4bfb8]">contact@ninoporphyre.fr</span>
+                  </p>
+                </div>
+              </div>
             </div>
-            <div class="flex gap-4 mt-10">
+            <div class="flex gap-4 mt-6">
               <button
                 onclick="goToStep(1)"
-                class="flex-1 bg-[#eae6de] text-[var(--color-dark-bg)] py-4 rounded-full font-bold text-[14px] hover:bg-[#e0dbd4] transition-all uppercase tracking-wider"
+                class="flex-1 bg-[#eae6de] text-[var(--color-dark-bg)] py-3.5 rounded-full font-bold text-[14px] hover:bg-[#e0dbd4] transition-all uppercase tracking-wider"
               >
                 Retour
               </button>
               <button
                 onclick="goToStep(3)"
-                class="flex-1 bg-[var(--color-dark-bg)] text-white py-4 rounded-full font-bold text-[14px] hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all uppercase tracking-wider"
+                class="flex-1 bg-[var(--color-dark-bg)] text-white py-3.5 rounded-full font-bold text-[14px] hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all shadow-md uppercase tracking-wider"
               >
                 Continuer
               </button>
@@ -475,17 +471,17 @@
           <!-- STEP 3: TECHNIQUE -->
           <div class="form-step" id="step-3">
             <h2
-              class="text-[1.6rem] font-extrabold text-[#2B2622] mb-2 tracking-[-0.02em]"
+              class="text-[1.4rem] font-extrabold text-[#2B2622] mb-1 tracking-[-0.02em]"
             >
               Derniere etape
             </h2>
-            <p class="text-[#9a938b] text-[14px] font-medium mb-8">
+            <p class="text-[#9a938b] text-[13px] font-medium mb-5">
               Quelques details techniques pour finaliser.
             </p>
-            <div class="flex flex-col gap-6">
+            <div class="grid grid-cols-2 gap-x-5 gap-y-4">
               <div>
                 <label
-                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-1.5"
                   >Nom de domaine souhaite</label
                 >
                 <input
@@ -493,14 +489,14 @@
                   id="f-domain"
                   placeholder="monsuperlogement.com"
                 />
-                <p class="text-[11px] text-[#c4bfb8] mt-2 font-medium">
-                  Si vous n'en avez pas, on vous aide a en choisir un.
+                <p class="text-[10px] text-[#c4bfb8] mt-1 font-medium">
+                  On vous aide a en choisir un si besoin.
                 </p>
               </div>
               <div>
                 <label
-                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
-                  >Avez-vous deja un compte Stripe ?</label
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-1.5"
+                  >Compte Stripe ?</label
                 >
                 <select id="f-stripe">
                   <option value="">Selectionnez...</option>
@@ -508,9 +504,9 @@
                   <option>Non, j'ai besoin d'aide</option>
                 </select>
               </div>
-              <div>
+              <div class="col-span-2">
                 <label
-                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-2.5"
+                  class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-1.5"
                   >Calendrier iCal (Airbnb / Booking)</label
                 >
                 <input
@@ -518,7 +514,7 @@
                   id="f-ical"
                   placeholder="https://airbnb.com/calendar/ical/..."
                 />
-                <p class="text-[11px] text-[#c4bfb8] mt-2 font-medium">
+                <p class="text-[10px] text-[#c4bfb8] mt-1 font-medium">
                   On vous expliquera comment le recuperer si besoin.
                 </p>
               </div>
@@ -526,14 +522,14 @@
 
             <!-- RECAP -->
             <div
-              class="mt-10 bg-[#faf8f4] rounded-[20px] border border-[#e0dbd4] p-7"
+              class="mt-5 bg-[#faf8f4] rounded-2xl border border-[#e0dbd4] p-5"
             >
               <h3
-                class="font-bold text-[13px] text-[#2B2622] mb-5 uppercase tracking-widest"
+                class="font-bold text-[12px] text-[#2B2622] mb-3 uppercase tracking-widest"
               >
                 Recapitulatif
               </h3>
-              <div class="flex flex-col gap-3 text-[14px] font-medium">
+              <div class="grid grid-cols-2 gap-2 text-[13px] font-medium">
                 <div class="flex justify-between">
                   <span class="text-[#9a938b]">Offre</span
                   ><span class="text-[#2B2622] font-bold">Complet</span>
@@ -544,29 +540,27 @@
                 </div>
                 <div class="flex justify-between">
                   <span class="text-[#9a938b]">Livraison</span
-                  ><span class="text-[#2B2622] font-bold"
-                    >48h apres reception</span
-                  >
+                  ><span class="text-[#2B2622] font-bold">48h</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-[#9a938b]">Garantie</span
                   ><span class="text-[var(--color-accent)] font-bold"
-                    >Rembourse sous 7j</span
+                    >Rembourse 7j</span
                   >
                 </div>
               </div>
             </div>
 
-            <div class="flex gap-4 mt-10">
+            <div class="flex gap-4 mt-6">
               <button
                 onclick="goToStep(2)"
-                class="flex-1 bg-[#eae6de] text-[var(--color-dark-bg)] py-4 rounded-full font-bold text-[14px] hover:bg-[#e0dbd4] transition-all uppercase tracking-wider"
+                class="flex-1 bg-[#eae6de] text-[var(--color-dark-bg)] py-3.5 rounded-full font-bold text-[14px] hover:bg-[#e0dbd4] transition-all uppercase tracking-wider"
               >
                 Retour
               </button>
               <button
                 onclick="submitOrder()"
-                class="flex-1 bg-[var(--color-dark-bg)] text-white py-4 rounded-full font-bold text-[14px] hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all uppercase tracking-wider"
+                class="flex-1 bg-[var(--color-dark-bg)] text-white py-3.5 rounded-full font-bold text-[14px] hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all shadow-md uppercase tracking-wider"
               >
                 Envoyer ma commande
               </button>
