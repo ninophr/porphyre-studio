@@ -228,7 +228,62 @@
           <div
             id="cal-inline"
             style="width: 100%; height: 100%; overflow: auto"
-          ></div>
+          >
+            <div id="cal-skeleton" class="p-8 space-y-6 animate-pulse">
+              <div class="flex items-center gap-4 mb-6">
+                <div class="w-10 h-10 bg-gray-100 rounded-full"></div>
+                <div class="space-y-2 flex-1">
+                  <div class="h-4 bg-gray-100 rounded-full w-48"></div>
+                  <div class="h-3 bg-gray-50 rounded-full w-32"></div>
+                </div>
+              </div>
+              <div class="grid grid-cols-7 gap-2">
+                <div class="h-4 bg-gray-50 rounded w-8 mx-auto"></div>
+                <div class="h-4 bg-gray-50 rounded w-8 mx-auto"></div>
+                <div class="h-4 bg-gray-50 rounded w-8 mx-auto"></div>
+                <div class="h-4 bg-gray-50 rounded w-8 mx-auto"></div>
+                <div class="h-4 bg-gray-50 rounded w-8 mx-auto"></div>
+                <div class="h-4 bg-gray-50 rounded w-8 mx-auto"></div>
+                <div class="h-4 bg-gray-50 rounded w-8 mx-auto"></div>
+              </div>
+              <div class="grid grid-cols-7 gap-2">
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-100 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+              </div>
+              <div class="grid grid-cols-7 gap-2">
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-100 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-100 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+              </div>
+              <div class="grid grid-cols-7 gap-2">
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-100 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+              </div>
+              <div class="grid grid-cols-7 gap-2">
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-100 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -507,6 +562,25 @@
       window.addEventListener("scroll", handleReveal);
       window.addEventListener("DOMContentLoaded", handleReveal);
       handleReveal();
+
+      // Skeleton Cal.com
+      (function () {
+        const skeleton = document.getElementById("cal-skeleton");
+        if (!skeleton) return;
+        const observer = new MutationObserver(function () {
+          if (document.querySelector("#cal-inline iframe")) {
+            skeleton.style.display = "none";
+            observer.disconnect();
+          }
+        });
+        observer.observe(document.getElementById("cal-inline"), {
+          childList: true,
+          subtree: true,
+        });
+        setTimeout(function () {
+          skeleton.style.display = "none";
+        }, 8000);
+      })();
     </script>
   </body>
 </html>
