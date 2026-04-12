@@ -273,6 +273,13 @@
               <div class="step-dot inactive" id="dot-3">3</div>
               <span class="step-label inactive" id="label-3">Technique</span>
             </div>
+            <div class="step-line-wrap">
+              <div class="step-line inactive" id="line-3"></div>
+            </div>
+            <div class="step-item">
+              <div class="step-dot inactive" id="dot-4">4</div>
+              <span class="step-label inactive" id="label-4">Recap</span>
+            </div>
           </div>
 
           <!-- STEP 1: IDENTITÉ -->
@@ -520,40 +527,149 @@
               </div>
             </div>
 
-            <!-- RECAP -->
-            <div
-              class="mt-5 bg-[#faf8f4] rounded-2xl border border-[#e0dbd4] p-5"
-            >
-              <h3
-                class="font-bold text-[12px] text-[#2B2622] mb-3 uppercase tracking-widest"
+            <div class="flex gap-4 mt-6">
+              <button
+                onclick="goToStep(2)"
+                class="flex-1 bg-[#eae6de] text-[var(--color-dark-bg)] py-3.5 rounded-full font-bold text-[14px] hover:bg-[#e0dbd4] transition-all uppercase tracking-wider"
               >
-                Recapitulatif
-              </h3>
-              <div class="grid grid-cols-2 gap-2 text-[13px] font-medium">
-                <div class="flex justify-between">
-                  <span class="text-[#9a938b]">Offre</span
-                  ><span class="text-[#2B2622] font-bold">Essentiel</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-[#9a938b]">Prix</span
-                  ><span class="text-[#2B2622] font-bold">497&#8364;</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-[#9a938b]">Livraison</span
-                  ><span class="text-[#2B2622] font-bold">48h</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-[#9a938b]">Garantie</span
-                  ><span class="text-[var(--color-accent)] font-bold"
-                    >Rembourse 7j</span
+                Retour
+              </button>
+              <button
+                onclick="goToStep(4)"
+                class="flex-1 bg-[var(--color-dark-bg)] text-white py-3.5 rounded-full font-bold text-[14px] hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all shadow-md uppercase tracking-wider"
+              >
+                Continuer
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 4: RECAP -->
+          <div class="form-step" id="step-4">
+            <h2
+              class="text-[1.4rem] font-extrabold text-[#2B2622] mb-1 tracking-[-0.02em]"
+            >
+              Recapitulatif
+            </h2>
+            <p class="text-[#9a938b] text-[13px] font-medium mb-5">
+              Verifiez vos informations avant de valider.
+            </p>
+
+            <div class="flex flex-col gap-4">
+              <!-- Bloc Identite -->
+              <div class="bg-[#faf8f4] rounded-2xl border border-[#e0dbd4] p-5">
+                <div class="flex items-center justify-between mb-3">
+                  <h3
+                    class="font-bold text-[12px] text-[#2B2622] uppercase tracking-widest"
                   >
+                    Identite
+                  </h3>
+                  <button
+                    onclick="goToStep(1)"
+                    class="text-[11px] font-bold text-[var(--color-accent)] hover:underline"
+                  >
+                    Modifier
+                  </button>
+                </div>
+                <div class="grid grid-cols-2 gap-x-5 gap-y-2 text-[13px]">
+                  <div>
+                    <span class="text-[#9a938b]">Nom</span>
+                    <span
+                      class="text-[#2B2622] font-semibold ml-1"
+                      id="recap-name"
+                      >—</span
+                    >
+                  </div>
+                  <div>
+                    <span class="text-[#9a938b]">Email</span>
+                    <span
+                      class="text-[#2B2622] font-semibold ml-1"
+                      id="recap-email"
+                      >—</span
+                    >
+                  </div>
+                  <div>
+                    <span class="text-[#9a938b]">Bien</span>
+                    <span
+                      class="text-[#2B2622] font-semibold ml-1"
+                      id="recap-property"
+                      >—</span
+                    >
+                  </div>
+                  <div>
+                    <span class="text-[#9a938b]">Lieu</span>
+                    <span
+                      class="text-[#2B2622] font-semibold ml-1"
+                      id="recap-location"
+                      >—</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bloc Technique -->
+              <div class="bg-[#faf8f4] rounded-2xl border border-[#e0dbd4] p-5">
+                <div class="flex items-center justify-between mb-3">
+                  <h3
+                    class="font-bold text-[12px] text-[#2B2622] uppercase tracking-widest"
+                  >
+                    Technique
+                  </h3>
+                  <button
+                    onclick="goToStep(3)"
+                    class="text-[11px] font-bold text-[var(--color-accent)] hover:underline"
+                  >
+                    Modifier
+                  </button>
+                </div>
+                <div class="grid grid-cols-2 gap-x-5 gap-y-2 text-[13px]">
+                  <div>
+                    <span class="text-[#9a938b]">Domaine</span>
+                    <span
+                      class="text-[#2B2622] font-semibold ml-1"
+                      id="recap-domain"
+                      >—</span
+                    >
+                  </div>
+                  <div>
+                    <span class="text-[#9a938b]">Stripe</span>
+                    <span
+                      class="text-[#2B2622] font-semibold ml-1"
+                      id="recap-stripe"
+                      >—</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bloc Commande -->
+              <div class="bg-[var(--color-dark-bg)] rounded-2xl p-5 text-white">
+                <div class="grid grid-cols-2 gap-x-5 gap-y-2 text-[13px]">
+                  <div class="flex justify-between">
+                    <span class="text-gray-400">Offre</span
+                    ><span class="font-bold">Essentiel</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-400">Prix</span
+                    ><span class="font-bold">497&#8364;</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-400">Livraison</span
+                    ><span class="font-bold">48h</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span
+                      class="text-[var(--color-accent)] font-bold"
+                      style="font-size: 12px"
+                      >Satisfait ou rembourse 7j</span
+                    >
+                  </div>
                 </div>
               </div>
             </div>
 
             <div class="flex gap-4 mt-6">
               <button
-                onclick="goToStep(2)"
+                onclick="goToStep(3)"
                 class="flex-1 bg-[#eae6de] text-[var(--color-dark-bg)] py-3.5 rounded-full font-bold text-[14px] hover:bg-[#e0dbd4] transition-all uppercase tracking-wider"
               >
                 Retour
@@ -806,13 +922,29 @@
           }
         }
 
+        // Populate recap on step 4
+        if (step === 4) {
+          document.getElementById("recap-name").textContent =
+            document.getElementById("f-name").value || "—";
+          document.getElementById("recap-email").textContent =
+            document.getElementById("f-email").value || "—";
+          document.getElementById("recap-property").textContent =
+            document.getElementById("f-property").value || "—";
+          document.getElementById("recap-location").textContent =
+            document.getElementById("f-location").value || "—";
+          document.getElementById("recap-domain").textContent =
+            document.getElementById("f-domain").value || "A definir";
+          document.getElementById("recap-stripe").textContent =
+            document.getElementById("f-stripe").value || "A definir";
+        }
+
         currentStep = step;
         document
           .querySelectorAll(".form-step")
           .forEach((s) => s.classList.remove("active"));
         document.getElementById("step-" + step).classList.add("active");
 
-        for (let i = 1; i <= 3; i++) {
+        for (let i = 1; i <= 4; i++) {
           const dot = document.getElementById("dot-" + i);
           dot.className =
             "step-dot " +
@@ -824,8 +956,10 @@
           "step-line " + (step >= 2 ? "active" : "inactive");
         document.getElementById("line-2").className =
           "step-line " + (step >= 3 ? "active" : "inactive");
+        document.getElementById("line-3").className =
+          "step-line " + (step >= 4 ? "active" : "inactive");
 
-        for (let i = 1; i <= 3; i++) {
+        for (let i = 1; i <= 4; i++) {
           const label = document.getElementById("label-" + i);
           if (label)
             label.className =
