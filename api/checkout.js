@@ -85,6 +85,7 @@ module.exports = async (req, res) => {
     ],
     mode: "payment",
     customer_email: email,
+    allow_promotion_codes: true,
     success_url: `${origin}/commander/succes`,
     cancel_url: `${origin}/commander/${offre}`,
     metadata: {
