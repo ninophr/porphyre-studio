@@ -3676,26 +3676,29 @@
         }
       })();
 
-      // Skeleton Cal.com : disparait quand l'iframe charge
+      // Skeleton Cal.com — attend que l'iframe ait fini de charger
       (function () {
         const skeleton = document.getElementById("cal-skeleton");
-        if (skeleton) {
-          const observer = new MutationObserver(function (mutations) {
-            const calContainer = document.getElementById("cal-inline");
-            if (calContainer && calContainer.querySelector("iframe")) {
-              skeleton.style.display = "none";
-              observer.disconnect();
-            }
-          });
-          observer.observe(document.getElementById("cal-inline"), {
-            childList: true,
-            subtree: true,
-          });
-          // Fallback : cacher apres 8s dans tous les cas
+        if (!skeleton) return;
+        function hideSkeleton() {
+          skeleton.style.transition = "opacity 0.3s ease";
+          skeleton.style.opacity = "0";
           setTimeout(function () {
             skeleton.style.display = "none";
-          }, 8000);
+          }, 300);
         }
+        const observer = new MutationObserver(function () {
+          const iframe = document.querySelector("#cal-inline iframe");
+          if (iframe) {
+            iframe.addEventListener("load", hideSkeleton);
+            observer.disconnect();
+          }
+        });
+        observer.observe(document.getElementById("cal-inline"), {
+          childList: true,
+          subtree: true,
+        });
+        setTimeout(hideSkeleton, 8000);
       })();
 
       // Pause animations hors viewport (perf CPU)

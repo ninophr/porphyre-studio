@@ -563,13 +563,21 @@
       window.addEventListener("DOMContentLoaded", handleReveal);
       handleReveal();
 
-      // Skeleton Cal.com
+      // Skeleton Cal.com — attend que l'iframe ait fini de charger
       (function () {
         const skeleton = document.getElementById("cal-skeleton");
         if (!skeleton) return;
-        const observer = new MutationObserver(function () {
-          if (document.querySelector("#cal-inline iframe")) {
+        function hideSkeleton() {
+          skeleton.style.transition = "opacity 0.3s ease";
+          skeleton.style.opacity = "0";
+          setTimeout(function () {
             skeleton.style.display = "none";
+          }, 300);
+        }
+        const observer = new MutationObserver(function () {
+          const iframe = document.querySelector("#cal-inline iframe");
+          if (iframe) {
+            iframe.addEventListener("load", hideSkeleton);
             observer.disconnect();
           }
         });
@@ -577,9 +585,7 @@
           childList: true,
           subtree: true,
         });
-        setTimeout(function () {
-          skeleton.style.display = "none";
-        }, 8000);
+        setTimeout(hideSkeleton, 8000);
       })();
     </script>
   </body>
