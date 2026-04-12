@@ -1,3 +1,4 @@
+// Bundle version: 2026-04-12-emails-v4 (force rebundle to pick up lib/emails.js update)
 const Stripe = require("stripe");
 const { put } = require("@vercel/blob");
 const {
