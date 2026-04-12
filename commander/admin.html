@@ -18,8 +18,10 @@
           extend: {
             fontFamily: { sans: ['"Plus Jakarta Sans"', "sans-serif"] },
             colors: {
-              brand: "#c4956a",
-              dark: "#121010",
+              brand: "#4ECDC4",
+              dark: "#1a1715",
+              cream: "#f5f1e8",
+              sand: "#ebe5d8",
             },
           },
         },
@@ -28,53 +30,55 @@
     <style>
       body {
         font-family: "Plus Jakarta Sans", sans-serif;
+        background-color: #f5f1e8;
+        color: #4a4540;
       }
       .status-draft {
-        background: #374151;
-        color: #d1d5db;
+        background: #e5e7eb;
+        color: #4b5563;
       }
       .status-paid {
-        background: #065f46;
-        color: #6ee7b7;
+        background: #d1fae5;
+        color: #065f46;
       }
       .status-building {
-        background: #92400e;
-        color: #fcd34d;
+        background: #fef3c7;
+        color: #92400e;
       }
       .status-review {
-        background: #1e40af;
-        color: #93c5fd;
+        background: #dbeafe;
+        color: #1e40af;
       }
       .status-delivered {
-        background: #166534;
-        color: #86efac;
+        background: #d1fae5;
+        color: #166534;
       }
     </style>
   </head>
-  <body class="bg-neutral-950 text-white min-h-screen">
+  <body class="min-h-screen">
     <!-- Login -->
     <div
       id="login-screen"
       class="flex items-center justify-center min-h-screen"
     >
       <div
-        class="bg-neutral-900 rounded-2xl p-8 w-full max-w-sm border border-neutral-800"
+        class="bg-white rounded-2xl p-8 w-full max-w-sm border border-sand shadow-lg"
       >
-        <h1 class="text-2xl font-bold text-brand mb-6">Admin Porphyre</h1>
+        <h1 class="text-2xl font-bold text-dark mb-6">Admin Porphyre</h1>
         <input
           id="api-key-input"
           type="password"
           placeholder="Clé API admin"
-          class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:border-brand mb-4"
+          class="w-full bg-cream border border-sand rounded-lg px-4 py-3 text-dark placeholder-gray-400 focus:outline-none focus:border-brand mb-4"
           onkeydown="if (event.key === 'Enter') login();"
         />
         <button
           onclick="login()"
-          class="w-full bg-brand text-dark font-semibold py-3 rounded-lg hover:bg-opacity-90 transition"
+          class="w-full bg-brand text-white font-semibold py-3 rounded-lg hover:bg-opacity-90 transition"
         >
           Connexion
         </button>
-        <p id="login-error" class="text-red-400 text-sm mt-3 hidden">
+        <p id="login-error" class="text-red-500 text-sm mt-3 hidden">
           Clé invalide
         </p>
       </div>
@@ -82,19 +86,19 @@
 
     <!-- Dashboard -->
     <div id="dashboard" class="hidden">
-      <header class="border-b border-neutral-800 px-6 py-4">
+      <header class="bg-dark px-6 py-4">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
           <h1 class="text-xl font-bold text-brand">Porphyre Admin</h1>
           <div class="flex items-center gap-4">
             <button
               onclick="loadProjects()"
-              class="text-sm bg-neutral-800 hover:bg-neutral-700 px-3 py-1.5 rounded-lg transition"
+              class="text-sm bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg transition"
             >
               Rafraîchir
             </button>
             <button
               onclick="logout()"
-              class="text-sm text-neutral-400 hover:text-white transition"
+              class="text-sm text-white/50 hover:text-white transition"
             >
               Déconnexion
             </button>
@@ -105,27 +109,27 @@
       <div class="max-w-7xl mx-auto px-6 py-6">
         <!-- Stats -->
         <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-          <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
-            <p class="text-neutral-400 text-sm">Total</p>
-            <p id="stat-total" class="text-2xl font-bold">0</p>
+          <div class="bg-white rounded-xl p-4 border border-sand shadow-sm">
+            <p class="text-gray-400 text-sm">Total</p>
+            <p id="stat-total" class="text-2xl font-bold text-dark">0</p>
           </div>
-          <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
-            <p class="text-neutral-400 text-sm">Payé</p>
-            <p id="stat-paid" class="text-2xl font-bold text-green-400">0</p>
+          <div class="bg-white rounded-xl p-4 border border-sand shadow-sm">
+            <p class="text-gray-400 text-sm">Payé</p>
+            <p id="stat-paid" class="text-2xl font-bold text-green-600">0</p>
           </div>
-          <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
-            <p class="text-neutral-400 text-sm">En cours</p>
-            <p id="stat-building" class="text-2xl font-bold text-yellow-400">
+          <div class="bg-white rounded-xl p-4 border border-sand shadow-sm">
+            <p class="text-gray-400 text-sm">En cours</p>
+            <p id="stat-building" class="text-2xl font-bold text-yellow-600">
               0
             </p>
           </div>
-          <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
-            <p class="text-neutral-400 text-sm">Review</p>
-            <p id="stat-review" class="text-2xl font-bold text-blue-400">0</p>
+          <div class="bg-white rounded-xl p-4 border border-sand shadow-sm">
+            <p class="text-gray-400 text-sm">Review</p>
+            <p id="stat-review" class="text-2xl font-bold text-blue-600">0</p>
           </div>
-          <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
-            <p class="text-neutral-400 text-sm">Livrés</p>
-            <p id="stat-delivered" class="text-2xl font-bold text-emerald-400">
+          <div class="bg-white rounded-xl p-4 border border-sand shadow-sm">
+            <p class="text-gray-400 text-sm">Livrés</p>
+            <p id="stat-delivered" class="text-2xl font-bold text-emerald-600">
               0
             </p>
           </div>
@@ -135,35 +139,35 @@
         <div class="flex flex-wrap gap-2 mb-6">
           <button
             onclick="filterBy('all')"
-            class="filter-btn active px-3 py-1.5 rounded-lg text-sm bg-brand text-dark font-semibold"
+            class="filter-btn active px-3 py-1.5 rounded-lg text-sm bg-brand text-white font-semibold"
             data-filter="all"
           >
             Tous
           </button>
           <button
             onclick="filterBy('paid')"
-            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
+            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-white text-gray-500 border border-sand hover:bg-sand"
             data-filter="paid"
           >
             Payé
           </button>
           <button
             onclick="filterBy('building')"
-            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
+            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-white text-gray-500 border border-sand hover:bg-sand"
             data-filter="building"
           >
             En cours
           </button>
           <button
             onclick="filterBy('review')"
-            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
+            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-white text-gray-500 border border-sand hover:bg-sand"
             data-filter="review"
           >
             Review
           </button>
           <button
             onclick="filterBy('delivered')"
-            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
+            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-white text-gray-500 border border-sand hover:bg-sand"
             data-filter="delivered"
           >
             Livré
@@ -172,7 +176,7 @@
 
         <!-- Projects -->
         <div id="projects-list" class="space-y-4">
-          <p class="text-neutral-500 text-center py-12">Chargement...</p>
+          <p class="text-gray-400 text-center py-12">Chargement...</p>
         </div>
       </div>
     </div>
@@ -180,18 +184,16 @@
     <!-- Detail modal -->
     <div
       id="modal"
-      class="hidden fixed inset-0 bg-black/70 z-50 flex items-start justify-center pt-16 px-4 overflow-y-auto"
+      class="hidden fixed inset-0 bg-black/40 z-50 flex items-start justify-center pt-16 px-4 overflow-y-auto"
     >
       <div
-        class="bg-neutral-900 rounded-2xl border border-neutral-800 w-full max-w-2xl mb-16"
+        class="bg-white rounded-2xl border border-sand shadow-xl w-full max-w-2xl mb-16"
       >
-        <div
-          class="flex items-center justify-between p-6 border-b border-neutral-800"
-        >
-          <h2 id="modal-title" class="text-lg font-bold text-brand"></h2>
+        <div class="flex items-center justify-between p-6 border-b border-sand">
+          <h2 id="modal-title" class="text-lg font-bold text-dark"></h2>
           <button
             onclick="closeModal()"
-            class="text-neutral-400 hover:text-white text-2xl"
+            class="text-gray-400 hover:text-dark text-2xl"
           >
             &times;
           </button>
@@ -340,10 +342,10 @@
         document.querySelectorAll(".filter-btn").forEach(function (btn) {
           if (btn.dataset.filter === f) {
             btn.className =
-              "filter-btn active px-3 py-1.5 rounded-lg text-sm bg-brand text-dark font-semibold";
+              "filter-btn active px-3 py-1.5 rounded-lg text-sm bg-brand text-white font-semibold";
           } else {
             btn.className =
-              "filter-btn px-3 py-1.5 rounded-lg text-sm bg-neutral-800 text-neutral-300 hover:bg-neutral-700";
+              "filter-btn px-3 py-1.5 rounded-lg text-sm bg-white text-gray-500 border border-sand hover:bg-sand";
           }
         });
         renderProjects();
@@ -361,7 +363,7 @@
         if (filtered.length === 0) {
           container.textContent = "";
           var msg = document.createElement("p");
-          msg.className = "text-neutral-500 text-center py-12";
+          msg.className = "text-gray-400 text-center py-12";
           msg.textContent = "Aucun projet";
           container.appendChild(msg);
           return;
@@ -371,7 +373,7 @@
         filtered.forEach(function (p) {
           var card = document.createElement("div");
           card.className =
-            "bg-neutral-900 rounded-xl border border-neutral-800 p-5 hover:border-neutral-700 transition cursor-pointer";
+            "bg-white rounded-xl border border-sand p-5 hover:shadow-md transition cursor-pointer";
           card.onclick = function () {
             openProject(p.brief_id);
           };
@@ -385,7 +387,7 @@
           var titleRow = document.createElement("div");
           titleRow.className = "flex items-center gap-3 mb-2";
           var title = document.createElement("h3");
-          title.className = "font-semibold text-white truncate";
+          title.className = "font-semibold text-dark truncate";
           title.textContent = p.bien;
           var badge = document.createElement("span");
           badge.className =
@@ -398,7 +400,7 @@
 
           var meta = document.createElement("div");
           meta.className =
-            "flex flex-wrap gap-x-4 gap-y-1 text-sm text-neutral-400";
+            "flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500";
           var spans = [p.nom, p.localisation];
           spans.forEach(function (t) {
             var s = document.createElement("span");
@@ -406,7 +408,7 @@
             meta.appendChild(s);
           });
           var offreSpan = document.createElement("span");
-          offreSpan.className = "text-brand font-medium";
+          offreSpan.className = "text-brand font-semibold";
           offreSpan.textContent = offreLabel(p.offre);
           meta.appendChild(offreSpan);
           if (p.paid_at) {
@@ -422,7 +424,7 @@
           actions.className = "flex gap-2 shrink-0";
           var copyBtn = document.createElement("button");
           copyBtn.className =
-            "text-xs bg-neutral-800 hover:bg-neutral-700 px-2 py-1 rounded";
+            "text-xs bg-cream hover:bg-sand px-2 py-1 rounded";
           copyBtn.title = "Copier /location";
           copyBtn.textContent = "📋";
           copyBtn.onclick = function (e) {
@@ -455,7 +457,7 @@
         var clientSection = document.createElement("div");
         var clientTitle = document.createElement("h3");
         clientTitle.className =
-          "text-sm font-semibold text-neutral-400 uppercase mb-3";
+          "text-sm font-semibold text-gray-400 uppercase mb-3";
         clientTitle.textContent = "Client";
         clientSection.appendChild(clientTitle);
 
@@ -472,7 +474,7 @@
         fields.forEach(function (f) {
           var div = document.createElement("div");
           var label = document.createElement("span");
-          label.className = "text-neutral-500";
+          label.className = "text-gray-400";
           label.textContent = f[0] + ": ";
           div.appendChild(label);
           if (f[0] === "Email") {
@@ -495,7 +497,7 @@
           var airbnbDiv = document.createElement("div");
           airbnbDiv.className = "col-span-2";
           var al = document.createElement("span");
-          al.className = "text-neutral-500";
+          al.className = "text-gray-400";
           al.textContent = "Airbnb: ";
           airbnbDiv.appendChild(al);
           var alink = document.createElement("a");
@@ -509,7 +511,7 @@
         if (p.domaine) {
           var domDiv = document.createElement("div");
           var dl = document.createElement("span");
-          dl.className = "text-neutral-500";
+          dl.className = "text-gray-400";
           dl.textContent = "Domaine: ";
           domDiv.appendChild(dl);
           domDiv.appendChild(document.createTextNode(p.domaine));
@@ -521,11 +523,11 @@
           var descDiv = document.createElement("div");
           descDiv.className = "mt-3";
           var descLabel = document.createElement("span");
-          descLabel.className = "text-neutral-500 text-sm";
+          descLabel.className = "text-gray-400 text-sm";
           descLabel.textContent = "Description:";
           descDiv.appendChild(descLabel);
           var descP = document.createElement("p");
-          descP.className = "text-sm text-neutral-300 mt-1 whitespace-pre-wrap";
+          descP.className = "text-sm text-gray-600 mt-1 whitespace-pre-wrap";
           descP.textContent = p.description;
           descDiv.appendChild(descP);
           clientSection.appendChild(descDiv);
@@ -536,7 +538,7 @@
         var statusSection = document.createElement("div");
         var statusTitle = document.createElement("h3");
         statusTitle.className =
-          "text-sm font-semibold text-neutral-400 uppercase mb-3";
+          "text-sm font-semibold text-gray-400 uppercase mb-3";
         statusTitle.textContent = "Statut";
         statusSection.appendChild(statusTitle);
         var statusBtns = document.createElement("div");
@@ -546,8 +548,8 @@
           btn.className =
             "px-3 py-1.5 rounded-lg text-sm font-medium transition " +
             (p.status === s
-              ? "bg-brand text-dark"
-              : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700");
+              ? "bg-brand text-white"
+              : "bg-white text-gray-500 border border-sand hover:bg-sand");
           btn.textContent = statusLabel(s);
           btn.onclick = function () {
             changeStatus(id, s);
@@ -561,7 +563,7 @@
         var deliverSection = document.createElement("div");
         var deliverTitle = document.createElement("h3");
         deliverTitle.className =
-          "text-sm font-semibold text-neutral-400 uppercase mb-3";
+          "text-sm font-semibold text-gray-400 uppercase mb-3";
         deliverTitle.textContent = "Livraison";
         deliverSection.appendChild(deliverTitle);
         var deliverRow = document.createElement("div");
@@ -572,7 +574,7 @@
         siteInput.placeholder = "https://monsupersite.com";
         siteInput.value = p.site_url || "";
         siteInput.className =
-          "flex-1 bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-brand";
+          "flex-1 bg-cream border border-sand rounded-lg px-3 py-2 text-sm text-dark placeholder-gray-400 focus:outline-none focus:border-brand";
         deliverRow.appendChild(siteInput);
         var deliverBtn = document.createElement("button");
         deliverBtn.className =
@@ -589,20 +591,20 @@
         var notesSection = document.createElement("div");
         var notesTitle = document.createElement("h3");
         notesTitle.className =
-          "text-sm font-semibold text-neutral-400 uppercase mb-3";
+          "text-sm font-semibold text-gray-400 uppercase mb-3";
         notesTitle.textContent = "Notes internes";
         notesSection.appendChild(notesTitle);
         var notesArea = document.createElement("textarea");
         notesArea.id = "notes-input";
         notesArea.rows = 3;
         notesArea.className =
-          "w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-brand";
+          "w-full bg-cream border border-sand rounded-lg px-3 py-2 text-sm text-dark placeholder-gray-400 focus:outline-none focus:border-brand";
         notesArea.placeholder = "Notes...";
         notesArea.value = p.notes || "";
         notesSection.appendChild(notesArea);
         var notesBtn = document.createElement("button");
         notesBtn.className =
-          "mt-2 bg-neutral-700 hover:bg-neutral-600 px-3 py-1.5 rounded-lg text-sm transition";
+          "mt-2 bg-sand hover:bg-gray-300 text-dark px-3 py-1.5 rounded-lg text-sm transition";
         notesBtn.textContent = "Sauvegarder notes";
         notesBtn.onclick = function () {
           saveNotes(id);
@@ -614,7 +616,7 @@
         var actionsSection = document.createElement("div");
         var actionsTitle = document.createElement("h3");
         actionsTitle.className =
-          "text-sm font-semibold text-neutral-400 uppercase mb-3";
+          "text-sm font-semibold text-gray-400 uppercase mb-3";
         actionsTitle.textContent = "Actions";
         actionsSection.appendChild(actionsTitle);
         var actionsBtns = document.createElement("div");
@@ -622,7 +624,7 @@
 
         var cpBtn = document.createElement("button");
         cpBtn.className =
-          "bg-neutral-800 hover:bg-neutral-700 px-3 py-1.5 rounded-lg text-sm transition";
+          "bg-cream hover:bg-sand text-dark px-3 py-1.5 rounded-lg text-sm transition";
         cpBtn.textContent = "Copier /location";
         cpBtn.onclick = function () {
           copyCommand(p.brief_url, cpBtn);
@@ -642,13 +644,13 @@
         jsonLink.href = p.brief_url;
         jsonLink.target = "_blank";
         jsonLink.className =
-          "bg-neutral-800 hover:bg-neutral-700 px-3 py-1.5 rounded-lg text-sm transition inline-block";
+          "bg-cream hover:bg-sand text-dark px-3 py-1.5 rounded-lg text-sm transition inline-block";
         jsonLink.textContent = "Brief JSON";
         actionsBtns.appendChild(jsonLink);
 
         var delBtn = document.createElement("button");
         delBtn.className =
-          "bg-red-900 hover:bg-red-800 text-red-300 px-3 py-1.5 rounded-lg text-sm transition";
+          "bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-3 py-1.5 rounded-lg text-sm transition";
         delBtn.textContent = "Supprimer";
         delBtn.onclick = function () {
           deleteProject(id);
@@ -661,7 +663,7 @@
         // Webhook info
         var webhookInfo = document.createElement("div");
         webhookInfo.className =
-          "text-xs text-neutral-600 space-y-1 border-t border-neutral-800 pt-4";
+          "text-xs text-gray-400 space-y-1 border-t border-sand pt-4";
         var wLine = document.createElement("p");
         wLine.textContent =
           "Webhook: " +
