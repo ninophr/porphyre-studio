@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Porphyre Studio V4 - Sites web pour locations saisonnières</title>
+    <title>Porphyre Studio - Sites web pour locations saisonnières</title>
     <meta
       name="description"
       content="Porphyre Studio crée des sites web clé en main pour les propriétaires de locations saisonnières. Paiement en ligne, SEO local, livraison en 48h."
@@ -26,21 +26,6 @@
     <link rel="preload" as="image" href="kban-site.jpg" />
     <link rel="preload" as="image" href="sardines-site.jpg" />
     <link rel="preload" as="image" href="terrasse-site.jpg" />
-    <link
-      rel="preload"
-      as="image"
-      href="https://randomuser.me/api/portraits/men/32.jpg"
-    />
-    <link
-      rel="preload"
-      as="image"
-      href="https://randomuser.me/api/portraits/women/44.jpg"
-    />
-    <link
-      rel="preload"
-      as="image"
-      href="https://randomuser.me/api/portraits/men/75.jpg"
-    />
 
     <!-- Tailwind CSS v4 CDN -->
     <script src="https://cdn.tailwindcss.com?plugins="></script>
@@ -516,35 +501,6 @@
         transform: rotate(180deg);
       }
 
-      /* Simulator range slider */
-      .sim-range {
-        -webkit-appearance: none;
-        appearance: none;
-        height: 3px;
-        background: #e5e7eb;
-        border-radius: 999px;
-        outline: none;
-      }
-      .sim-range::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background: #2b2622;
-        cursor: pointer;
-        box-shadow: 0 2px 8px rgba(30, 25, 20, 0.15);
-      }
-      .sim-range::-moz-range-thumb {
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background: #2b2622;
-        cursor: pointer;
-        border: none;
-        box-shadow: 0 2px 8px rgba(30, 25, 20, 0.15);
-      }
-
       /* Simulateur sliders */
       .sim-slider {
         -webkit-appearance: none;
@@ -637,12 +593,7 @@
             ></path>
           </svg>
         </div>
-        <button
-          onclick="
-            document.getElementById('mobile-menu').classList.toggle('hidden')
-          "
-          class="text-white p-1"
-        >
+        <button id="mobile-menu-btn" class="text-white p-1">
           <svg
             width="22"
             height="22"
@@ -766,7 +717,7 @@
           <span
             class="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0"
           ></span>
-          <span class="text-[13px] font-bold text-gray-900"
+          <span id="dispo-badge" class="text-[13px] font-bold text-gray-900"
             >Avril — 4 places disponibles</span
           >
         </div>
@@ -845,23 +796,23 @@
               >Ils nous font confiance</span
             >
             <div class="flex -space-x-2.5 pl-1">
-              <img
-                src="https://i.pravatar.cc/64?img=12"
-                alt="Client"
-                class="w-8 h-8 rounded-full border-2 border-white object-cover relative z-10"
-              />
-              <img
-                src="https://i.pravatar.cc/64?img=32"
-                alt="Client"
-                class="w-8 h-8 rounded-full border-2 border-white object-cover relative z-20"
-              />
-              <img
-                src="https://i.pravatar.cc/64?img=47"
-                alt="Client"
-                class="w-8 h-8 rounded-full border-2 border-white object-cover relative z-30"
-              />
               <div
-                class="w-8 h-8 rounded-full border-2 border-white bg-[#4ECDC4] text-white text-[9px] font-bold flex items-center justify-center relative z-40"
+                class="w-8 h-8 rounded-full border-2 border-white bg-[#4ECDC4] text-white text-[10px] font-bold flex items-center justify-center relative z-10"
+              >
+                L
+              </div>
+              <div
+                class="w-8 h-8 rounded-full border-2 border-white bg-[#1a1715] text-white text-[10px] font-bold flex items-center justify-center relative z-20"
+              >
+                P
+              </div>
+              <div
+                class="w-8 h-8 rounded-full border-2 border-white bg-[#7C6BC4] text-white text-[10px] font-bold flex items-center justify-center relative z-30"
+              >
+                N
+              </div>
+              <div
+                class="w-8 h-8 rounded-full border-2 border-white bg-[#E5943D] text-white text-[8px] font-bold flex items-center justify-center relative z-40"
               >
                 50+
               </div>
@@ -2130,224 +2081,248 @@
             comme tremplin pour capter vos clients et les fidéliser en direct.
           </p>
         </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <!-- Feature 1: Depuis les plateformes -->
-          <div
-            class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
-          >
-            <div
-              class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
+        <!-- Categorie 1 : Acquisition -->
+        <div class="mb-12">
+          <div class="reveal flex items-center gap-3 mb-6">
+            <span
+              class="text-[11px] font-bold text-[#4ECDC4] uppercase tracking-widest"
+              >Attirer de nouveaux clients</span
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="w-5 h-5 text-white/70"
-                aria-hidden="true"
-              >
-                <path d="M15 3h6v6"></path>
-                <path d="M10 14 21 3"></path>
-                <path
-                  d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                ></path>
-              </svg>
-            </div>
-            <h3 class="text-[1.15rem] font-bold mb-2 text-white">
-              Depuis les plateformes
-            </h3>
-            <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
-              Vous gardez vos annonces. Ajoutez le lien de votre site dans votre
-              bio et vos messages post-séjour. Vos clients fidèles bookent en
-              direct la prochaine fois.
-            </p>
+            <div class="flex-1 h-px bg-white/10"></div>
           </div>
-
-          <!-- Feature 2: Google SEO local -->
-          <div
-            class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
-          >
+          <div class="grid md:grid-cols-5 gap-5">
+            <!-- Feature 1: Depuis les plateformes (large) -->
             <div
-              class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
+              class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group md:col-span-2"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="w-5 h-5 text-white/70"
-                aria-hidden="true"
+              <div
+                class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
               >
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.3-4.3"></path>
-              </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-5 h-5 text-white/70"
+                  aria-hidden="true"
+                >
+                  <path d="M15 3h6v6" />
+                  <path d="M10 14 21 3" />
+                  <path
+                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-[1.15rem] font-bold mb-2 text-white">
+                Depuis les plateformes
+              </h3>
+              <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
+                Vous gardez vos annonces. Ajoutez le lien de votre site dans
+                votre bio et vos messages post-sejour. Vos clients fideles
+                bookent en direct la prochaine fois.
+              </p>
             </div>
-            <h3 class="text-[1.15rem] font-bold mb-2 text-white">
-              Google SEO local
-            </h3>
-            <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
-              Votre site remonte dans Google pour "location [votre ville]". Du
-              trafic qualifié, gratuit, sans commission.
-            </p>
+            <!-- Feature 2: Google SEO local (large) -->
+            <div
+              class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group md:col-span-3"
+            >
+              <div
+                class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-5 h-5 text-white/70"
+                  aria-hidden="true"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+              </div>
+              <h3 class="text-[1.15rem] font-bold mb-2 text-white">
+                Google SEO local
+              </h3>
+              <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
+                Votre site remonte dans Google pour "location [votre ville]". Du
+                trafic qualifie, gratuit, sans commission.
+              </p>
+            </div>
+            <!-- Feature 3: Instagram & reseaux -->
+            <div
+              class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group md:col-span-5 lg:col-span-5"
+            >
+              <div class="flex flex-col md:flex-row md:items-center gap-5">
+                <div
+                  class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover:bg-white/[0.1] transition"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-5 h-5 text-white/70"
+                    aria-hidden="true"
+                  >
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-[1.15rem] font-bold mb-2 text-white">
+                    Instagram & reseaux
+                  </h3>
+                  <p
+                    class="text-gray-400 text-[14px] font-medium leading-relaxed"
+                  >
+                    Le lien en bio renvoie directement vers votre calendrier.
+                    Chaque publication devient une source de reservations
+                    directes.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <!-- Feature 3: Instagram & réseaux -->
-          <div
-            class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
-          >
-            <div
-              class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
+        <!-- Categorie 2 : Fidelisation -->
+        <div>
+          <div class="reveal flex items-center gap-3 mb-6">
+            <span
+              class="text-[11px] font-bold text-[#4ECDC4] uppercase tracking-widest"
+              >Fideliser vos clients</span
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="w-5 h-5 text-white/70"
-                aria-hidden="true"
-              >
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                <path
-                  d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
-                ></path>
-                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-              </svg>
-            </div>
-            <h3 class="text-[1.15rem] font-bold mb-2 text-white">
-              Instagram & réseaux
-            </h3>
-            <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
-              Le lien en bio renvoie directement vers votre calendrier. Chaque
-              publication devient une source de réservations directes.
-            </p>
+            <div class="flex-1 h-px bg-white/10"></div>
           </div>
-
-          <!-- Feature 4: Anciens clients -->
-          <div
-            class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
-          >
+          <div class="grid md:grid-cols-3 gap-5">
+            <!-- Feature 4: Anciens clients -->
             <div
-              class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
+              class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="w-5 h-5 text-white/70"
-                aria-hidden="true"
+              <div
+                class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
               >
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-              </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-5 h-5 text-white/70"
+                  aria-hidden="true"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <h3 class="text-[1.15rem] font-bold mb-2 text-white">
+                Anciens clients
+              </h3>
+              <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
+                Un simple email ou SMS a vos clients precedents. Ils rebookent
+                sans passer par les plateformes et vous economisez la
+                commission.
+              </p>
             </div>
-            <h3 class="text-[1.15rem] font-bold mb-2 text-white">
-              Anciens clients
-            </h3>
-            <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
-              Un simple email ou SMS à vos clients précédents. Ils rebookent
-              sans passer par les plateformes et vous économisez la commission.
-            </p>
-          </div>
-
-          <!-- Feature 5: QR code dans le logement -->
-          <div
-            class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
-          >
+            <!-- Feature 5: QR code dans le logement -->
             <div
-              class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
+              class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="w-5 h-5 text-white/70"
-                aria-hidden="true"
+              <div
+                class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
               >
-                <rect width="5" height="5" x="3" y="3" rx="1"></rect>
-                <rect width="5" height="5" x="16" y="3" rx="1"></rect>
-                <rect width="5" height="5" x="3" y="16" rx="1"></rect>
-                <path d="M21 16h-3a2 2 0 0 0-2 2v3"></path>
-                <path d="M21 21v.01"></path>
-                <path d="M12 7v3a2 2 0 0 1-2 2H7"></path>
-                <path d="M3 12h.01"></path>
-                <path d="M12 3h.01"></path>
-                <path d="M12 16v.01"></path>
-                <path d="M16 12h1"></path>
-                <path d="M21 12v.01"></path>
-                <path d="M12 21v-1"></path>
-              </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-5 h-5 text-white/70"
+                  aria-hidden="true"
+                >
+                  <rect width="5" height="5" x="3" y="3" rx="1" />
+                  <rect width="5" height="5" x="16" y="3" rx="1" />
+                  <rect width="5" height="5" x="3" y="16" rx="1" />
+                  <path d="M21 16h-3a2 2 0 0 0-2 2v3" />
+                  <path d="M21 21v.01" />
+                  <path d="M12 7v3a2 2 0 0 1-2 2H7" />
+                  <path d="M3 12h.01" />
+                  <path d="M12 3h.01" />
+                  <path d="M12 16v.01" />
+                  <path d="M16 12h1" />
+                  <path d="M21 12v.01" />
+                  <path d="M12 21v-1" />
+                </svg>
+              </div>
+              <h3 class="text-[1.15rem] font-bold mb-2 text-white">
+                QR code dans le logement
+              </h3>
+              <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
+                Un QR code affiche chez vous invite vos guests a rebooker
+                directement pour leur prochaine visite, sans commission.
+              </p>
             </div>
-            <h3 class="text-[1.15rem] font-bold mb-2 text-white">
-              QR code dans le logement
-            </h3>
-            <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
-              Un QR code affiché chez vous invite vos guests à rebooker
-              directement pour leur prochaine visite, sans commission.
-            </p>
-          </div>
-
-          <!-- Feature 6: Bouche à oreille -->
-          <div
-            class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
-          >
+            <!-- Feature 6: Bouche a oreille -->
             <div
-              class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
+              class="reveal bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-[24px] p-7 hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300 group"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="w-5 h-5 text-white/70"
-                aria-hidden="true"
+              <div
+                class="w-12 h-12 rounded-2xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 group-hover:bg-white/[0.1] transition"
               >
-                <path
-                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
-                ></path>
-              </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-5 h-5 text-white/70"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-[1.15rem] font-bold mb-2 text-white">
+                Bouche a oreille
+              </h3>
+              <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
+                Vos clients satisfaits recommandent votre logement a leur
+                entourage avec un lien direct. Zero commission sur ces
+                reservations.
+              </p>
             </div>
-            <h3 class="text-[1.15rem] font-bold mb-2 text-white">
-              Bouche à oreille
-            </h3>
-            <p class="text-gray-400 text-[14px] font-medium leading-relaxed">
-              Vos clients satisfaits recommandent votre logement à leur
-              entourage avec un lien direct. Zéro commission sur ces
-              réservations.
-            </p>
           </div>
         </div>
       </div>
@@ -2600,7 +2575,7 @@
         <div class="grid md:grid-cols-3 gap-6">
           <!-- Testimonial 1 - Ludovic -->
           <div
-            class="reveal bg-white rounded-[28px] border border-gray-100 p-8 shadow-[0_8px_30px_rgba(30,25,20,0.03)] hover:shadow-[0_16px_48px_rgba(30,25,20,0.08)] hover:-translate-y-1 transition-all duration-300"
+            class="reveal bg-white rounded-[28px] border border-gray-100 p-8 shadow-[0_8px_30px_rgba(30,25,20,0.03)] hover:shadow-[0_16px_48px_rgba(30,25,20,0.08)] hover:-translate-y-1 transition-all duration-300 flex flex-col"
           >
             <div class="flex items-center gap-0.5 mb-5">
               <svg
@@ -2690,11 +2665,38 @@
               </svg>
             </div>
             <p
-              class="text-[15px] text-gray-600 font-medium leading-relaxed mb-6"
+              class="text-[15px] text-gray-600 font-medium leading-relaxed mb-4 flex-1"
             >
-              "Nino a créé notre site en 2 jours. Le résultat est magnifique et
-              nos clients réservent directement."
+              "On perdait environ 4 000€ par an en commissions Airbnb. Nino a
+              livré le site en 2 jours, et dès le premier mois on a eu 3
+              réservations directes. En 6 mois, le site s'est remboursé 4 fois."
             </p>
+            <a
+              href="https://les-sardines-blanches.com"
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#4ECDC4] hover:underline mb-5"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-3 h-3"
+              >
+                <path d="M15 3h6v6" />
+                <path d="M10 14 21 3" />
+                <path
+                  d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                />
+              </svg>
+              Voir le site
+            </a>
             <div class="flex items-center gap-3">
               <div
                 class="w-10 h-10 rounded-full bg-[var(--color-accent)] flex items-center justify-center text-white font-bold text-[14px]"
@@ -2804,9 +2806,37 @@
             <p
               class="text-[15px] text-gray-600 font-medium leading-relaxed mb-6"
             >
-              "Un site qui nous ressemble enfin. Les réservations directes ont
-              doublé en 3 mois."
+              "Je n'y connaissais rien en sites web. Nino a tout géré : le
+              design, le paiement Stripe, la synchro avec mon calendrier Airbnb.
+              Aujourd'hui 40% de mes réservations passent en direct et je garde
+              100% du montant."
             </p>
+            <a
+              href="https://kban-lorizon.com"
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#4ECDC4] hover:underline mb-5"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-3 h-3"
+              >
+                <path d="M15 3h6v6" />
+                <path d="M10 14 21 3" />
+                <path
+                  d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                />
+              </svg>
+              Voir le site
+            </a>
             <div class="flex items-center gap-3">
               <div
                 class="w-10 h-10 rounded-full bg-[var(--color-dark-bg)] flex items-center justify-center text-white font-bold text-[14px]"
@@ -2918,10 +2948,12 @@
             <p
               class="text-[15px] text-gray-600 font-medium leading-relaxed mb-6"
             >
-              "Un site à l'image de notre appartement. Élégant, efficace, les
-              réservations affluent."
+              "J'avais un appartement haut de gamme mais zéro visibilité hors
+              Airbnb. Le site que Nino m'a fait est au niveau de l'appart :
+              design soigné, photos plein écran, réservation fluide. Mes anciens
+              guests reviennent en direct maintenant."
             </p>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 mt-auto">
               <div
                 class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white font-bold text-[14px]"
               >
@@ -3219,7 +3251,63 @@
           <div
             id="cal-inline"
             style="width: 100%; height: 100%; overflow: auto"
-          ></div>
+          >
+            <!-- Skeleton loader -->
+            <div id="cal-skeleton" class="p-8 space-y-6 animate-pulse">
+              <div class="flex items-center gap-4 mb-6">
+                <div class="w-10 h-10 bg-gray-100 rounded-full"></div>
+                <div class="space-y-2 flex-1">
+                  <div class="h-4 bg-gray-100 rounded-full w-48"></div>
+                  <div class="h-3 bg-gray-50 rounded-full w-32"></div>
+                </div>
+              </div>
+              <div class="grid grid-cols-7 gap-2">
+                <div class="h-4 bg-gray-50 rounded w-8 mx-auto"></div>
+                <div class="h-4 bg-gray-50 rounded w-8 mx-auto"></div>
+                <div class="h-4 bg-gray-50 rounded w-8 mx-auto"></div>
+                <div class="h-4 bg-gray-50 rounded w-8 mx-auto"></div>
+                <div class="h-4 bg-gray-50 rounded w-8 mx-auto"></div>
+                <div class="h-4 bg-gray-50 rounded w-8 mx-auto"></div>
+                <div class="h-4 bg-gray-50 rounded w-8 mx-auto"></div>
+              </div>
+              <div class="grid grid-cols-7 gap-2">
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-100 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+              </div>
+              <div class="grid grid-cols-7 gap-2">
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-100 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-100 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+              </div>
+              <div class="grid grid-cols-7 gap-2">
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-100 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+              </div>
+              <div class="grid grid-cols-7 gap-2">
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-100 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+                <div class="h-10 bg-gray-50 rounded-lg"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -3458,263 +3546,6 @@
       </div>
     </footer>
 
-    <!-- SIMULATEUR MODAL -->
-    <div
-      id="simulateur"
-      class="hidden fixed inset-0 z-[100] flex items-center justify-center px-4"
-    >
-      <div
-        class="absolute inset-0 bg-black/40 backdrop-blur-sm"
-        onclick="
-          document.getElementById('simulateur').classList.add('hidden');
-          document.body.style.overflow = '';
-        "
-      ></div>
-      <div
-        class="relative bg-white rounded-[24px] w-full max-w-[960px] p-10 shadow-[0_40px_80px_-20px_rgba(30,25,20,0.15),0_0_0_1px_rgba(255,255,255,0.8)_inset] border border-gray-100"
-      >
-        <!-- Close -->
-        <button
-          onclick="
-            document.getElementById('simulateur').classList.add('hidden');
-            document.body.style.overflow = '';
-          "
-          class="absolute top-6 right-6 text-gray-400 hover:text-gray-900 transition"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M18 6 6 18"></path>
-            <path d="m6 6 12 12"></path>
-          </svg>
-        </button>
-
-        <!-- Header -->
-        <div class="flex items-center gap-3 mb-2">
-          <div class="w-8 h-[2px] bg-[#2B2622]"></div>
-          <span
-            class="text-[11px] font-bold text-gray-400 uppercase tracking-widest"
-            >Simulateur</span
-          >
-        </div>
-        <h3 class="text-[1.5rem] font-bold text-[#2B2622] mb-6">
-          Combien vous coutent les
-          <em class="text-[#7D7770] font-bold italic">plateformes</em> ?
-        </h3>
-
-        <!-- Slider: Prix par nuit -->
-        <div class="mb-5">
-          <div class="flex justify-between items-center mb-2">
-            <span
-              class="text-[11px] font-bold text-gray-400 uppercase tracking-widest"
-              >Prix par nuit</span
-            >
-            <span id="prix-val" class="text-[18px] font-bold text-[#2B2622]"
-              >150&euro;</span
-            >
-          </div>
-          <input
-            type="range"
-            id="prix-range"
-            min="50"
-            max="500"
-            value="150"
-            step="10"
-            class="sim-range w-full"
-            oninput="updateSim()"
-          />
-        </div>
-
-        <!-- Slider: Taux occupation -->
-        <div class="mb-6">
-          <div class="flex justify-between items-center mb-2">
-            <span
-              class="text-[11px] font-bold text-gray-400 uppercase tracking-widest"
-              >Taux d'occupation annuel</span
-            >
-            <span id="taux-val" class="text-[18px] font-bold text-[#2B2622]"
-              >50%</span
-            >
-          </div>
-          <input
-            type="range"
-            id="taux-range"
-            min="10"
-            max="100"
-            value="50"
-            step="5"
-            class="sim-range w-full"
-            oninput="updateSim()"
-          />
-        </div>
-
-        <!-- Results banner -->
-        <div
-          class="bg-[#FAFAF8] border border-gray-100 rounded-[20px] p-5 flex mb-5"
-        >
-          <div class="flex-1 border-r border-gray-200 pr-5">
-            <p
-              class="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1"
-            >
-              Économie annuelle vs plateformes
-            </p>
-            <p class="text-[1.8rem] font-bold text-[#4ECDC4]">
-              + <span id="eco-val">4 140</span>&euro;
-              <span class="text-[14px] font-medium text-gray-400">/an</span>
-            </p>
-          </div>
-          <div class="flex-1 pl-5 text-right">
-            <p
-              class="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1"
-            >
-              Site remboursé en
-            </p>
-            <p class="text-[1.8rem] font-bold text-[#4ECDC4]">
-              <span id="jours-val">88</span> jours
-            </p>
-            <p class="text-[13px] text-gray-400 font-medium">
-              soit <span id="nuits-val">44</span> nuits réservées
-            </p>
-          </div>
-        </div>
-
-        <!-- 3 Comparison cards -->
-        <div class="grid grid-cols-3 gap-4">
-          <!-- Airbnb -->
-          <div class="bg-[#FAFAF8] border border-gray-100 rounded-[20px] p-5">
-            <h4 class="text-[15px] font-bold text-[#2B2622] mb-0.5">AIRBNB</h4>
-            <p class="text-[13px] text-gray-400 font-medium mb-3">
-              Commission : 15,5%
-            </p>
-            <p class="text-[1.4rem] font-bold text-[#FF6B6B] mb-1">
-              - <span id="airbnb-com">4 255</span>&euro;
-            </p>
-            <p class="text-[11px] text-gray-400 font-medium mb-3">
-              prélevés sur l'année
-            </p>
-            <div class="flex flex-col gap-2 text-[13px]">
-              <div class="flex justify-between">
-                <span class="text-gray-400">Revenu brut</span
-                ><span class="text-[#2B2622] font-bold" id="airbnb-brut"
-                  >27 450&euro;</span
-                >
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-400">Commission</span
-                ><span class="text-[#2B2622] font-bold" id="airbnb-comm"
-                  >- 4 255&euro;</span
-                >
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-400">Revenu net</span
-                ><span class="text-[#2B2622] font-bold" id="airbnb-net"
-                  >23 195&euro;</span
-                >
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-400">Par nuit</span
-                ><span class="text-[#2B2622] font-bold" id="airbnb-nuit"
-                  >- 23,25 &euro;</span
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- Booking -->
-          <div class="bg-[#FAFAF8] border border-gray-100 rounded-[20px] p-5">
-            <h4 class="text-[15px] font-bold text-[#2B2622] mb-0.5">BOOKING</h4>
-            <p class="text-[13px] text-gray-400 font-medium mb-3">
-              Commission : ~18%
-            </p>
-            <p class="text-[1.4rem] font-bold text-[#FF6B6B] mb-1">
-              - <span id="booking-com">4 941</span>&euro;
-            </p>
-            <p class="text-[11px] text-gray-400 font-medium mb-3">
-              prélevés sur l'année
-            </p>
-            <div class="flex flex-col gap-2 text-[13px]">
-              <div class="flex justify-between">
-                <span class="text-gray-400">Revenu brut</span
-                ><span class="text-[#2B2622] font-bold" id="booking-brut"
-                  >27 450&euro;</span
-                >
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-400">Commission</span
-                ><span class="text-[#2B2622] font-bold" id="booking-comm"
-                  >- 4 941&euro;</span
-                >
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-400">Revenu net</span
-                ><span class="text-[#2B2622] font-bold" id="booking-net"
-                  >22 509&euro;</span
-                >
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-400">Par nuit</span
-                ><span class="text-[#2B2622] font-bold" id="booking-nuit"
-                  >- 27,00 &euro;</span
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- Votre site -->
-          <div
-            class="bg-[#FAFAF8] border border-gray-200 rounded-[20px] p-5 relative shadow-[0_4px_20px_rgba(30,25,20,0.04)]"
-          >
-            <div class="flex items-center justify-between mb-0.5">
-              <h4 class="text-[15px] font-bold text-[#2B2622]">VOTRE SITE</h4>
-            </div>
-            <p class="text-[13px] text-gray-400 font-medium mb-3">
-              Stripe : 1,5% + 0,25&euro;
-            </p>
-            <p class="text-[1.4rem] font-bold text-gray-400 mb-1">
-              - <span id="site-com">458</span>&euro;
-            </p>
-            <p class="text-[11px] text-gray-400 font-medium mb-3">
-              prélevés sur l'année
-            </p>
-            <div class="flex flex-col gap-2 text-[13px]">
-              <div class="flex justify-between">
-                <span class="text-gray-400">Revenu brut</span
-                ><span class="text-[#2B2622] font-bold" id="site-brut"
-                  >27 450&euro;</span
-                >
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-400">Commission</span
-                ><span class="text-[#2B2622] font-bold" id="site-comm"
-                  >- 458&euro;</span
-                >
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-400">Revenu net</span
-                ><span class="text-[#2B2622] font-bold" id="site-net"
-                  >26 993&euro;</span
-                >
-              </div>
-              <div class="flex justify-between">
-                <span class="text-gray-400">Par nuit</span
-                ><span class="text-[#2B2622] font-bold" id="site-nuit"
-                  >- 2,50 &euro;</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- JAVASCRIPT -->
     <script>
       // Simulateur — pain point commissions
@@ -3822,74 +3653,105 @@
       );
       showcaseObserver.observe(document.querySelector(".showcase-card"));
 
-      // Simulator
-      function fmt(n) {
-        return Math.round(n).toLocaleString("fr-FR");
-      }
-      function updateSim() {
-        const prix = parseInt(document.getElementById("prix-range").value);
-        const taux = parseInt(document.getElementById("taux-range").value);
-        document.getElementById("prix-val").textContent = prix + "€";
-        document.getElementById("taux-val").textContent = taux + "%";
+      // Badge mois dynamique
+      (function () {
+        const mois = [
+          "Janvier",
+          "Février",
+          "Mars",
+          "Avril",
+          "Mai",
+          "Juin",
+          "Juillet",
+          "Août",
+          "Septembre",
+          "Octobre",
+          "Novembre",
+          "Décembre",
+        ];
+        const badge = document.getElementById("dispo-badge");
+        if (badge) {
+          const now = new Date();
+          badge.textContent = mois[now.getMonth()] + " — Places disponibles";
+        }
+      })();
 
-        const nuits = Math.round((365 * taux) / 100);
-        const brut = prix * nuits;
+      // Skeleton Cal.com : disparait quand l'iframe charge
+      (function () {
+        const skeleton = document.getElementById("cal-skeleton");
+        if (skeleton) {
+          const observer = new MutationObserver(function (mutations) {
+            const calContainer = document.getElementById("cal-inline");
+            if (calContainer && calContainer.querySelector("iframe")) {
+              skeleton.style.display = "none";
+              observer.disconnect();
+            }
+          });
+          observer.observe(document.getElementById("cal-inline"), {
+            childList: true,
+            subtree: true,
+          });
+          // Fallback : cacher apres 8s dans tous les cas
+          setTimeout(function () {
+            skeleton.style.display = "none";
+          }, 8000);
+        }
+      })();
 
-        // Airbnb 15.5%
-        const airbnbCom = brut * 0.155;
-        const airbnbNet = brut - airbnbCom;
-        const airbnbNuit = prix * 0.155;
-
-        // Booking 18%
-        const bookingCom = brut * 0.18;
-        const bookingNet = brut - bookingCom;
-        const bookingNuit = prix * 0.18;
-
-        // Stripe 1.5% + 0.25€
-        const siteCom = brut * 0.015 + nuits * 0.25;
-        const siteNet = brut - siteCom;
-        const siteNuit = prix * 0.015 + 0.25;
-
-        // Eco vs average plateformes (airbnb)
-        const eco = airbnbCom - siteCom;
-        const prixSite = 497;
-        const joursRembourse = Math.round(prixSite / (eco / 365));
-        const nuitsRembourse = Math.round(
-          (prixSite / (prix - prix * 0.015 - 0.25)) * ((365 / taux) * 100),
+      // Pause animations hors viewport (perf CPU)
+      (function () {
+        const animatedSections = document.querySelectorAll("#how-it-works");
+        if (animatedSections.length === 0) return;
+        const animObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              const animEls = entry.target.querySelectorAll(
+                ".type-text, .form-checkbox, .form-checkmark, .block-appear, .check-in, .progress-fill",
+              );
+              animEls.forEach(function (el) {
+                el.style.animationPlayState = entry.isIntersecting
+                  ? "running"
+                  : "paused";
+              });
+            });
+          },
+          { threshold: 0 },
         );
+        animatedSections.forEach(function (s) {
+          animObserver.observe(s);
+        });
+      })();
 
-        document.getElementById("eco-val").textContent = fmt(eco);
-        document.getElementById("jours-val").textContent = joursRembourse;
-        document.getElementById("nuits-val").textContent = Math.round(
-          (prixSite / prix) * (100 / taux) + 1,
-        );
+      // Menu mobile slide animation
+      (function () {
+        const menu = document.getElementById("mobile-menu");
+        if (!menu) return;
+        menu.style.transition = "opacity 0.25s ease, transform 0.25s ease";
+        menu.style.opacity = "0";
+        menu.style.transform = "translateY(-8px)";
+        menu.classList.remove("hidden");
+        menu.style.display = "none";
 
-        document.getElementById("airbnb-com").textContent = fmt(airbnbCom);
-        document.getElementById("airbnb-brut").textContent = fmt(brut) + "€";
-        document.getElementById("airbnb-comm").textContent =
-          "- " + fmt(airbnbCom) + "€";
-        document.getElementById("airbnb-net").textContent =
-          fmt(airbnbNet) + "€";
-        document.getElementById("airbnb-nuit").textContent =
-          "- " + airbnbNuit.toFixed(2).replace(".", ",") + " €";
-
-        document.getElementById("booking-com").textContent = fmt(bookingCom);
-        document.getElementById("booking-brut").textContent = fmt(brut) + "€";
-        document.getElementById("booking-comm").textContent =
-          "- " + fmt(bookingCom) + "€";
-        document.getElementById("booking-net").textContent =
-          fmt(bookingNet) + "€";
-        document.getElementById("booking-nuit").textContent =
-          "- " + bookingNuit.toFixed(2).replace(".", ",") + " €";
-
-        document.getElementById("site-com").textContent = fmt(siteCom);
-        document.getElementById("site-brut").textContent = fmt(brut) + "€";
-        document.getElementById("site-comm").textContent =
-          "- " + fmt(siteCom) + "€";
-        document.getElementById("site-net").textContent = fmt(siteNet) + "€";
-        document.getElementById("site-nuit").textContent =
-          "- " + siteNuit.toFixed(2).replace(".", ",") + " €";
-      }
+        const btn = document.getElementById("mobile-menu-btn");
+        if (!btn) return;
+        btn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          const isVisible = menu.style.display !== "none";
+          if (isVisible) {
+            menu.style.opacity = "0";
+            menu.style.transform = "translateY(-8px)";
+            setTimeout(function () {
+              menu.style.display = "none";
+            }, 250);
+          } else {
+            menu.style.display = "block";
+            requestAnimationFrame(function () {
+              menu.style.opacity = "1";
+              menu.style.transform = "translateY(0)";
+            });
+          }
+        });
+      })();
     </script>
   </body>
 </html>
