@@ -683,9 +683,10 @@
               </button>
               <button
                 onclick="submitOrder()"
+                id="btn-submit"
                 class="flex-1 bg-[var(--color-dark-bg)] text-white py-3.5 rounded-full font-bold text-[14px] hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5 transition-all shadow-md uppercase tracking-wider"
               >
-                Envoyer ma commande
+                Payer 1 297€
               </button>
             </div>
           </div>
@@ -976,12 +977,45 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
-      function submitOrder() {
-        document
-          .querySelectorAll(".form-step")
-          .forEach((s) => s.classList.remove("active"));
-        document.getElementById("step-success").classList.add("active");
-        window.scrollTo({ top: 0, behavior: "smooth" });
+      async function submitOrder() {
+        var btn = document.getElementById("btn-submit");
+        btn.disabled = true;
+        btn.textContent = "Redirection...";
+
+        try {
+          var res = await fetch("/api/checkout", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              offre: "complet",
+              nom: document.getElementById("f-name").value,
+              email: document.getElementById("f-email").value,
+              telephone: document.getElementById("f-phone").value,
+              bien: document.getElementById("f-property").value,
+              localisation: document.getElementById("f-location").value,
+              type_bien: document.getElementById("f-type").value,
+              lien_airbnb: document.getElementById("f-listing").value,
+              style: document.getElementById("f-style").value,
+              description: document.getElementById("f-desc").value,
+              notes: document.getElementById("f-notes").value,
+              domaine: document.getElementById("f-domain").value,
+              stripe_account: document.getElementById("f-stripe").value,
+              ical: document.getElementById("f-ical").value,
+            }),
+          });
+          var data = await res.json();
+          if (data.url) {
+            window.location.href = data.url;
+          } else {
+            alert("Erreur: " + (data.error || "Veuillez réessayer."));
+            btn.disabled = false;
+            btn.textContent = "Payer 1 297€";
+          }
+        } catch (err) {
+          alert("Erreur de connexion. Veuillez réessayer.");
+          btn.disabled = false;
+          btn.textContent = "Payer 1 297€";
+        }
       }
     </script>
   </body>

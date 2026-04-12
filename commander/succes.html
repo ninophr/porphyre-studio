@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="fr" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Paiement confirmé | Porphyre Studio</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins="></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ['"Plus Jakarta Sans"', "sans-serif"] },
+          },
+        },
+      };
+    </script>
+    <style>
+      :root {
+        --color-dark-bg: #1a1715;
+        --color-accent: #4ecdc4;
+      }
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        color: #4a4540;
+        -webkit-font-smoothing: antialiased;
+        background-color: #f5f1e8;
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="fixed top-0 left-0 right-0 z-50 bg-[var(--color-dark-bg)] text-white px-6 py-4"
+    >
+      <div class="max-w-5xl mx-auto flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2.5 font-bold text-[15px]">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="16" fill="#4ECDC4"></circle>
+            <path
+              d="M16 9V23M9 16H23M12 12L20 20M12 20L20 12"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+            ></path>
+          </svg>
+          Porphyre Studio
+        </a>
+      </div>
+    </nav>
+
+    <main class="pt-20 px-6 min-h-screen flex items-center justify-center">
+      <div class="text-center max-w-[480px]">
+        <div
+          class="w-24 h-24 rounded-full bg-[#E8FAF8] flex items-center justify-center mx-auto mb-8"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#4ECDC4"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+        </div>
+
+        <h1
+          class="text-[2rem] font-extrabold text-[#2B2622] mb-4 tracking-[-0.02em]"
+        >
+          Paiement confirme !
+        </h1>
+
+        <p class="text-[#6b6560] text-[16px] font-medium leading-relaxed mb-6">
+          Merci pour votre confiance. Vous allez recevoir un email de
+          confirmation dans quelques minutes.
+        </p>
+
+        <div
+          class="bg-white rounded-2xl border border-[#e0dbd4] p-6 text-left mb-8"
+        >
+          <h3
+            class="font-bold text-[12px] text-[#9a938b] uppercase tracking-widest mb-4"
+          >
+            Prochaines etapes
+          </h3>
+          <div class="flex flex-col gap-4">
+            <div class="flex items-start gap-3">
+              <div
+                class="w-7 h-7 rounded-full bg-[var(--color-accent)] text-white flex items-center justify-center text-[11px] font-bold shrink-0 mt-0.5"
+              >
+                1
+              </div>
+              <div>
+                <p class="text-[14px] font-semibold text-[#2B2622]">
+                  Creation de votre site
+                </p>
+                <p class="text-[12px] text-[#9a938b]">
+                  Je commence immediatement, livraison sous 48h.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div
+                class="w-7 h-7 rounded-full bg-[#eae6de] text-[#6b6560] flex items-center justify-center text-[11px] font-bold shrink-0 mt-0.5"
+              >
+                2
+              </div>
+              <div>
+                <p class="text-[14px] font-semibold text-[#2B2622]">
+                  Previsualisation
+                </p>
+                <p class="text-[12px] text-[#9a938b]">
+                  Vous recevrez un lien pour voir votre site avant mise en
+                  ligne.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div
+                class="w-7 h-7 rounded-full bg-[#eae6de] text-[#6b6560] flex items-center justify-center text-[11px] font-bold shrink-0 mt-0.5"
+              >
+                3
+              </div>
+              <div>
+                <p class="text-[14px] font-semibold text-[#2B2622]">
+                  Ajustements & mise en ligne
+                </p>
+                <p class="text-[12px] text-[#9a938b]">
+                  On ajuste ensemble si besoin, puis deploiement final.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-[#9a938b] text-[13px] font-medium mb-6">
+          Une question ? WhatsApp :
+          <a
+            href="https://wa.me/262693120918"
+            class="text-[var(--color-accent)] font-bold hover:underline"
+            >+262 693 12 09 18</a
+          >
+        </p>
+
+        <a
+          href="/"
+          class="inline-block bg-[var(--color-dark-bg)] text-white px-8 py-3.5 rounded-full font-bold text-[14px] hover:opacity-90 hover:-translate-y-0.5 transition-all uppercase tracking-wider"
+          >Retour a l'accueil</a
+        >
+      </div>
+    </main>
+  </body>
+</html>
