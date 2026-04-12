@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin — Porphyre Studio</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ['"Plus Jakarta Sans"', "sans-serif"] },
+            colors: {
+              brand: "#c4956a",
+              dark: "#121010",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      .status-draft {
+        background: #374151;
+        color: #d1d5db;
+      }
+      .status-paid {
+        background: #065f46;
+        color: #6ee7b7;
+      }
+      .status-building {
+        background: #92400e;
+        color: #fcd34d;
+      }
+      .status-review {
+        background: #1e40af;
+        color: #93c5fd;
+      }
+      .status-delivered {
+        background: #166534;
+        color: #86efac;
+      }
+    </style>
+  </head>
+  <body class="bg-neutral-950 text-white min-h-screen">
+    <!-- Login -->
+    <div
+      id="login-screen"
+      class="flex items-center justify-center min-h-screen"
+    >
+      <div
+        class="bg-neutral-900 rounded-2xl p-8 w-full max-w-sm border border-neutral-800"
+      >
+        <h1 class="text-2xl font-bold text-brand mb-6">Admin Porphyre</h1>
+        <input
+          id="api-key-input"
+          type="password"
+          placeholder="Clé API admin"
+          class="w-full bg-neutral-800 border border-neutral-700 rounded-lg px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:border-brand mb-4"
+          onkeydown="if (event.key === 'Enter') login();"
+        />
+        <button
+          onclick="login()"
+          class="w-full bg-brand text-dark font-semibold py-3 rounded-lg hover:bg-opacity-90 transition"
+        >
+          Connexion
+        </button>
+        <p id="login-error" class="text-red-400 text-sm mt-3 hidden">
+          Clé invalide
+        </p>
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="hidden">
+      <header class="border-b border-neutral-800 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+          <h1 class="text-xl font-bold text-brand">Porphyre Admin</h1>
+          <div class="flex items-center gap-4">
+            <button
+              onclick="loadProjects()"
+              class="text-sm bg-neutral-800 hover:bg-neutral-700 px-3 py-1.5 rounded-lg transition"
+            >
+              Rafraîchir
+            </button>
+            <button
+              onclick="logout()"
+              class="text-sm text-neutral-400 hover:text-white transition"
+            >
+              Déconnexion
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div class="max-w-7xl mx-auto px-6 py-6">
+        <!-- Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+          <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
+            <p class="text-neutral-400 text-sm">Total</p>
+            <p id="stat-total" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
+            <p class="text-neutral-400 text-sm">Payé</p>
+            <p id="stat-paid" class="text-2xl font-bold text-green-400">0</p>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
+            <p class="text-neutral-400 text-sm">En cours</p>
+            <p id="stat-building" class="text-2xl font-bold text-yellow-400">
+              0
+            </p>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
+            <p class="text-neutral-400 text-sm">Review</p>
+            <p id="stat-review" class="text-2xl font-bold text-blue-400">0</p>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
+            <p class="text-neutral-400 text-sm">Livrés</p>
+            <p id="stat-delivered" class="text-2xl font-bold text-emerald-400">
+              0
+            </p>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-2 mb-6">
+          <button
+            onclick="filterBy('all')"
+            class="filter-btn active px-3 py-1.5 rounded-lg text-sm bg-brand text-dark font-semibold"
+            data-filter="all"
+          >
+            Tous
+          </button>
+          <button
+            onclick="filterBy('paid')"
+            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
+            data-filter="paid"
+          >
+            Payé
+          </button>
+          <button
+            onclick="filterBy('building')"
+            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
+            data-filter="building"
+          >
+            En cours
+          </button>
+          <button
+            onclick="filterBy('review')"
+            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
+            data-filter="review"
+          >
+            Review
+          </button>
+          <button
+            onclick="filterBy('delivered')"
+            class="filter-btn px-3 py-1.5 rounded-lg text-sm bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
+            data-filter="delivered"
+          >
+            Livré
+          </button>
+        </div>
+
+        <!-- Projects -->
+        <div id="projects-list" class="space-y-4">
+          <p class="text-neutral-500 text-center py-12">Chargement...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detail modal -->
+    <div
+      id="modal"
+      class="hidden fixed inset-0 bg-black/70 z-50 flex items-start justify-center pt-16 px-4 overflow-y-auto"
+    >
+      <div
+        class="bg-neutral-900 rounded-2xl border border-neutral-800 w-full max-w-2xl mb-16"
+      >
+        <div
+          class="flex items-center justify-between p-6 border-b border-neutral-800"
+        >
+          <h2 id="modal-title" class="text-lg font-bold text-brand"></h2>
+          <button
+            onclick="closeModal()"
+            class="text-neutral-400 hover:text-white text-2xl"
+          >
+            &times;
+          </button>
+        </div>
+        <div id="modal-body" class="p-6"></div>
+      </div>
+    </div>
+
+    <script>
+      // All user-provided strings are escaped via esc() before DOM insertion
+      // to prevent XSS. Data comes from authenticated admin API only.
+
+      let API_KEY = "";
+      let projects = [];
+      let currentFilter = "all";
+
+      function esc(s) {
+        if (!s) return "";
+        var d = document.createElement("div");
+        d.textContent = String(s);
+        return d.innerHTML;
+      }
+
+      function statusLabel(s) {
+        var map = {
+          draft: "Brouillon",
+          paid: "Payé",
+          building: "En cours",
+          review: "Review",
+          delivered: "Livré",
+        };
+        return map[s] || s;
+      }
+
+      function offreLabel(o) {
+        var map = {
+          essentiel: "Essentiel 497€",
+          reservation: "Réservation 897€",
+          complet: "Complet 1297€",
+        };
+        return map[o] || o;
+      }
+
+      function timeAgo(dateStr) {
+        var diff = Date.now() - new Date(dateStr).getTime();
+        var mins = Math.floor(diff / 60000);
+        if (mins < 60) return "il y a " + mins + "min";
+        var hours = Math.floor(mins / 60);
+        if (hours < 24) return "il y a " + hours + "h";
+        var days = Math.floor(hours / 24);
+        return "il y a " + days + "j";
+      }
+
+      // Auth
+      function login() {
+        API_KEY = document.getElementById("api-key-input").value.trim();
+        if (!API_KEY) return;
+        document.getElementById("login-error").classList.add("hidden");
+        loadProjects().then(function (ok) {
+          if (ok) {
+            localStorage.setItem("porphyre_admin_key", API_KEY);
+            document.getElementById("login-screen").classList.add("hidden");
+            document.getElementById("dashboard").classList.remove("hidden");
+          } else {
+            document.getElementById("login-error").classList.remove("hidden");
+          }
+        });
+      }
+
+      function logout() {
+        API_KEY = "";
+        localStorage.removeItem("porphyre_admin_key");
+        document.getElementById("dashboard").classList.add("hidden");
+        document.getElementById("login-screen").classList.remove("hidden");
+        document.getElementById("api-key-input").value = "";
+      }
+
+      // Auto-login
+      (function () {
+        var saved = localStorage.getItem("porphyre_admin_key");
+        if (saved) {
+          API_KEY = saved;
+          loadProjects().then(function (ok) {
+            if (ok) {
+              document.getElementById("login-screen").classList.add("hidden");
+              document.getElementById("dashboard").classList.remove("hidden");
+            }
+          });
+        }
+      })();
+
+      // API
+      function apiFetch(url, opts) {
+        opts = opts || {};
+        opts.headers = opts.headers || {};
+        opts.headers["Authorization"] = "Bearer " + API_KEY;
+        if (opts.body && typeof opts.body === "object") {
+          opts.headers["Content-Type"] = "application/json";
+          opts.body = JSON.stringify(opts.body);
+        }
+        return fetch(url, opts);
+      }
+
+      function loadProjects() {
+        return apiFetch("/api/projects")
+          .then(function (res) {
+            if (res.status === 401) return false;
+            return res.json().then(function (data) {
+              projects = data.projects || [];
+              updateStats();
+              renderProjects();
+              return true;
+            });
+          })
+          .catch(function () {
+            return false;
+          });
+      }
+
+      function updateStats() {
+        document.getElementById("stat-total").textContent = projects.length;
+        document.getElementById("stat-paid").textContent = projects.filter(
+          function (p) {
+            return p.status === "paid";
+          },
+        ).length;
+        document.getElementById("stat-building").textContent = projects.filter(
+          function (p) {
+            return p.status === "building";
+          },
+        ).length;
+        document.getElementById("stat-review").textContent = projects.filter(
+          function (p) {
+            return p.status === "review";
+          },
+        ).length;
+        document.getElementById("stat-delivered").textContent = projects.filter(
+          function (p) {
+            return p.status === "delivered";
+          },
+        ).length;
+      }
+
+      function filterBy(f) {
+        currentFilter = f;
+        document.querySelectorAll(".filter-btn").forEach(function (btn) {
+          if (btn.dataset.filter === f) {
+            btn.className =
+              "filter-btn active px-3 py-1.5 rounded-lg text-sm bg-brand text-dark font-semibold";
+          } else {
+            btn.className =
+              "filter-btn px-3 py-1.5 rounded-lg text-sm bg-neutral-800 text-neutral-300 hover:bg-neutral-700";
+          }
+        });
+        renderProjects();
+      }
+
+      function renderProjects() {
+        var container = document.getElementById("projects-list");
+        var filtered =
+          currentFilter === "all"
+            ? projects
+            : projects.filter(function (p) {
+                return p.status === currentFilter;
+              });
+
+        if (filtered.length === 0) {
+          container.textContent = "";
+          var msg = document.createElement("p");
+          msg.className = "text-neutral-500 text-center py-12";
+          msg.textContent = "Aucun projet";
+          container.appendChild(msg);
+          return;
+        }
+
+        container.textContent = "";
+        filtered.forEach(function (p) {
+          var card = document.createElement("div");
+          card.className =
+            "bg-neutral-900 rounded-xl border border-neutral-800 p-5 hover:border-neutral-700 transition cursor-pointer";
+          card.onclick = function () {
+            openProject(p.brief_id);
+          };
+
+          var row = document.createElement("div");
+          row.className = "flex items-start justify-between gap-4";
+
+          var info = document.createElement("div");
+          info.className = "flex-1 min-w-0";
+
+          var titleRow = document.createElement("div");
+          titleRow.className = "flex items-center gap-3 mb-2";
+          var title = document.createElement("h3");
+          title.className = "font-semibold text-white truncate";
+          title.textContent = p.bien;
+          var badge = document.createElement("span");
+          badge.className =
+            "status-" +
+            p.status +
+            " text-xs px-2 py-0.5 rounded-full font-medium whitespace-nowrap";
+          badge.textContent = statusLabel(p.status);
+          titleRow.appendChild(title);
+          titleRow.appendChild(badge);
+
+          var meta = document.createElement("div");
+          meta.className =
+            "flex flex-wrap gap-x-4 gap-y-1 text-sm text-neutral-400";
+          var spans = [p.nom, p.localisation];
+          spans.forEach(function (t) {
+            var s = document.createElement("span");
+            s.textContent = t;
+            meta.appendChild(s);
+          });
+          var offreSpan = document.createElement("span");
+          offreSpan.className = "text-brand font-medium";
+          offreSpan.textContent = offreLabel(p.offre);
+          meta.appendChild(offreSpan);
+          if (p.paid_at) {
+            var timeSpan = document.createElement("span");
+            timeSpan.textContent = timeAgo(p.paid_at);
+            meta.appendChild(timeSpan);
+          }
+
+          info.appendChild(titleRow);
+          info.appendChild(meta);
+
+          var actions = document.createElement("div");
+          actions.className = "flex gap-2 shrink-0";
+          var copyBtn = document.createElement("button");
+          copyBtn.className =
+            "text-xs bg-neutral-800 hover:bg-neutral-700 px-2 py-1 rounded";
+          copyBtn.title = "Copier /location";
+          copyBtn.textContent = "📋";
+          copyBtn.onclick = function (e) {
+            e.stopPropagation();
+            copyCommand(p.brief_url, copyBtn);
+          };
+          actions.appendChild(copyBtn);
+
+          row.appendChild(info);
+          row.appendChild(actions);
+          card.appendChild(row);
+          container.appendChild(card);
+        });
+      }
+
+      function openProject(id) {
+        var p = projects.find(function (x) {
+          return x.brief_id === id;
+        });
+        if (!p) return;
+
+        document.getElementById("modal-title").textContent = p.bien;
+        var body = document.getElementById("modal-body");
+        body.textContent = "";
+
+        var wrapper = document.createElement("div");
+        wrapper.className = "space-y-6";
+
+        // Client info section
+        var clientSection = document.createElement("div");
+        var clientTitle = document.createElement("h3");
+        clientTitle.className =
+          "text-sm font-semibold text-neutral-400 uppercase mb-3";
+        clientTitle.textContent = "Client";
+        clientSection.appendChild(clientTitle);
+
+        var grid = document.createElement("div");
+        grid.className = "grid grid-cols-2 gap-2 text-sm";
+        var fields = [
+          ["Nom", p.nom],
+          ["Email", p.email],
+          ["Tél", p.telephone || "—"],
+          ["Lieu", p.localisation],
+          ["Type", p.type_bien || "—"],
+          ["Offre", offreLabel(p.offre)],
+        ];
+        fields.forEach(function (f) {
+          var div = document.createElement("div");
+          var label = document.createElement("span");
+          label.className = "text-neutral-500";
+          label.textContent = f[0] + ": ";
+          div.appendChild(label);
+          if (f[0] === "Email") {
+            var link = document.createElement("a");
+            link.href = "mailto:" + f[1];
+            link.className = "text-brand";
+            link.textContent = f[1];
+            div.appendChild(link);
+          } else if (f[0] === "Offre") {
+            var s = document.createElement("span");
+            s.className = "text-brand font-semibold";
+            s.textContent = f[1];
+            div.appendChild(s);
+          } else {
+            div.appendChild(document.createTextNode(f[1]));
+          }
+          grid.appendChild(div);
+        });
+        if (p.lien_airbnb) {
+          var airbnbDiv = document.createElement("div");
+          airbnbDiv.className = "col-span-2";
+          var al = document.createElement("span");
+          al.className = "text-neutral-500";
+          al.textContent = "Airbnb: ";
+          airbnbDiv.appendChild(al);
+          var alink = document.createElement("a");
+          alink.href = p.lien_airbnb;
+          alink.target = "_blank";
+          alink.className = "text-brand";
+          alink.textContent = p.lien_airbnb;
+          airbnbDiv.appendChild(alink);
+          grid.appendChild(airbnbDiv);
+        }
+        if (p.domaine) {
+          var domDiv = document.createElement("div");
+          var dl = document.createElement("span");
+          dl.className = "text-neutral-500";
+          dl.textContent = "Domaine: ";
+          domDiv.appendChild(dl);
+          domDiv.appendChild(document.createTextNode(p.domaine));
+          grid.appendChild(domDiv);
+        }
+        clientSection.appendChild(grid);
+
+        if (p.description) {
+          var descDiv = document.createElement("div");
+          descDiv.className = "mt-3";
+          var descLabel = document.createElement("span");
+          descLabel.className = "text-neutral-500 text-sm";
+          descLabel.textContent = "Description:";
+          descDiv.appendChild(descLabel);
+          var descP = document.createElement("p");
+          descP.className = "text-sm text-neutral-300 mt-1 whitespace-pre-wrap";
+          descP.textContent = p.description;
+          descDiv.appendChild(descP);
+          clientSection.appendChild(descDiv);
+        }
+        wrapper.appendChild(clientSection);
+
+        // Status section
+        var statusSection = document.createElement("div");
+        var statusTitle = document.createElement("h3");
+        statusTitle.className =
+          "text-sm font-semibold text-neutral-400 uppercase mb-3";
+        statusTitle.textContent = "Statut";
+        statusSection.appendChild(statusTitle);
+        var statusBtns = document.createElement("div");
+        statusBtns.className = "flex flex-wrap gap-2";
+        ["paid", "building", "review", "delivered"].forEach(function (s) {
+          var btn = document.createElement("button");
+          btn.className =
+            "px-3 py-1.5 rounded-lg text-sm font-medium transition " +
+            (p.status === s
+              ? "bg-brand text-dark"
+              : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700");
+          btn.textContent = statusLabel(s);
+          btn.onclick = function () {
+            changeStatus(id, s);
+          };
+          statusBtns.appendChild(btn);
+        });
+        statusSection.appendChild(statusBtns);
+        wrapper.appendChild(statusSection);
+
+        // Delivery section
+        var deliverSection = document.createElement("div");
+        var deliverTitle = document.createElement("h3");
+        deliverTitle.className =
+          "text-sm font-semibold text-neutral-400 uppercase mb-3";
+        deliverTitle.textContent = "Livraison";
+        deliverSection.appendChild(deliverTitle);
+        var deliverRow = document.createElement("div");
+        deliverRow.className = "flex gap-2";
+        var siteInput = document.createElement("input");
+        siteInput.id = "site-url-input";
+        siteInput.type = "text";
+        siteInput.placeholder = "https://monsupersite.com";
+        siteInput.value = p.site_url || "";
+        siteInput.className =
+          "flex-1 bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-brand";
+        deliverRow.appendChild(siteInput);
+        var deliverBtn = document.createElement("button");
+        deliverBtn.className =
+          "bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition";
+        deliverBtn.textContent = "Livrer";
+        deliverBtn.onclick = function () {
+          deliver(id);
+        };
+        deliverRow.appendChild(deliverBtn);
+        deliverSection.appendChild(deliverRow);
+        wrapper.appendChild(deliverSection);
+
+        // Notes section
+        var notesSection = document.createElement("div");
+        var notesTitle = document.createElement("h3");
+        notesTitle.className =
+          "text-sm font-semibold text-neutral-400 uppercase mb-3";
+        notesTitle.textContent = "Notes internes";
+        notesSection.appendChild(notesTitle);
+        var notesArea = document.createElement("textarea");
+        notesArea.id = "notes-input";
+        notesArea.rows = 3;
+        notesArea.className =
+          "w-full bg-neutral-800 border border-neutral-700 rounded-lg px-3 py-2 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-brand";
+        notesArea.placeholder = "Notes...";
+        notesArea.value = p.notes || "";
+        notesSection.appendChild(notesArea);
+        var notesBtn = document.createElement("button");
+        notesBtn.className =
+          "mt-2 bg-neutral-700 hover:bg-neutral-600 px-3 py-1.5 rounded-lg text-sm transition";
+        notesBtn.textContent = "Sauvegarder notes";
+        notesBtn.onclick = function () {
+          saveNotes(id);
+        };
+        notesSection.appendChild(notesBtn);
+        wrapper.appendChild(notesSection);
+
+        // Actions section
+        var actionsSection = document.createElement("div");
+        var actionsTitle = document.createElement("h3");
+        actionsTitle.className =
+          "text-sm font-semibold text-neutral-400 uppercase mb-3";
+        actionsTitle.textContent = "Actions";
+        actionsSection.appendChild(actionsTitle);
+        var actionsBtns = document.createElement("div");
+        actionsBtns.className = "flex flex-wrap gap-2";
+
+        var cpBtn = document.createElement("button");
+        cpBtn.className =
+          "bg-neutral-800 hover:bg-neutral-700 px-3 py-1.5 rounded-lg text-sm transition";
+        cpBtn.textContent = "Copier /location";
+        cpBtn.onclick = function () {
+          copyCommand(p.brief_url, cpBtn);
+        };
+        actionsBtns.appendChild(cpBtn);
+
+        var relanceBtn = document.createElement("button");
+        relanceBtn.className =
+          "bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1.5 rounded-lg text-sm transition";
+        relanceBtn.textContent = "Relance brief";
+        relanceBtn.onclick = function () {
+          sendRelance(id);
+        };
+        actionsBtns.appendChild(relanceBtn);
+
+        var jsonLink = document.createElement("a");
+        jsonLink.href = p.brief_url;
+        jsonLink.target = "_blank";
+        jsonLink.className =
+          "bg-neutral-800 hover:bg-neutral-700 px-3 py-1.5 rounded-lg text-sm transition inline-block";
+        jsonLink.textContent = "Brief JSON";
+        actionsBtns.appendChild(jsonLink);
+
+        var delBtn = document.createElement("button");
+        delBtn.className =
+          "bg-red-900 hover:bg-red-800 text-red-300 px-3 py-1.5 rounded-lg text-sm transition";
+        delBtn.textContent = "Supprimer";
+        delBtn.onclick = function () {
+          deleteProject(id);
+        };
+        actionsBtns.appendChild(delBtn);
+
+        actionsSection.appendChild(actionsBtns);
+        wrapper.appendChild(actionsSection);
+
+        // Webhook info
+        var webhookInfo = document.createElement("div");
+        webhookInfo.className =
+          "text-xs text-neutral-600 space-y-1 border-t border-neutral-800 pt-4";
+        var wLine = document.createElement("p");
+        wLine.textContent =
+          "Webhook: " +
+          (p.webhook_processed ? "OK" : "Non") +
+          " | Email client: " +
+          (p.client_email_sent ? "OK" : "Non") +
+          " | Email Nino: " +
+          (p.nino_email_sent ? "OK" : "Non") +
+          " | Calendar: " +
+          (p.calendar_event_created ? "OK" : "Non");
+        webhookInfo.appendChild(wLine);
+        if (p.paid_at) {
+          var paidLine = document.createElement("p");
+          paidLine.textContent =
+            "Payé le " + new Date(p.paid_at).toLocaleString("fr-FR");
+          webhookInfo.appendChild(paidLine);
+        }
+        if (p.stripe_amount) {
+          var amountLine = document.createElement("p");
+          amountLine.textContent = "Montant: " + p.stripe_amount / 100 + "€";
+          webhookInfo.appendChild(amountLine);
+        }
+        wrapper.appendChild(webhookInfo);
+
+        body.appendChild(wrapper);
+        document.getElementById("modal").classList.remove("hidden");
+      }
+
+      function closeModal() {
+        document.getElementById("modal").classList.add("hidden");
+      }
+
+      // Actions
+      function changeStatus(id, status) {
+        apiFetch("/api/projects/" + id, {
+          method: "PATCH",
+          body: { status: status },
+        }).then(function () {
+          loadProjects().then(function () {
+            openProject(id);
+          });
+        });
+      }
+
+      function deliver(id) {
+        var siteUrl = document.getElementById("site-url-input").value.trim();
+        if (!siteUrl) return alert("Entrez l'URL du site");
+        apiFetch("/api/projects/" + id, {
+          method: "PATCH",
+          body: { status: "delivered", site_url: siteUrl },
+        }).then(function () {
+          alert("Site livré ! Email envoyé au client.");
+          loadProjects().then(function () {
+            openProject(id);
+          });
+        });
+      }
+
+      function saveNotes(id) {
+        var notes = document.getElementById("notes-input").value;
+        apiFetch("/api/projects/" + id, {
+          method: "PATCH",
+          body: { notes: notes },
+        }).then(function () {
+          loadProjects();
+          alert("Notes sauvegardées");
+        });
+      }
+
+      function sendRelance(id) {
+        if (!confirm("Envoyer un email de relance au client ?")) return;
+        apiFetch("/api/brief/" + id + "/send", { method: "POST" }).then(
+          function (res) {
+            res.json().then(function (data) {
+              if (data.sent) {
+                alert(
+                  "Email de relance envoyé !\nChamps manquants : " +
+                    data.missing.join(", "),
+                );
+              } else {
+                alert(data.error || "Erreur");
+              }
+            });
+          },
+        );
+      }
+
+      function deleteProject(id) {
+        var pwd = prompt("Mot de passe pour supprimer :");
+        if (pwd !== "mutu") return alert("Mauvais mot de passe");
+        if (!confirm("Vraiment supprimer ce projet ?")) return;
+        apiFetch("/api/projects/" + id, { method: "DELETE" }).then(function () {
+          closeModal();
+          loadProjects();
+        });
+      }
+
+      function copyCommand(briefUrl, btnEl) {
+        var cmd = "/location " + briefUrl;
+        navigator.clipboard.writeText(cmd);
+        if (btnEl) {
+          var orig = btnEl.textContent;
+          btnEl.textContent = "Copié !";
+          setTimeout(function () {
+            btnEl.textContent = orig;
+          }, 1500);
+        }
+      }
+
+      // Modal events
+      document.getElementById("modal").addEventListener("click", function (e) {
+        if (e.target === document.getElementById("modal")) closeModal();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeModal();
+      });
+    </script>
+  </body>
+</html>
