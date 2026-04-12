@@ -1331,6 +1331,33 @@
             </div>
           </div>
         </div>
+
+        <!-- CTA dynamique lié au pricing -->
+        <div class="reveal text-center mt-16">
+          <a
+            href="#pricing"
+            id="sim-cta"
+            class="inline-flex items-center gap-3 bg-[var(--color-dark-bg)] text-white px-8 py-4 rounded-full font-bold text-[15px] hover:opacity-90 hover:-translate-y-0.5 transition-all shadow-lg"
+          >
+            Récupérez vos
+            <span id="sim-cta-amount" class="text-[#4ECDC4]">3 942€</span>/an —
+            à partir de 497€
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -2362,6 +2389,32 @@
             Paiement unique, pas d'abonnement. Votre site livré en 48h, prêt à
             recevoir des réservations.
           </p>
+        </div>
+
+        <!-- Garantie -->
+        <div
+          class="reveal flex items-center justify-center gap-3 mb-10 bg-[#F0FBF9] border border-[#D1F0EB] rounded-full px-6 py-3 max-w-fit mx-auto"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#4ECDC4"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <polyline
+              points="9 12 12 15 16 10"
+              style="stroke: #4ecdc4"
+            ></polyline>
+          </svg>
+          <span class="text-[14px] font-bold text-[var(--color-dark-bg)]"
+            >Satisfait ou remboursé sous 7 jours</span
+          >
         </div>
 
         <div class="reveal grid md:grid-cols-3 gap-6 items-stretch">
@@ -3667,6 +3720,10 @@
         const paybackDays =
           dailySaving > 0 ? Math.round(sitePrice / dailySaving) : 0;
         document.getElementById("sim-payback").textContent = paybackDays;
+
+        // Update CTA dynamique
+        const ctaAmount = document.getElementById("sim-cta-amount");
+        if (ctaAmount) ctaAmount.textContent = fmt(loss);
 
         // Pulse effect on key numbers
         ["sim-loss", "sim-savings", "sim-ca"].forEach((id) => {
