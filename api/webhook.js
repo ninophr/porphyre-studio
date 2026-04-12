@@ -4,7 +4,6 @@ const {
   sendClientConfirmation,
   sendNinoNotification,
 } = require("../lib/emails");
-const { createCalendarEvent } = require("../lib/google-calendar");
 
 function buffer(req) {
   return new Promise((resolve, reject) => {
@@ -36,7 +35,7 @@ module.exports = async (req, res) => {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
-    const { brief_id, brief_url, offre } = session.metadata;
+    const { brief_id, brief_url } = session.metadata;
 
     // Fetch brief
     const briefRes = await fetch(brief_url);
@@ -69,29 +68,6 @@ module.exports = async (req, res) => {
       brief.nino_email_sent = true;
     } catch (err) {
       console.error("[Webhook] Nino email failed:", err);
-    }
-
-    // Google Calendar event
-    if (
-      process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL &&
-      process.env.GOOGLE_PRIVATE_KEY
-    ) {
-      try {
-        const now = new Date();
-        const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-        const date = brief.date || tomorrow.toISOString().split("T")[0];
-        const time = brief.creneau || "10:00";
-        await createCalendarEvent({
-          summary: `Site ${offre} — ${brief.bien}`,
-          description: `Client: ${brief.nom}\nEmail: ${brief.email}\nTél: ${brief.telephone || "—"}\nLocalisation: ${brief.localisation}\nBrief: ${brief_url}`,
-          date,
-          time,
-          durationMinutes: 30,
-        });
-        brief.calendar_event_created = true;
-      } catch (err) {
-        console.error("[Webhook] Calendar event failed:", err);
-      }
     }
 
     // Save enriched brief
