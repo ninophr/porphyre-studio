@@ -15,6 +15,36 @@ function buffer(req) {
 }
 
 module.exports = async (req, res) => {
+  if (req.method === "GET" && req.query.debug === "1") {
+    let captured = null;
+    const origFetch = global.fetch;
+    global.fetch = async (url, opts) => {
+      if (typeof url === "string" && url.includes("resend.com")) {
+        captured = JSON.parse(opts.body);
+        return { ok: true, text: async () => "ok" };
+      }
+      return origFetch(url, opts);
+    };
+    const brief = {
+      nom: "DEBUG",
+      email: "d@x.com",
+      bien: "BUNDLE CHECK",
+      localisation: "X",
+      type_bien: "Villa",
+      offre: "reservation",
+      description: "d",
+    };
+    try {
+      await sendNinoNotification(brief, "https://x/b.json", 89700);
+    } catch (e) {
+      global.fetch = origFetch;
+      return res.status(500).json({ error: e.message });
+    }
+    global.fetch = origFetch;
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    return res.status(200).send(captured ? captured.html : "NO HTML");
+  }
+
   if (req.method !== "POST") return res.status(405).end();
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
