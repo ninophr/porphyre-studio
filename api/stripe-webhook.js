@@ -15,34 +15,37 @@ function buffer(req) {
 }
 
 module.exports = async (req, res) => {
-  if (req.method === "GET" && req.query.debug === "1") {
-    let captured = null;
-    const origFetch = global.fetch;
-    global.fetch = async (url, opts) => {
-      if (typeof url === "string" && url.includes("resend.com")) {
-        captured = JSON.parse(opts.body);
-        return { ok: true, text: async () => "ok" };
+  if (req.method === "GET" && req.query.debug === "env") {
+    const k = process.env.RESEND_API_KEY || "";
+    const c = process.env.CONTACT_EMAIL || "";
+    const probe = async () => {
+      try {
+        const r = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${k}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: "Porphyre Studio <contact@ninoporphyre.fr>",
+            to: [c || "contact@ninoporphyre.fr"],
+            subject: "probe from lambda env",
+            html: "<p>probe</p>",
+          }),
+        });
+        return { status: r.status, body: await r.text() };
+      } catch (e) {
+        return { error: e.message };
       }
-      return origFetch(url, opts);
     };
-    const brief = {
-      nom: "DEBUG",
-      email: "d@x.com",
-      bien: "BUNDLE CHECK",
-      localisation: "X",
-      type_bien: "Villa",
-      offre: "reservation",
-      description: "d",
-    };
-    try {
-      await sendNinoNotification(brief, "https://x/b.json", 89700);
-    } catch (e) {
-      global.fetch = origFetch;
-      return res.status(500).json({ error: e.message });
-    }
-    global.fetch = origFetch;
-    res.setHeader("Content-Type", "text/html; charset=utf-8");
-    return res.status(200).send(captured ? captured.html : "NO HTML");
+    const result = await probe();
+    return res.status(200).json({
+      resend_key_len: k.length,
+      resend_key_last_char_code: k.length ? k.charCodeAt(k.length - 1) : null,
+      contact_email: JSON.stringify(c),
+      contact_email_len: c.length,
+      probe: result,
+    });
   }
 
   if (req.method !== "POST") return res.status(405).end();
@@ -71,6 +74,7 @@ module.exports = async (req, res) => {
     const brief = await briefRes.json();
 
     if (brief.webhook_processed) {
+      console.log(`[stripe-webhook] ${brief_id} already processed, skipping`);
       return res.status(200).json({ received: true, already_processed: true });
     }
 
@@ -82,26 +86,57 @@ module.exports = async (req, res) => {
       session.customer_details?.email || session.customer_email;
     brief.webhook_processed = true;
 
-    try {
-      await sendClientConfirmation(brief);
-      brief.client_email_sent = true;
-    } catch (err) {
-      console.error("[stripe-webhook] Client email failed:", err);
-    }
-
-    try {
-      await sendNinoNotification(brief, brief_url, session.amount_total);
-      brief.nino_email_sent = true;
-    } catch (err) {
-      console.error("[stripe-webhook] Nino email failed:", err);
-    }
-
+    // Write the lock FIRST so concurrent retries see webhook_processed=true
+    // and skip. Emails are fired after the lock is durable.
     await put(`briefs/${brief_id}.json`, JSON.stringify(brief), {
       access: "public",
       contentType: "application/json",
       token: process.env.BLOB_READ_WRITE_TOKEN,
       addRandomSuffix: false,
     });
+
+    let clientOk = false;
+    let ninoOk = false;
+    try {
+      await sendClientConfirmation(brief);
+      clientOk = true;
+      console.log(`[stripe-webhook] ${brief_id} client email sent`);
+    } catch (err) {
+      console.error(
+        `[stripe-webhook] ${brief_id} client email FAILED:`,
+        err.message,
+      );
+    }
+
+    try {
+      await sendNinoNotification(brief, brief_url, session.amount_total);
+      ninoOk = true;
+      console.log(`[stripe-webhook] ${brief_id} nino email sent`);
+    } catch (err) {
+      console.error(
+        `[stripe-webhook] ${brief_id} nino email FAILED:`,
+        err.message,
+      );
+    }
+
+    // Best-effort second write recording email results.
+    if (clientOk || ninoOk) {
+      brief.client_email_sent = clientOk;
+      brief.nino_email_sent = ninoOk;
+      try {
+        await put(`briefs/${brief_id}.json`, JSON.stringify(brief), {
+          access: "public",
+          contentType: "application/json",
+          token: process.env.BLOB_READ_WRITE_TOKEN,
+          addRandomSuffix: false,
+        });
+      } catch (err) {
+        console.error(
+          `[stripe-webhook] ${brief_id} post-email blob write FAILED:`,
+          err.message,
+        );
+      }
+    }
   }
 
   return res.status(200).json({ received: true });
