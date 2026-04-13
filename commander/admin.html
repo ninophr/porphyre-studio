@@ -4,6 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Admin — Porphyre Studio</title>
+    <link rel="canonical" href="https://porphyre.studio/commander/admin" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Porphyre Studio" />
+    <meta property="og:url" content="https://porphyre.studio/commander/admin" />
+    <meta property="og:title" content="Admin — Porphyre Studio" />
+    <meta property="og:description" content="Admin — Porphyre Studio" />
+    <meta property="og:image" content="https://porphyre.studio/og-default.png" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Admin — Porphyre Studio" />
+    <meta name="twitter:description" content="Admin — Porphyre Studio" />
+    <meta name="twitter:image" content="https://porphyre.studio/og-default.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -251,7 +263,7 @@
               <div>
                 <label
                   class="text-[10px] font-semibold uppercase tracking-[.15em] text-warm/40 mb-1.5 block"
-                  >Cle API</label
+                  >Clé API</label
                 >
                 <input
                   id="api-key-input"
@@ -272,7 +284,7 @@
               id="login-error"
               class="text-red-500 text-xs mt-3 hidden text-center"
             >
-              Cle invalide
+              Clé invalide
             </p>
           </div>
         </div>
@@ -859,7 +871,7 @@
       function offreLabel(o) {
         var m = {
           essentiel: "Essentiel 497\u20ac",
-          reservation: "Reservation 897\u20ac",
+          réservation: "Réservation 897\u20ac",
           complet: "Complet 1297\u20ac",
         };
         return m[o] || o;
@@ -1103,7 +1115,7 @@
           d.className = "text-xs text-warm/30";
           d.textContent = searchQuery
             ? 'Aucun resultat pour "' + searchQuery + '"'
-            : "Les projets apparaitront ici apres un paiement";
+            : "Les projets apparaitront ici après un paiement";
           empty.appendChild(iw);
           empty.appendChild(t);
           empty.appendChild(d);
@@ -1246,7 +1258,7 @@
           el.textContent = p.email;
           cm.appendChild(el);
         }
-        if (p.telephone) {
+        if (p.téléphone) {
           if (p.email) {
             var sp = document.createElement("span");
             sp.className = "text-warm/15";
@@ -1254,7 +1266,7 @@
             cm.appendChild(sp);
           }
           var tl = document.createElement("span");
-          tl.textContent = p.telephone;
+          tl.textContent = p.téléphone;
           cm.appendChild(tl);
         }
         ci.appendChild(cn);
@@ -1263,8 +1275,8 @@
         ch.appendChild(ci);
         w.appendChild(ch);
 
-        // Details
-        var ds = mkSection("Details");
+        // Détails
+        var ds = mkSection("Détails");
         var gr = document.createElement("div");
         gr.className = "grid grid-cols-2 gap-3";
         [

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /commander/admin
+Disallow: /commander/succes
+Disallow: /commander/reservation
+Disallow: /api/
+
+Sitemap: https://porphyre.studio/sitemap.xml

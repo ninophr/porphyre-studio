@@ -8,6 +8,18 @@
       name="description"
       content="Commandez votre site web avec paiement Stripe et sync Airbnb. Livraison en 48h, satisfait ou remboursé."
     />
+    <link rel="canonical" href="https://porphyre.studio/commander/essentiel" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Porphyre Studio" />
+    <meta property="og:url" content="https://porphyre.studio/commander/essentiel" />
+    <meta property="og:title" content="Commander — Essentiel | Porphyre Studio" />
+    <meta property="og:description" content="Commandez votre site web avec paiement Stripe et sync Airbnb. Livraison en 48h, satisfait ou remboursé." />
+    <meta property="og:image" content="https://porphyre.studio/og-default.png" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Commander — Essentiel | Porphyre Studio" />
+    <meta name="twitter:description" content="Commandez votre site web avec paiement Stripe et sync Airbnb. Livraison en 48h, satisfait ou remboursé." />
+    <meta name="twitter:image" content="https://porphyre.studio/og-default.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
@@ -264,7 +276,7 @@
           <div class="stepper">
             <div class="step-item">
               <div class="step-dot active" id="dot-1">1</div>
-              <span class="step-label active" id="label-1">Identite</span>
+              <span class="step-label active" id="label-1">Identité</span>
             </div>
             <div class="step-line-wrap">
               <div class="step-line active" id="line-1"></div>
@@ -285,7 +297,7 @@
             </div>
             <div class="step-item">
               <div class="step-dot inactive" id="dot-4">4</div>
-              <span class="step-label inactive" id="label-4">Recap</span>
+              <span class="step-label inactive" id="label-4">Récap</span>
             </div>
           </div>
 
@@ -327,7 +339,7 @@
               <div>
                 <label
                   class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-1.5"
-                  >Telephone</label
+                  >Téléphone</label
                 >
                 <input
                   type="tel"
@@ -365,7 +377,7 @@
                   >Type de bien</label
                 >
                 <select id="f-type">
-                  <option value="">Selectionnez...</option>
+                  <option value="">Sélectionnez...</option>
                   <option>Villa</option>
                   <option>Appartement</option>
                   <option>Gite</option>
@@ -414,7 +426,7 @@
                 <input
                   type="text"
                   id="f-style"
-                  placeholder="Moderne, epure, tons bleus..."
+                  placeholder="Moderne, épuré, tons bleus..."
                 />
               </div>
               <div class="col-span-2">
@@ -424,14 +436,14 @@
                 >
                 <textarea
                   id="f-desc"
-                  placeholder="Decrivez votre bien, ses points forts, les alentours..."
+                  placeholder="Décrivez votre bien, ses points forts, les alentours..."
                   style="min-height: 80px"
                 ></textarea>
               </div>
               <div class="col-span-2">
                 <label
                   class="block text-[11px] font-bold text-[#9a938b] uppercase tracking-widest mb-1.5"
-                  >Remarques / demandes speciales</label
+                  >Remarques / demandes spéciales</label
                 >
                 <textarea
                   id="f-notes"
@@ -460,7 +472,7 @@
                     <line x1="12" y1="3" x2="12" y2="15"></line>
                   </svg>
                   <p class="text-[13px] text-[#9a938b] font-medium">
-                    Photos par email apres la commande —
+                    Photos par email après la commande —
                     <span class="text-[#c4bfb8]">contact@ninoporphyre.fr</span>
                   </p>
                 </div>
@@ -487,10 +499,10 @@
             <h2
               class="text-[1.4rem] font-extrabold text-[#2B2622] mb-1 tracking-[-0.02em]"
             >
-              Derniere etape
+              Dernière étape
             </h2>
             <p class="text-[#9a938b] text-[13px] font-medium mb-5">
-              Quelques details techniques pour finaliser.
+              Quelques détails techniques pour finaliser.
             </p>
             <div class="grid grid-cols-2 gap-x-5 gap-y-4">
               <div>
@@ -513,7 +525,7 @@
                   >Compte Stripe ?</label
                 >
                 <select id="f-stripe">
-                  <option value="">Selectionnez...</option>
+                  <option value="">Sélectionnez...</option>
                   <option>Oui</option>
                   <option>Non, j'ai besoin d'aide</option>
                 </select>
@@ -562,13 +574,13 @@
             </p>
 
             <div class="flex flex-col gap-4">
-              <!-- Bloc Identite -->
+              <!-- Bloc Identité -->
               <div class="bg-[#faf8f4] rounded-2xl border border-[#e0dbd4] p-5">
                 <div class="flex items-center justify-between mb-3">
                   <h3
                     class="font-bold text-[12px] text-[#2B2622] uppercase tracking-widest"
                   >
-                    Identite
+                    Identité
                   </h3>
                   <button
                     onclick="goToStep(1)"
@@ -582,7 +594,7 @@
                     <span class="text-[#9a938b]">Nom</span>
                     <span
                       class="text-[#2B2622] font-semibold ml-1"
-                      id="recap-name"
+                      id="récap-name"
                       >—</span
                     >
                   </div>
@@ -590,7 +602,7 @@
                     <span class="text-[#9a938b]">Email</span>
                     <span
                       class="text-[#2B2622] font-semibold ml-1"
-                      id="recap-email"
+                      id="récap-email"
                       >—</span
                     >
                   </div>
@@ -598,7 +610,7 @@
                     <span class="text-[#9a938b]">Bien</span>
                     <span
                       class="text-[#2B2622] font-semibold ml-1"
-                      id="recap-property"
+                      id="récap-property"
                       >—</span
                     >
                   </div>
@@ -606,7 +618,7 @@
                     <span class="text-[#9a938b]">Lieu</span>
                     <span
                       class="text-[#2B2622] font-semibold ml-1"
-                      id="recap-location"
+                      id="récap-location"
                       >—</span
                     >
                   </div>
@@ -633,7 +645,7 @@
                     <span class="text-[#9a938b]">Domaine</span>
                     <span
                       class="text-[#2B2622] font-semibold ml-1"
-                      id="recap-domain"
+                      id="récap-domain"
                       >—</span
                     >
                   </div>
@@ -641,7 +653,7 @@
                     <span class="text-[#9a938b]">Stripe</span>
                     <span
                       class="text-[#2B2622] font-semibold ml-1"
-                      id="recap-stripe"
+                      id="récap-stripe"
                       >—</span
                     >
                   </div>
@@ -667,7 +679,7 @@
                     <span
                       class="text-[var(--color-accent)] font-bold"
                       style="font-size: 12px"
-                      >Satisfait ou rembourse 7j</span
+                      >Satisfait ou remboursé 7j</span
                     >
                   </div>
                 </div>
@@ -725,7 +737,7 @@
               <a
                 href="/"
                 class="inline-block bg-[var(--color-dark-bg)] text-white px-8 py-3.5 rounded-full font-bold text-[14px] hover:opacity-90 hover:-translate-y-0.5 transition-all uppercase tracking-wider"
-                >Retour a l'accueil</a
+                >Retour à l'accueil</a
               >
             </div>
           </div>
@@ -891,7 +903,7 @@
                 >
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
-                Satisfait ou rembourse 7j
+                Satisfait ou remboursé 7j
               </div>
             </div>
 
@@ -930,19 +942,19 @@
           }
         }
 
-        // Populate recap on step 4
+        // Populate récap on step 4
         if (step === 4) {
-          document.getElementById("recap-name").textContent =
+          document.getElementById("récap-name").textContent =
             document.getElementById("f-name").value || "—";
-          document.getElementById("recap-email").textContent =
+          document.getElementById("récap-email").textContent =
             document.getElementById("f-email").value || "—";
-          document.getElementById("recap-property").textContent =
+          document.getElementById("récap-property").textContent =
             document.getElementById("f-property").value || "—";
-          document.getElementById("recap-location").textContent =
+          document.getElementById("récap-location").textContent =
             document.getElementById("f-location").value || "—";
-          document.getElementById("recap-domain").textContent =
+          document.getElementById("récap-domain").textContent =
             document.getElementById("f-domain").value || "A definir";
-          document.getElementById("recap-stripe").textContent =
+          document.getElementById("récap-stripe").textContent =
             document.getElementById("f-stripe").value || "A definir";
         }
 
@@ -990,7 +1002,7 @@
               offre: "essentiel",
               nom: document.getElementById("f-name").value,
               email: document.getElementById("f-email").value,
-              telephone: document.getElementById("f-phone").value,
+              téléphone: document.getElementById("f-phone").value,
               bien: document.getElementById("f-property").value,
               localisation: document.getElementById("f-location").value,
               type_bien: document.getElementById("f-type").value,
