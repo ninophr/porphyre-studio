@@ -1,10 +1,17 @@
-// Bundle version: 2026-04-12-emails-v4 (force rebundle to pick up lib/emails.js update)
+// Bundle version: 2026-04-13-debug
 const Stripe = require("stripe");
 const { put } = require("@vercel/blob");
-const {
-  sendClientConfirmation,
-  sendNinoNotification,
-} = require("../lib/emails");
+const emails = require("../lib/emails");
+const { sendClientConfirmation, sendNinoNotification } = emails;
+
+// Runtime probe — logs which lib/emails.js version is loaded in this lambda
+console.log(
+  "[webhook boot]",
+  "emails module keys:",
+  Object.keys(emails),
+  "sendClientConfirmation.length:",
+  sendClientConfirmation?.toString().length,
+);
 
 function buffer(req) {
   return new Promise((resolve, reject) => {
