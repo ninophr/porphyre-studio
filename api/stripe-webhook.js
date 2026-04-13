@@ -1,17 +1,9 @@
-// Bundle version: 2026-04-13-debug
 const Stripe = require("stripe");
 const { put } = require("@vercel/blob");
-const emails = require("../lib/emails");
-const { sendClientConfirmation, sendNinoNotification } = emails;
-
-// Runtime probe — logs which lib/emails.js version is loaded in this lambda
-console.log(
-  "[webhook boot]",
-  "emails module keys:",
-  Object.keys(emails),
-  "sendClientConfirmation.length:",
-  sendClientConfirmation?.toString().length,
-);
+const {
+  sendClientConfirmation,
+  sendNinoNotification,
+} = require("../lib/emails");
 
 function buffer(req) {
   return new Promise((resolve, reject) => {
@@ -45,7 +37,6 @@ module.exports = async (req, res) => {
     const session = event.data.object;
     const { brief_id, brief_url } = session.metadata;
 
-    // Fetch brief
     const briefRes = await fetch(brief_url);
     const brief = await briefRes.json();
 
@@ -53,7 +44,6 @@ module.exports = async (req, res) => {
       return res.status(200).json({ received: true, already_processed: true });
     }
 
-    // Enrich brief with payment data
     brief.status = "paid";
     brief.paid_at = new Date().toISOString();
     brief.stripe_payment_intent = session.payment_intent;
@@ -62,23 +52,20 @@ module.exports = async (req, res) => {
       session.customer_details?.email || session.customer_email;
     brief.webhook_processed = true;
 
-    // Email 1: Client confirmation
     try {
       await sendClientConfirmation(brief);
       brief.client_email_sent = true;
     } catch (err) {
-      console.error("[Webhook] Client email failed:", err);
+      console.error("[stripe-webhook] Client email failed:", err);
     }
 
-    // Email 2: Nino notification
     try {
       await sendNinoNotification(brief, brief_url, session.amount_total);
       brief.nino_email_sent = true;
     } catch (err) {
-      console.error("[Webhook] Nino email failed:", err);
+      console.error("[stripe-webhook] Nino email failed:", err);
     }
 
-    // Save enriched brief
     await put(`briefs/${brief_id}.json`, JSON.stringify(brief), {
       access: "public",
       contentType: "application/json",
