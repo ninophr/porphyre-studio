@@ -5,6 +5,11 @@ module.exports = async (req, res) => {
   if (req.method !== "POST")
     return res.status(405).json({ error: "Method not allowed" });
 
+  const adminKey = process.env.ADMIN_API_KEY;
+  if (!adminKey) return res.status(503).json({ error: "Not configured" });
+  if (req.headers.authorization !== `Bearer ${adminKey}`)
+    return res.status(401).json({ error: "Unauthorized" });
+
   try {
     const contentType = req.headers["content-type"] || "";
 

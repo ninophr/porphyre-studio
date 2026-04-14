@@ -15,39 +15,6 @@ function buffer(req) {
 }
 
 module.exports = async (req, res) => {
-  if (req.method === "GET" && req.query.debug === "env") {
-    const k = process.env.RESEND_API_KEY || "";
-    const c = process.env.CONTACT_EMAIL || "";
-    const probe = async () => {
-      try {
-        const r = await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${k}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            from: "Porphyre Studio <contact@ninoporphyre.fr>",
-            to: [c || "contact@ninoporphyre.fr"],
-            subject: "probe from lambda env",
-            html: "<p>probe</p>",
-          }),
-        });
-        return { status: r.status, body: await r.text() };
-      } catch (e) {
-        return { error: e.message };
-      }
-    };
-    const result = await probe();
-    return res.status(200).json({
-      resend_key_len: k.length,
-      resend_key_last_char_code: k.length ? k.charCodeAt(k.length - 1) : null,
-      contact_email: JSON.stringify(c),
-      contact_email_len: c.length,
-      probe: result,
-    });
-  }
-
   if (req.method !== "POST") return res.status(405).end();
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
