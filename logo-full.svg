@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="32" viewBox="0 0 220 32" fill="none">
+  <circle cx="16" cy="16" r="16" fill="#4ECDC4"/>
+  <g transform="matrix(1.285714,0,0,1.285714,-4.571429,-4.571429)">
+    <path d="M16,9L16,23M9,16L23,16M12,12L20,20M12,20L20,12" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <text x="42" y="22" font-family="'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="800" fill="#1A1715" letter-spacing="-0.4">Porphyre Studio</text>
+</svg>

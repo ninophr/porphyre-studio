@@ -23,3 +23,10 @@ Consulte ces notes quand tu as besoin de contexte.
   - Cocher les critères de succès dans Objectifs/Avril 2026.md si atteints
   - Ajouter une ligne dans l'historique du client si un projet client a été touché
   - Ne jamais demander avant de mettre à jour — le faire automatiquement
+- Journal de session obligatoire : à la fin de chaque bloc de travail, écrire/mettre à jour `Journal/YYYY-MM-DD.md` dans le vault avec :
+  - **Fait** : ce qui a été accompli (3-5 lignes max)
+  - **Décidé** : décisions clés prises, le pourquoi
+  - **Bloqué** : ce qui coince, ce qui attend une validation
+  - **Next** : la prochaine action concrète pour reprendre
+  - **Fichiers** : liste des fichiers touchés
+  - Append si la note du jour existe déjà, ne jamais écraser
