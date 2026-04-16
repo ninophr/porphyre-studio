@@ -82,6 +82,19 @@
         --color-accent: #4ecdc4;
       }
 
+      .hero-48h {
+        background: linear-gradient(
+          135deg,
+          #4ecdc4 0%,
+          #2db5ad 50%,
+          #45e0d6 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 24px rgba(78, 205, 196, 0.35));
+      }
+
       body {
         font-family: var(--font-sans);
         color: #4a4540;
@@ -748,10 +761,11 @@
           >
         </div>
         <h1
-          class="text-[2.5rem] md:text-[4.2rem] leading-[1.08] font-bold tracking-[-0.025em] mb-5 text-[#2B2622]"
+          class="text-[2.5rem] md:text-[4.2rem] leading-[1.08] tracking-[-0.025em] mb-5 text-[#2B2622]"
         >
-          Votre site de réservation<br />livré en
-          <span class="text-[#4ECDC4]">48h</span>
+          <span class="font-extrabold">Votre site de réservation</span
+          ><br /><span class="font-medium text-[#6B6560]">livré en</span>
+          <span class="hero-48h font-extrabold">48h</span>
         </h1>
         <p
           class="text-[1.05rem] md:text-[1.1rem] text-[#7D7770] max-w-[600px] mx-auto mb-10 leading-relaxed font-medium"
